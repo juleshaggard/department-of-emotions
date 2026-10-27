@@ -1,0 +1,22 @@
+{
+  "name": "emotions-wheel",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "export": "node scripts/export-wheel.mjs",
+    "test": "node --test tests/explorer-data.test.mjs tests/wheel-settings.test.mjs",
+    "build": "vite build && node scripts/prepare-sites-build.mjs",
+    "preview": "vite preview",
+    "test:sites": "node --test tests/sites-worker.test.mjs"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@vitejs/plugin-react": "5.0.4",
+    "gsap": "^3.15.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "vite": "6.4.2"
+  }
+}

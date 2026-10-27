@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+qa/
+*.tar.gz
+*.tgz
+.env
+.env.*
+!.env.example
+.sites-runtime/
+.sites-checkout/
+.sites-checkout-*/
