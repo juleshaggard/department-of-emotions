@@ -32,6 +32,7 @@ These visual constraints apply to the wheel graphic and original static `/wheel`
 - End the reading sidebar after “Behavioral experiences.” Keep the “Every body is different…” footer note and “About these examples” disclosure, including its research links, removed from the visible interface.
 - Examples are illustrative, vary by person/culture/context, and must never claim to diagnose or reliably identify a feeling from appearance.
 - Respect reduced motion and keep the wheel usable on narrow and short landscape screens.
+- On each initial explorer load, gently rotate the wheel from -60 degrees to its original orientation over 1.4 seconds with an ease-out stop. Skip this opening motion for reduced-motion preferences. Pressing, dragging, selecting a family, or keyboard input must be able to interrupt it immediately; ordinary rerenders must not replay it.
 
 ## Wheel settings
 

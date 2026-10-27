@@ -178,7 +178,22 @@ export function useWheelMotion({ rotorRef, onDragStart, onTap }) {
 
     preference.addEventListener('change', handlePreferenceChange);
     controlsRef.current = { stop, rotateTo, spin };
-    publish(false);
+    if (reducedMotion) {
+      publish(false);
+    } else {
+      // Share the opening turn with the gesture controls for immediate takeover.
+      gsap.set(rotor, { rotation: -60 });
+      draggable.update();
+      publish(true);
+      rotationTween = gsap.to(rotor, {
+        rotation: 0,
+        duration: 1.4,
+        ease: 'power3.out',
+        overwrite: 'auto',
+        onComplete: finishRotation,
+        onInterrupt: finishRotation,
+      });
+    }
 
     return () => {
       active = false;

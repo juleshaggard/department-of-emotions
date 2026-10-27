@@ -6,6 +6,8 @@ An interactive emotion wheel made from editable SVG geometry and text. The wheel
 
 Both `/` and `/explore` open the interactive explorer. The original static wheel is available at `/wheel`.
 
+On initial load, the wheel makes a gentle 60-degree turn and settles into its original position over 1.4 seconds. The opening motion skips reduced-motion preferences and stops immediately when someone takes control.
+
 Drag or flick the wheel to rotate it with momentum, or use the subtle “Spin the wheel” button beneath the family buttons. Each family button selects its primary emotion and turns the section toward the right by the shortest route. The circular stage clips the rotor so it cannot cover those controls.
 
 Hover previews persist in the reading panel. Taps, family buttons, and roving keyboard focus also select emotions. A stable breadcrumb shows the full hierarchy, such as Fear → Scared → Frightened, with the family color dot. Hover and focus keep the selected branch clear while softly fading unrelated sectors. Pointer exit and spinning restore full opacity; reduced motion removes animated fades and momentum.
