@@ -12,7 +12,7 @@ Drag or flick the wheel to rotate it with momentum, or use the subtle “Spin th
 
 Hover previews persist in the reading panel. Taps, family buttons, and roving keyboard focus also select emotions. A stable breadcrumb shows the full hierarchy, such as Fear → Scared → Frightened, with the family color dot. Hover and focus keep the selected branch clear while softly fading unrelated sectors. Pointer exit and spinning restore full opacity; reduced motion removes animated fades and momentum.
 
-The page begins directly with the wheel and reading panel, without a top header or introductory instructions. The reading sidebar starts with the emotion hierarchy and title, without a “Jump to a feeling” dropdown. Gilda Display headlines are served locally from `public/fonts/`, with their open font license. On desktop, the wheel stays vertically centered and sticky while the sidebar and page scroll. Stable scrollbar space prevents hover content from shifting the wheel. Narrow and short landscape screens use normal scrolling flow.
+The page begins directly with the wheel and reading panel, without a top header or introductory instructions. The reading sidebar starts with the emotion hierarchy and title, without a “Jump to a feeling” dropdown. Gilda Display is served locally from `public/fonts/`, with its open font license, for the emotion title and settings headlines. The three reading-panel section headings use a shared small uppercase sans-serif label style. On desktop, the wheel stays vertically centered and sticky while the sidebar and page scroll. Stable scrollbar space prevents hover content from shifting the wheel. Narrow and short landscape screens use normal scrolling flow.
 
 A small [Created by Jules](https://www.haggard.design) link appears in the explorer's bottom site footer, outside the reading sidebar and wheel graphic. The static `/wheel` page and SVG exports remain free of outside text.
 
@@ -26,7 +26,7 @@ Appearance preferences persist in this browser's local storage. The wheel remain
 
 ## Emotion content
 
-All 108 sectors resolve to 105 original content entries in `src/content/`; repeated labels share one definition. Each entry includes a short definition, at least two possible body-language examples, two somatic experiences, and two behavioral experiences. Numbered body-language examples appear under “Body language,” without a “How it might show up” heading. The expandable somatic and behavioral sections are labeled “How it feels in the body” and “How you might respond” and are expanded by default.
+All 108 sectors resolve to 105 original content entries in `src/content/`; repeated labels share one definition. Each entry includes a short definition, at least two possible body-language examples, two somatic experiences, and two behavioral experiences. Numbered body-language examples appear under “Body language,” without a “How it might show up” heading. The always-visible somatic and behavioral sections are labeled “How it feels in the body” and “How you might respond,” without carets or collapse controls. All three section headings share the same 10px, weight-650 sans-serif style with 1.6px letter spacing and uppercase text.
 
 The reading sidebar ends after “How you might respond”; it has no disclaimer footer or “About these examples” disclosure.
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { explorerSectors as sectors, families } from './explorer-data.js';
 import { useWheelMotion } from './useWheelMotion.js';
 import { InteractiveWheel } from './InteractiveWheel.jsx';
@@ -11,14 +11,15 @@ import './explorer.css';
 const initialIndex = families.find(({ name }) => name === 'Joy').index;
 
 function ExperienceSection({ title, description, items }) {
+  const headingId = useId();
   return (
-    <details className="experience-section" open>
-      <summary><h2>{title}</h2></summary>
+    <section className="experience-section" aria-labelledby={headingId}>
+      <h2 className="section-kicker" id={headingId}>{title}</h2>
       <p className="experience-description">{description}</p>
       <ol>
         {items.map((item, index) => <li key={index}><span className="cue-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}
       </ol>
-    </details>
+    </section>
   );
 }
 function EmotionDetails({ active, familyColor }) {
@@ -46,7 +47,7 @@ function EmotionDetails({ active, familyColor }) {
         <p className="emotion-definition">{active.info.definition}</p>
 
         <section className="body-language" aria-labelledby="body-language-heading">
-          <p className="section-kicker" id="body-language-heading">Body language</p>
+          <h2 className="section-kicker" id="body-language-heading">Body language</h2>
           <ol>
             {active.info.bodyLanguage.map((cue, index) => (
               <li key={index}><span className="cue-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><p>{cue}</p></li>
