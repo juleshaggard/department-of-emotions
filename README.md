@@ -8,9 +8,9 @@ Both `/` and `/explore` open the interactive explorer. The original static wheel
 
 Drag or flick the wheel to rotate it with momentum, or use the subtle “Spin the wheel” button beneath the family buttons. Each family button selects its primary emotion and turns the section toward the right by the shortest route. The circular stage clips the rotor so it cannot cover those controls.
 
-Hover previews persist in the reading panel. Taps, the native emotion picker, and roving keyboard focus also select emotions. A stable breadcrumb shows the full hierarchy, such as Fear → Scared → Frightened, with the family color dot. Hover and focus keep the selected branch clear while softly fading unrelated sectors. Pointer exit and spinning restore full opacity; reduced motion removes animated fades and momentum.
+Hover previews persist in the reading panel. Taps, family buttons, and roving keyboard focus also select emotions. A stable breadcrumb shows the full hierarchy, such as Fear → Scared → Frightened, with the family color dot. Hover and focus keep the selected branch clear while softly fading unrelated sectors. Pointer exit and spinning restore full opacity; reduced motion removes animated fades and momentum.
 
-The page begins directly with the wheel and reading panel, without a top header or introductory instructions. Gilda Display headlines are served locally from `public/fonts/`, with their open font license. The layout is vertically centered on desktop and uses normal scrolling flow on narrow and short landscape screens.
+The page begins directly with the wheel and reading panel, without a top header or introductory instructions. The reading sidebar starts with the emotion hierarchy and title, without a “Jump to a feeling” dropdown. Gilda Display headlines are served locally from `public/fonts/`, with their open font license. The layout is vertically centered on desktop and uses normal scrolling flow on narrow and short landscape screens.
 
 ## Wheel settings and download
 

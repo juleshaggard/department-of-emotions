@@ -21,7 +21,7 @@ function ExperienceSection({ title, description, items }) {
     </details>
   );
 }
-function EmotionDetails({ active, activeIndex, onChoose, familyColor }) {
+function EmotionDetails({ active, familyColor }) {
   const hierarchy = [
     active.primary.name,
     ...(active.parent ? [active.parent.name] : []),
@@ -30,19 +30,6 @@ function EmotionDetails({ active, activeIndex, onChoose, familyColor }) {
 
   return (
     <aside className="emotion-sidebar" aria-label="Explore an emotion">
-      <div className="emotion-picker">
-        <label htmlFor="emotion-choice">Jump to a feeling</label>
-        <select id="emotion-choice" value={activeIndex} onChange={(event) => onChoose(Number(event.target.value))}>
-          {families.map((family) => (
-            <optgroup key={family.name} label={family.name}>
-              {sectors.filter((sector) => sector.primary.name === family.name).map((sector) => (
-                <option key={sector.index} value={sector.index}>{sector.name}{sector.ring === 0 ? ' · core emotion' : ''}</option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
-      </div>
-
       <div className="emotion-reading" id="emotion-details" role="region" aria-labelledby="emotion-name">
         <nav className="emotion-family" aria-label="Emotion hierarchy">
           <span className="family-swatch" style={{ backgroundColor: familyColor }} aria-hidden="true" />
@@ -170,7 +157,7 @@ export default function EmotionExplorer() {
             </button>
           </section>
 
-          <EmotionDetails active={active} activeIndex={activeIndex} onChoose={choose} familyColor={familyColors[active.primary.name]} />
+          <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} />
         </div>
       </main>
       <WheelSettings settings={settings} onChange={setSettings} onReset={() => { resetSettings(); setPreviewFocus(false); }} onExport={exportSvg} previewFocus={previewFocus} onPreviewFocusChange={setPreviewFocus} />

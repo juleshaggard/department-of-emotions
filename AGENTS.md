@@ -25,7 +25,8 @@ These visual constraints apply to the wheel graphic and original static `/wheel`
 - Vertically center the full explorer layout on desktop with symmetric spacing. On mobile and short landscape screens, use normal top-aligned flow; oversized desktop content must remain scrollable without clipping.
 - Draw the white hover outline above all wheel borders and leave enough SVG padding for its full outer stroke, while preserving circular clipping and the centered rotation pivot.
 - Use locally hosted Gilda Display from Google Fonts for the page's h1, h2, and h3 headlines; keep body and wheel labels in their existing sans-serif fonts.
-- Hover previews persist so a person can move to the panel and read. Taps, family buttons, the native emotion picker, and roving keyboard focus also select emotions.
+- Hover previews persist so a person can move to the panel and read. Taps, family buttons, and roving keyboard focus also select emotions.
+- Keep the “Jump to a feeling” dropdown removed. The reading sidebar begins directly with the emotion hierarchy and title.
 - All 108 sectors must resolve to the 105 unique emotion entries. Each entry must have a short definition, at least two possible body-language examples, two somatic experiences, and two behavioral experiences; repeated names share one definition. Show somatic and behavioral examples in expandable reading-panel sections.
 - Examples are illustrative, vary by person/culture/context, and must never claim to diagnose or reliably identify a feeling from appearance.
 - Respect reduced motion and keep the wheel usable on narrow and short landscape screens.

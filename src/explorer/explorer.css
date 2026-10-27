@@ -19,11 +19,11 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
-.explorer-page button, .explorer-page select { font: inherit; }
-.explorer-page button, .explorer-page select, .explorer-page summary, .explorer-page a { -webkit-tap-highlight-color: transparent; }
+.explorer-page button { font: inherit; }
+.explorer-page button, .explorer-page summary, .explorer-page a { -webkit-tap-highlight-color: transparent; }
 .explorer-page button { cursor: pointer; }
 .explorer-page a { color: inherit; text-underline-offset: 4px; }
-.explorer-page button:focus-visible, .explorer-page select:focus-visible, .explorer-page a:focus-visible, .explorer-page summary:focus-visible { outline: 3px solid oklch(42% 0.07 156); outline-offset: 5px; }
+.explorer-page button:focus-visible, .explorer-page a:focus-visible, .explorer-page summary:focus-visible { outline: 3px solid oklch(42% 0.07 156); outline-offset: 5px; }
 .explorer-page button:active { transform: translateY(1px); }
 .skip-link { position: fixed; left: 20px; top: -100px; z-index: 10; padding: 14px; background: var(--paper); }
 .skip-link:focus { top: 16px; }
@@ -53,9 +53,6 @@
 .wheel-spin-hint:hover img { opacity: 0.8; }
 .family-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
 .emotion-sidebar { padding-top: 6px; min-width: 0; }
-.emotion-picker label { display: block; margin-bottom: 8px; font-size: 11px; color: var(--muted); }
-.emotion-picker select { width: 100%; height: 44px; padding: 10px 36px 10px 12px; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; background-color: transparent; font-size: 13px; cursor: pointer; }
-.emotion-reading { padding-top: 34px; }
 .emotion-family { display: flex; align-items: center; gap: 7px; min-height: 16px; margin: 0 0 18px; font-size: 11px; line-height: 16px; }
 .emotion-breadcrumbs { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; white-space: nowrap; color: var(--muted); }
 .emotion-breadcrumbs li { display: flex; align-items: center; }
@@ -105,7 +102,6 @@
   .family-navigation { gap: 3px; margin-top: 16px; }
   .family-navigation button { padding-inline: 8px; }
   .emotion-sidebar { width: 100%; max-width: 600px; margin-inline: auto; padding-top: 24px; border-top: 1px solid var(--line); }
-  .emotion-reading { padding-top: 28px; }
   .emotion-reading h1 { font-size: 42px; }
   .emotion-definition { min-height: 0; max-width: 40ch; }
   .body-language li p { font-size: 15px; }
