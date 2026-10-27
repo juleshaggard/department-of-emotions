@@ -130,12 +130,12 @@ export default function EmotionExplorer() {
                   <img src="/icons/rotate-cw.svg" alt="" width="14" height="14" />
                   Spin the wheel
                 </button>
+                <footer className="explorer-footer"><a href="https://www.haggard.design/" target="_blank" rel="noreferrer">Site created by Jules</a></footer>
               </div>
             </section>
           </div>
 
           <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} />
-          <footer className="explorer-footer"><a href="https://www.haggard.design/" target="_blank" rel="noreferrer">Site created by Jules</a></footer>
         </div>
       </main>
     </div>
