@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { normalizeWheelSettings } from './wheel-settings.js';
 
-const STORAGE_KEY = 'emotion-wheel:appearance:v1';
+// Start existing visitors with the newly approved borderless appearance.
+const STORAGE_KEY = 'emotion-wheel:appearance:v2';
 
 function readSettings() {
   try {

@@ -9,9 +9,21 @@ import {
 const channels = (hex) => [1, 3, 5].map((offset) => Number.parseInt(hex.slice(offset, offset + 2), 16));
 const lightness = (hex) => (Math.max(...channels(hex)) + Math.min(...channels(hex))) / 510;
 
-test('default settings preserve all 108 source fills and six family swatches exactly', () => {
+test('approved defaults remove dark borders and apply the selected color adjustments', () => {
   const settings = normalizeWheelSettings();
   assert.deepEqual(settings, DEFAULT_WHEEL_SETTINGS);
+  for (const key of ['outer', 'rings', 'sectors', 'primary', 'hub']) {
+    assert.equal(settings.strokes[key].width, 0, key);
+    assert.equal(settings.strokes[key].opacity, 1, key);
+  }
+  assert.deepEqual(settings.strokes.hover, { width: 6, color: '#ffffff', opacity: 1 });
+  assert.equal(settings.saturation, 1);
+  assert.equal(settings.contrast, 1.14);
+  assert.equal(settings.brightness, 0.97);
+});
+
+test('neutral global adjustments preserve all 108 source fills and six family swatches exactly', () => {
+  const settings = normalizeWheelSettings({ contrast: 1, brightness: 1 });
   assert.equal(explorerSectors.length, 108);
   for (const sector of explorerSectors) assert.equal(colorForSector(sector, settings), sector.color, sector.name);
   for (const family of families) {
@@ -26,7 +38,7 @@ test('default settings preserve all 108 source fills and six family swatches exa
 
 test('family overrides recolor the primary exactly while retaining child tints', () => {
   const override = '#2060a0';
-  const settings = normalizeWheelSettings({ palette: { Anger: override } });
+  const settings = normalizeWheelSettings({ palette: { Anger: override }, contrast: 1, brightness: 1 });
   const anger = families.find(({ name }) => name === 'Anger');
   assert.equal(colorForSector(anger, settings), override);
   const primarySector = explorerSectors.find(({ name, ring }) => name === 'Anger' && ring === 0);

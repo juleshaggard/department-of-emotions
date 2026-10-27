@@ -14,7 +14,7 @@ The page begins directly with the wheel and reading panel, without a top header 
 
 ## Wheel settings and download
 
-“Wheel settings” opens an appearance panel with independent width, color, and opacity controls for the outer border, ring lines, sector lines, main separators, center outline, and hover outline. Defaults preserve the source colors, charcoal main separators at 10 units, ordinary lines at 4 units, and a white 12-unit hover outline.
+“Wheel settings” opens an appearance panel with independent width, color, and opacity controls for the outer border, ring lines, sector lines, main separators, center outline, and hover outline. Defaults use no outer, ring, sector, main, or center strokes and a white 6-unit hover outline. The source family palette uses 100% saturation, 114% contrast, and 97% brightness.
 
 Color controls adjust the six families while retaining relative sector tints. Separate saturation, contrast, brightness, text color, text size, and center fill controls are available. Hover focus can be disabled or adjusted through its opacity and fade duration, with a preview option. “Reset all” restores the defaults.
 
