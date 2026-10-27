@@ -127,7 +127,7 @@ export default function EmotionExplorer() {
                   {families.map((family) => <button key={family.name} type="button" aria-pressed={active.primary.name === family.name} onClick={() => chooseFamily(family)}><span className="family-swatch" style={{ backgroundColor: familyColors[family.name] }} />{family.name}</button>)}
                 </div>
                 <button className="wheel-spin-hint" type="button" onClick={spinWheel}>
-                  <img src="/icons/rotate-cw.svg" alt="" width="14" height="14" />
+                  <img src={`${import.meta.env.BASE_URL}icons/rotate-cw.svg`} alt="" width="14" height="14" />
                   Spin the wheel
                 </button>
                 <footer className="explorer-footer"><a href="https://www.haggard.design/" target="_blank" rel="noreferrer">Site created by Jules</a></footer>

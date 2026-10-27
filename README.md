@@ -72,3 +72,11 @@ npm run export
 `npm test` checks complete content coverage, repeated labels, branch focus, settings normalization, palette fidelity, and color adjustments. `npm run test:sites` verifies static asset serving, app-route fallback, and hosting packaging.
 
 The app is prepared for Sites hosting with `departmentofemotions.com` as the intended public domain. This repository documentation does not establish deployment or domain status. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact. Before handing a build to Sites, run `npm run build` and `npm run test:sites`; the build must include `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.
+
+## GitHub Pages
+
+The source is also published at [juleshaggard/department-of-emotions](https://github.com/juleshaggard/department-of-emotions). Pushes to `main` run the content checks, build a static site, and deploy it through `.github/workflows/pages.yml`.
+
+`npm run build:pages` writes to `dist/pages`. Set `PAGES_BASE_PATH=/department-of-emotions/` to reproduce the project-path build locally. The output includes direct entry points for the root, `/explore/`, and `/wheel/`, with assets under the configured prefix. The existing Sites build and local preview output remain separate in `dist/client`.
+
+The Pages address is [juleshaggard.github.io/department-of-emotions/](https://juleshaggard.github.io/department-of-emotions/). Canonical and social metadata continue to use the primary `departmentofemotions.com` domain; this deployment does not alter its DNS.

@@ -58,6 +58,12 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 
 The intended Sites public domain is `departmentofemotions.com`. Treat publication and domain connection as deployment state to verify; do not infer that the site is live from repository configuration alone.
 
+## GitHub Pages
+
+- The GitHub source repository is `juleshaggard/department-of-emotions`. Publish its `main` branch with `.github/workflows/pages.yml` and retain the independent Sites hosting configuration.
+- `npm run build:pages` emits a static site in `dist/pages`, using `PAGES_BASE_PATH` for its project URL prefix. Keep root, `/explore/`, and `/wheel/` directly loadable with real HTML entry points. Asset URLs and route detection must work under the project prefix.
+- The primary custom-domain identity and social metadata remain `https://departmentofemotions.com/`; publishing to Pages does not change DNS.
+
 ## Site identity and sharing
 
 - Use the six-color circular favicon in `public/favicon.svg`, with PNG, ICO, and Apple touch-icon fallbacks. Match the wheel's pastel family palette and keep its center and exterior clear.

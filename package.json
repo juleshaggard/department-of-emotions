@@ -8,6 +8,7 @@
     "export": "node scripts/export-wheel.mjs",
     "test": "node --test tests/explorer-data.test.mjs tests/wheel-settings.test.mjs",
     "build": "vite build && node scripts/prepare-sites-build.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
     "preview": "vite preview",
     "test:sites": "node --test tests/sites-worker.test.mjs"
   },
