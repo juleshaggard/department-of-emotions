@@ -40,6 +40,10 @@ Examples remain illustrative and vary by person, culture, and context. They do n
 
 ## Source and exports
 
+The rainbow-circle favicon uses the wheel's six family colors and includes SVG, PNG, ICO, and Apple touch-icon versions. `scripts/generate-favicon.py` regenerates them with Pillow.
+
+Three social-preview candidates live in `public/social/options/` as 1200×630 PNGs and editable SVGs. `scripts/generate-social-options.mjs` regenerates their SVG sources; passing `--renderer` with a local `@resvg/resvg-js` module also exports PNGs. The final Open Graph image remains unassigned until a design is selected.
+
 - `src/emotions.js`: editable hierarchy in clockwise order.
 - `src/reference-palette.json`: colors sampled from the reference.
 - `src/wheel.js`: shared SVG generator and radial geometry.
