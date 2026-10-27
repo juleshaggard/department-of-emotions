@@ -12,7 +12,7 @@ const initialIndex = families.find(({ name }) => name === 'Joy').index;
 
 function ExperienceSection({ title, description, items }) {
   return (
-    <details className="experience-section">
+    <details className="experience-section" open>
       <summary><h2>{title}</h2></summary>
       <p className="experience-description">{description}</p>
       <ol>
@@ -46,7 +46,7 @@ function EmotionDetails({ active, familyColor }) {
         <p className="emotion-definition">{active.info.definition}</p>
 
         <section className="body-language" aria-labelledby="body-language-heading">
-          <p className="section-kicker" id="body-language-heading">In the body</p>
+          <p className="section-kicker" id="body-language-heading">Body language</p>
           <ol>
             {active.info.bodyLanguage.map((cue, index) => (
               <li key={index}><span className="cue-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><p>{cue}</p></li>
@@ -54,9 +54,8 @@ function EmotionDetails({ active, familyColor }) {
           </ol>
         </section>
 
-        <ExperienceSection title="Somatic experiences" description="Sensations you might notice inside your body." items={active.info.somaticExperiences} />
-        <ExperienceSection title="Behavioral experiences" description="Ways someone might act or respond." items={active.info.behavioralExperiences} />
-
+        <ExperienceSection title="How it feels in the body" description="Sensations you might notice inside your body." items={active.info.somaticExperiences} />
+        <ExperienceSection title="How you might respond" description="Ways someone might act or respond." items={active.info.behavioralExperiences} />
       </div>
     </aside>
   );
@@ -133,20 +132,25 @@ export default function EmotionExplorer() {
       <a href="#explorer-main" className="skip-link">Skip to the emotion explorer</a>
       <main className="explorer-main" id="explorer-main">
         <div className="explorer-layout">
-          <section className="wheel-workspace" aria-label="Interactive emotion wheel">
-            <div className="wheel-stage" data-moving={isMoving || isDragging}>
-              <InteractiveWheel rotorRef={rotorRef} svgRef={svgRef} activeIndex={activeIndex} focusIndex={!settings.focusEnabled || isMoving || isDragging ? null : previewFocus ? activeIndex : focusIndex} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} />
-            </div>
-            <div className="family-navigation" aria-label="Jump to an emotion family">
-              {families.map((family) => <button key={family.name} type="button" aria-pressed={active.primary.name === family.name} onClick={() => chooseFamily(family)}><span className="family-swatch" style={{ backgroundColor: familyColors[family.name] }} />{family.name}</button>)}
-            </div>
-            <button className="wheel-spin-hint" type="button" onClick={spinWheel}>
-              <img src="/icons/rotate-cw.svg" alt="" width="14" height="14" />
-              Spin the wheel
-            </button>
-          </section>
+          <div className="wheel-column">
+            <section className="wheel-workspace" aria-label="Interactive emotion wheel">
+              <div className="wheel-stage" data-moving={isMoving || isDragging}>
+                <InteractiveWheel rotorRef={rotorRef} svgRef={svgRef} activeIndex={activeIndex} focusIndex={!settings.focusEnabled || isMoving || isDragging ? null : previewFocus ? activeIndex : focusIndex} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} />
+              </div>
+              <div className="wheel-controls">
+                <div className="family-navigation" aria-label="Jump to an emotion family">
+                  {families.map((family) => <button key={family.name} type="button" aria-pressed={active.primary.name === family.name} onClick={() => chooseFamily(family)}><span className="family-swatch" style={{ backgroundColor: familyColors[family.name] }} />{family.name}</button>)}
+                </div>
+                <button className="wheel-spin-hint" type="button" onClick={spinWheel}>
+                  <img src="/icons/rotate-cw.svg" alt="" width="14" height="14" />
+                  Spin the wheel
+                </button>
+              </div>
+            </section>
+          </div>
 
           <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} />
+          <footer className="explorer-footer"><a href="https://www.haggard.design" target="_blank" rel="noreferrer">Created by Jules</a></footer>
         </div>
       </main>
       <WheelSettings settings={settings} onChange={setSettings} onReset={() => { resetSettings(); setPreviewFocus(false); }} onExport={exportSvg} previewFocus={previewFocus} onPreviewFocusChange={setPreviewFocus} />

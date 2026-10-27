@@ -4,7 +4,10 @@
 
 html {
   background: #fff;
+  scrollbar-gutter: stable;
 }
+
+html:has(.explorer-page) { background: oklch(98% 0.008 105); }
 
 body {
   margin: 0;
