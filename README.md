@@ -14,7 +14,7 @@ Hover previews persist in the reading panel. Taps, family buttons, and roving ke
 
 The page begins directly with the wheel and reading panel, without a top header or introductory instructions. The reading sidebar starts with the emotion hierarchy and title, without a “Jump to a feeling” dropdown. Gilda Display is served locally from `public/fonts/`, with its open font license, for the emotion title. The two reading-panel section headings use a shared small uppercase sans-serif label style. On desktop, the wheel stays vertically centered and sticky while the sidebar and page scroll. Stable scrollbar space prevents hover content from shifting the wheel. Narrow and short landscape screens use normal scrolling flow.
 
-A small [Created by Jules](https://www.haggard.design) link appears in the explorer's bottom site footer, outside the reading sidebar and wheel graphic. The static `/wheel` page and SVG exports remain free of outside text.
+A small [Site created by Jules](https://www.haggard.design/) credit link appears horizontally centered beneath the explorer wheel, outside the reading sidebar and wheel SVG. It remains clickable above any invisible area of the sticky wheel controls. The static `/wheel` page and SVG exports remain free of outside text.
 
 ## Wheel settings and download
 
