@@ -9,17 +9,25 @@ test('every wheel sector has distinct combined responses, bodily sensations, and
   for (const sector of explorerSectors) {
     assert.ok(sector.info?.definition?.trim(), `Missing definition: ${sector.name}`);
     assert.ok(sector.info.responses?.length >= 2 && sector.info.responses.length <= 5, `Missing combined examples: ${sector.name}`);
-    assert.ok(sector.info.responses.every((cue) => cue.trim().length > 15), sector.name);
+    assert.ok(sector.info.responses.every((cue) => typeof cue === 'string' && cue.trim().length > 0), sector.name);
     const normalizedResponses = sector.info.responses.map((cue) => cue.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim());
     assert.equal(new Set(normalizedResponses).size, normalizedResponses.length, `Duplicate response: ${sector.name}`);
     assert.ok(sector.info.somaticExperiences?.length >= 2, `Missing bodily sensations: ${sector.name}`);
-    assert.ok(sector.info.somaticExperiences.every((item) => item.trim().length > 15), `Bodily sensations: ${sector.name}`);
+    assert.ok(sector.info.somaticExperiences.every((item) => typeof item === 'string' && item.trim().length > 0), `Bodily sensations: ${sector.name}`);
     assert.ok(sector.start >= sector.primary.start - 1e-8, sector.name);
     assert.ok(sector.end <= sector.primary.end + 1e-8, sector.name);
     if (sector.ring === 2) {
       assert.ok(sector.parent, sector.name);
       assert.ok(sector.start >= sector.parent.start - 1e-8, sector.name);
       assert.ok(sector.end <= sector.parent.end + 1e-8, sector.name);
+    }
+  }
+});
+
+test('example descriptions omit repetitive You may and You might introductions', () => {
+  for (const [name, info] of Object.entries(emotionInfo)) {
+    for (const example of [...info.responses, ...info.somaticExperiences]) {
+      assert.doesNotMatch(example, /\byou\s+(?:may|might)\b/i, `${name}: ${example}`);
     }
   }
 });

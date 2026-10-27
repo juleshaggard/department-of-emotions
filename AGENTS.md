@@ -34,6 +34,7 @@ These visual constraints apply to the wheel graphic and original static `/wheel`
 - End the reading sidebar after “Body language & responses.” Keep the “Every body is different…” footer note and “About these examples” disclosure, including its research links, removed from the visible interface.
 - Include a small “Site created by Jules” credit link to https://www.haggard.design/, horizontally centered in the wheel's control stack below “Spin the wheel,” outside the reading sidebar and wheel SVG. Keep it in the stack's layout so it remains clickable and cannot overlap the controls on tall screens. Preserve the text-free static `/wheel` page and exports.
 - Examples are illustrative, vary by person/culture/context, and must never claim to diagnose or reliably identify a feeling from appearance.
+- Write examples as concise, neutral descriptions without repetitive “You may” or “You might” introductions. Prefer natural descriptive phrases rather than commands or claims that everyone experiences an emotion identically.
 - Respect reduced motion and keep the wheel usable on narrow and short landscape screens.
 - On each initial explorer load, gently rotate the wheel from -60 degrees to its original orientation over 1.4 seconds with an ease-out stop. Skip this opening motion for reduced-motion preferences. Pressing, dragging, selecting a family, or keyboard input must be able to interrupt it immediately; ordinary rerenders must not replay it.
 

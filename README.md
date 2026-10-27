@@ -32,7 +32,7 @@ All 108 sectors resolve to 105 original content entries in `src/content/`; repea
 
 The reading sidebar ends after “Body language & responses”; it has no disclaimer footer or “About these examples” disclosure.
 
-Examples remain illustrative and vary by person, culture, and context. They do not diagnose or reliably identify another person's feelings. Research context is retained here:
+Examples remain illustrative and vary by person, culture, and context. They do not diagnose or reliably identify another person's feelings. Example copy uses concise descriptive phrases without repetitive “You may” or “You might” introductions. Research context is retained here:
 
 - [Emotion and body movement](https://pubmed.ncbi.nlm.nih.gov/22059517/)
 - [Context when reading expressions](https://pmc.ncbi.nlm.nih.gov/articles/PMC6640856/)
