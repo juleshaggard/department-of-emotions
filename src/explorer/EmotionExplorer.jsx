@@ -46,8 +46,7 @@ function EmotionDetails({ active, familyColor }) {
         <p className="emotion-definition">{active.info.definition}</p>
 
         <section className="body-language" aria-labelledby="body-language-heading">
-          <p className="section-kicker">In the body</p>
-          <h2 id="body-language-heading">How it might show up</h2>
+          <p className="section-kicker" id="body-language-heading">In the body</p>
           <ol>
             {active.info.bodyLanguage.map((cue, index) => (
               <li key={index}><span className="cue-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><p>{cue}</p></li>
