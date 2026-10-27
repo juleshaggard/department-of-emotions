@@ -125,10 +125,8 @@ export function WheelSettings({ settings, onChange, onReset, onExport, previewFo
                       <ColorControl compact label={`${label} color`} value={settings.strokes[key].color} onChange={(value) => updateStroke(key, 'color', value)} />
                     </div>
                     <div className="wheel-settings-stroke-controls">
-                    <div className="wheel-settings-stroke-ranges">
                       <RangeControl label="Width" accessibleLabel={`${label} width`} value={settings.strokes[key].width} min={0} max={32} step={0.5} onChange={(value) => updateStroke(key, 'width', value)} />
                       <RangeControl label="Opacity" accessibleLabel={`${label} opacity`} value={settings.strokes[key].opacity} min={0} max={1} format={percent} onChange={(value) => updateStroke(key, 'opacity', value)} />
-                    </div>
                     </div>
                   </div>
                 ))}

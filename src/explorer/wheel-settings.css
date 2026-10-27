@@ -60,7 +60,6 @@
 .wheel-settings-stroke { border-bottom: 1px solid var(--line, #d5dbcf); padding: 0 0 16px; margin-bottom: 16px; }
 .wheel-settings-stroke:last-child { border-bottom: 0; padding-bottom: 0; margin-bottom: 0; }
 .wheel-settings-stroke-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 7px; }
-.wheel-settings-stroke-ranges { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
 .wheel-settings-stroke-heading h3, .wheel-settings-subheading { font-size: 12px; font-weight: 550; margin: 0; }
 .wheel-settings-stroke-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .wheel-settings-stroke-controls .wheel-setting-range { min-width: 0; margin-top: 0; }
