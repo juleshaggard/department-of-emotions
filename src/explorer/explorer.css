@@ -73,7 +73,8 @@
 .experience-section li { display: grid; grid-template-columns: 23px 1fr; gap: 12px; align-items: baseline; margin-bottom: 18px; }
 .experience-section li p { margin: 0; font-size: 14px; line-height: 1.7; }
 .explorer-footer { grid-column: 1 / -1; grid-row: 2; padding: 24px 0 28px; text-align: center; color: var(--muted); font-size: 11px; line-height: 1.7; }
-.explorer-footer a { text-decoration: none; }
+/* Raise only the link above the sticky controls' transparent area. */
+.explorer-footer a { position: relative; z-index: 1; text-decoration: none; }
 .explorer-footer a:hover { text-decoration: underline; }
 
 @media (min-width: 1500px) {

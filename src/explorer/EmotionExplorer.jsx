@@ -150,7 +150,7 @@ export default function EmotionExplorer() {
           </div>
 
           <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} />
-          <footer className="explorer-footer"><a href="https://www.haggard.design" target="_blank" rel="noreferrer">Created by Jules</a></footer>
+          <footer className="explorer-footer"><a href="https://www.haggard.design/" target="_blank" rel="noreferrer">Created by Jules</a></footer>
         </div>
       </main>
       <WheelSettings settings={settings} onChange={setSettings} onReset={() => { resetSettings(); setPreviewFocus(false); }} onExport={exportSvg} previewFocus={previewFocus} onPreviewFocusChange={setPreviewFocus} />
