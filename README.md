@@ -28,7 +28,7 @@ Previously saved appearance preferences continue to apply from this browser's lo
 
 ## Emotion content
 
-All 108 sectors resolve to 105 original content entries in `src/content/`; repeated labels share the same content. Each entry includes a short definition, a curated `responses` list combining body-language cues and actions, and two `somaticExperiences`. Substantially overlapping response examples are consolidated within each emotion while distinct examples are retained. “How it feels in the body” appears first, followed by “Body language & responses”; both sections are always visible, without carets or collapse controls. Both headings share the same 10px, weight-650 sans-serif style with 1.6px letter spacing and uppercase text.
+All 108 sectors resolve to 105 original content entries in `src/content/`; repeated labels share the same content. Each entry includes a short definition, a curated `responses` list combining body-language cues and actions, and two `somaticExperiences`. Substantially overlapping response examples are consolidated within each emotion while distinct examples are retained. “How it may feel in the body” appears first, followed by “Body language & responses”; both sections are always visible, without carets or collapse controls. Both headings share the same 10px, weight-650 sans-serif style with 1.6px letter spacing and uppercase text.
 
 The reading sidebar ends after “Body language & responses”; it has no disclaimer footer or “About these examples” disclosure.
 
