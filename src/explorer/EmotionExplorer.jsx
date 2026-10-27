@@ -10,12 +10,11 @@ import './explorer.css';
 
 const initialIndex = families.find(({ name }) => name === 'Joy').index;
 
-function ExperienceSection({ title, description, items }) {
+function ExperienceSection({ title, items }) {
   const headingId = useId();
   return (
     <section className="experience-section" aria-labelledby={headingId}>
       <h2 className="section-kicker" id={headingId}>{title}</h2>
-      <p className="experience-description">{description}</p>
       <ol>
         {items.map((item, index) => <li key={index}><span className="cue-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}
       </ol>
@@ -55,8 +54,8 @@ function EmotionDetails({ active, familyColor }) {
           </ol>
         </section>
 
-        <ExperienceSection title="How it feels in the body" description="Sensations you might notice inside your body." items={active.info.somaticExperiences} />
-        <ExperienceSection title="How you might respond" description="Ways someone might act or respond." items={active.info.behavioralExperiences} />
+        <ExperienceSection title="How it feels in the body" items={active.info.somaticExperiences} />
+        <ExperienceSection title="How you might respond" items={active.info.behavioralExperiences} />
       </div>
     </aside>
   );

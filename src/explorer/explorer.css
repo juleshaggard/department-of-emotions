@@ -69,8 +69,7 @@
 .cue-number { font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .body-language li p { font-size: 14px; line-height: 1.7; margin: 0; }
 .experience-section { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
-.experience-description { margin: 8px 0 16px; color: var(--muted); font-size: 11px; line-height: 1.7; }
-.experience-section ol { list-style: none; margin: 0; padding: 0; }
+.experience-section ol { list-style: none; margin: 22px 0 0; padding: 0; }
 .experience-section li { display: grid; grid-template-columns: 23px 1fr; gap: 12px; align-items: baseline; margin-bottom: 18px; }
 .experience-section li p { margin: 0; font-size: 14px; line-height: 1.7; }
 .explorer-footer { grid-column: 1 / -1; grid-row: 2; padding: 24px 0 28px; text-align: center; color: var(--muted); font-size: 11px; line-height: 1.7; }
