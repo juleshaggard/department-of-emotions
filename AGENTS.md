@@ -29,6 +29,7 @@ These visual constraints apply to the wheel graphic and original static `/wheel`
 - Keep the “Jump to a feeling” dropdown removed. The reading sidebar begins directly with the emotion hierarchy and title.
 - Keep the “In the body” label and numbered body-language examples, but omit the “How it might show up” heading.
 - All 108 sectors must resolve to the 105 unique emotion entries. Each entry must have a short definition, at least two possible body-language examples, two somatic experiences, and two behavioral experiences; repeated names share one definition. Show somatic and behavioral examples in expandable reading-panel sections.
+- End the reading sidebar after “Behavioral experiences.” Keep the “Every body is different…” footer note and “About these examples” disclosure, including its research links, removed from the visible interface.
 - Examples are illustrative, vary by person/culture/context, and must never claim to diagnose or reliably identify a feeling from appearance.
 - Respect reduced motion and keep the wheel usable on narrow and short landscape screens.
 

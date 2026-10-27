@@ -75,11 +75,6 @@
 .experience-section ol { list-style: none; margin: 0; padding: 0; }
 .experience-section li { display: grid; grid-template-columns: 23px 1fr; gap: 12px; align-items: baseline; margin-bottom: 18px; }
 .experience-section li p { margin: 0; font-size: 14px; line-height: 1.7; }
-.context-note { color: var(--muted); font-size: 11px; line-height: 1.7; border-top: 1px solid var(--line); margin: 27px 0 0; padding-top: 20px; }
-.research-note { margin-top: 18px; color: var(--muted); font-size: 11px; line-height: 1.7; }
-.research-note summary { cursor: pointer; width: fit-content; }
-.research-note p { margin: 12px 0; }
-.research-note a { display: block; margin-bottom: 7px; }
 
 @media (min-width: 1500px) {
   .explorer-layout { grid-template-columns: minmax(0, 1fr) 370px; gap: 80px; }
@@ -105,7 +100,6 @@
   .emotion-definition { min-height: 0; max-width: 40ch; }
   .body-language li p { font-size: 15px; }
   .experience-section li p { font-size: 15px; }
-  .context-note, .research-note { font-size: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

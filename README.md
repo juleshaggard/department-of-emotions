@@ -24,7 +24,13 @@ Appearance preferences persist in this browser's local storage. The wheel remain
 
 All 108 sectors resolve to 105 original content entries in `src/content/`; repeated labels share one definition. Each entry includes a short definition, at least two possible body-language examples, two somatic experiences, and two behavioral experiences. The latter two sections expand in the reading panel.
 
-Examples are illustrative and vary by person, culture, and context. They do not diagnose or reliably identify another person's feelings. Context and primary research links appear under “About these examples.”
+The reading sidebar ends after “Behavioral experiences”; it has no disclaimer footer or “About these examples” disclosure.
+
+Examples remain illustrative and vary by person, culture, and context. They do not diagnose or reliably identify another person's feelings. Research context is retained here:
+
+- [Emotion and body movement](https://pubmed.ncbi.nlm.nih.gov/22059517/)
+- [Context when reading expressions](https://pmc.ncbi.nlm.nih.gov/articles/PMC6640856/)
+- [Felt bodily sensations](https://pmc.ncbi.nlm.nih.gov/articles/PMC3896150/)
 
 ## Source and exports
 

@@ -57,17 +57,7 @@ function EmotionDetails({ active, familyColor }) {
         <ExperienceSection title="Somatic experiences" description="Sensations you might notice inside your body." items={active.info.somaticExperiences} />
         <ExperienceSection title="Behavioral experiences" description="Ways someone might act or respond." items={active.info.behavioralExperiences} />
 
-        <p className="context-note">Every body is different. These are possible examples, not proof of what someone feels. Context, culture, and the person matter.</p>
       </div>
-
-      <details className="research-note">
-        <summary>About these examples</summary>
-        <p>Definitions and examples are written for exploration. The wheel groups related words; it does not measure or diagnose an emotional state. Some labels, such as “hysterical,” reflect the original wheel’s wording.</p>
-        <p>Research finds that emotions can have many physical expressions. The examples here are illustrative, not a validated checklist for each word.</p>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/22059517/" target="_blank" rel="noreferrer">Research on emotion and body movement</a>
-        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6640856/" target="_blank" rel="noreferrer">Why context matters when reading expressions</a>
-        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3896150/" target="_blank" rel="noreferrer">Research on felt bodily sensations</a>
-      </details>
     </aside>
   );
 }
