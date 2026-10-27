@@ -12,23 +12,23 @@ Drag or flick the wheel to rotate it with momentum, or use the subtle “Spin th
 
 Hover previews persist in the reading panel. Taps, family buttons, and roving keyboard focus also select emotions. A stable breadcrumb shows the full hierarchy, such as Fear → Scared → Frightened, with the family color dot. Hover and focus keep the selected branch clear while softly fading unrelated sectors. Pointer exit and spinning restore full opacity; reduced motion removes animated fades and momentum.
 
-The page begins directly with the wheel and reading panel, without a top header or introductory instructions. The reading sidebar starts with the emotion hierarchy and title, without a “Jump to a feeling” dropdown. Gilda Display is served locally from `public/fonts/`, with its open font license, for the emotion title and settings headlines. The three reading-panel section headings use a shared small uppercase sans-serif label style. On desktop, the wheel stays vertically centered and sticky while the sidebar and page scroll. Stable scrollbar space prevents hover content from shifting the wheel. Narrow and short landscape screens use normal scrolling flow.
+The page begins directly with the wheel and reading panel, without a top header or introductory instructions. The reading sidebar starts with the emotion hierarchy and title, without a “Jump to a feeling” dropdown. Gilda Display is served locally from `public/fonts/`, with its open font license, for the emotion title. The two reading-panel section headings use a shared small uppercase sans-serif label style. On desktop, the wheel stays vertically centered and sticky while the sidebar and page scroll. Stable scrollbar space prevents hover content from shifting the wheel. Narrow and short landscape screens use normal scrolling flow.
 
 A small [Created by Jules](https://www.haggard.design) link appears in the explorer's bottom site footer, outside the reading sidebar and wheel graphic. The static `/wheel` page and SVG exports remain free of outside text.
 
 ## Wheel settings and download
 
-“Wheel settings” opens an appearance panel with independent width, color, and opacity controls for the outer border, ring lines, sector lines, main separators, center outline, and hover outline. Defaults use no outer, ring, sector, main, or center strokes and a white 6-unit hover outline. The source family palette uses 100% saturation, 114% contrast, and 97% brightness.
+The “Wheel settings” button and editor are hidden on the explorer. The reusable appearance-editor and custom-SVG-download implementations remain in `src/explorer/`. Defaults use no outer, ring, sector, main, or center strokes and a white 6-unit hover outline. The source family palette uses 100% saturation, 114% contrast, and 97% brightness.
 
-Color controls adjust the six families while retaining relative sector tints. Separate saturation, contrast, brightness, text color, text size, and center fill controls are available. Hover focus can be disabled or adjusted through its opacity and fade duration, with a preview option. “Reset all” restores the defaults.
+The retained editor supports separate stroke controls, family colors, saturation, contrast, brightness, text, center fill, and hover focus. It can be restored in code if further visual tuning is needed.
 
-Appearance preferences persist in this browser's local storage. The wheel remains editable if storage is unavailable. “Download SVG” saves `emotion-wheel-custom.svg` with the chosen colors, typography, and line settings. The standalone download includes the complete unfaded wheel and omits the temporary hover outline and app controls. Its center is blank and it has no visible title or attribution outside the wheel.
+Previously saved appearance preferences continue to apply from this browser's local storage. The retained SVG export produces a complete unfaded vector wheel without temporary hover outlines or app controls. Its center is blank and it has no visible title or attribution outside the wheel.
 
 ## Emotion content
 
-All 108 sectors resolve to 105 original content entries in `src/content/`; repeated labels share one definition. Each entry includes a short definition, at least two possible body-language examples, two somatic experiences, and two behavioral experiences. Numbered body-language examples appear under “Body language,” without a “How it might show up” heading. The always-visible somatic and behavioral sections are labeled “How it feels in the body” and “How you might respond,” without carets or collapse controls. All three section headings share the same 10px, weight-650 sans-serif style with 1.6px letter spacing and uppercase text.
+All 108 sectors resolve to 105 original content entries in `src/content/`; repeated labels share the same content. Each entry includes a short definition, a curated `responses` list combining body-language cues and actions, and two `somaticExperiences`. Substantially overlapping response examples are consolidated within each emotion while distinct examples are retained. “Body language & responses” and “How it feels in the body” are always visible, without carets or collapse controls. Both headings share the same 10px, weight-650 sans-serif style with 1.6px letter spacing and uppercase text.
 
-The reading sidebar ends after “How you might respond”; it has no disclaimer footer or “About these examples” disclosure.
+The reading sidebar ends after “How it feels in the body”; it has no disclaimer footer or “About these examples” disclosure.
 
 Examples remain illustrative and vary by person, culture, and context. They do not diagnose or reliably identify another person's feelings. Research context is retained here:
 

@@ -2,10 +2,8 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { explorerSectors as sectors, families } from './explorer-data.js';
 import { useWheelMotion } from './useWheelMotion.js';
 import { InteractiveWheel } from './InteractiveWheel.jsx';
-import { WheelSettings } from './WheelSettings.jsx';
 import { useWheelSettings } from './useWheelSettings.js';
 import { colorForSector } from './wheel-settings.js';
-import { downloadWheelSvg } from './download-wheel-svg.js';
 import './explorer.css';
 
 const initialIndex = families.find(({ name }) => name === 'Joy').index;
@@ -45,17 +43,8 @@ function EmotionDetails({ active, familyColor }) {
         <h1 id="emotion-name">{active.name}</h1>
         <p className="emotion-definition">{active.info.definition}</p>
 
-        <section className="body-language" aria-labelledby="body-language-heading">
-          <h2 className="section-kicker" id="body-language-heading">Body language</h2>
-          <ol>
-            {active.info.bodyLanguage.map((cue, index) => (
-              <li key={index}><span className="cue-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><p>{cue}</p></li>
-            ))}
-          </ol>
-        </section>
-
+        <ExperienceSection title="Body language & responses" items={active.info.responses} />
         <ExperienceSection title="How it feels in the body" items={active.info.somaticExperiences} />
-        <ExperienceSection title="How you might respond" items={active.info.behavioralExperiences} />
       </div>
     </aside>
   );
@@ -69,13 +58,10 @@ export default function EmotionExplorer() {
   }, []);
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [focusIndex, setFocusIndex] = useState(null);
-  const [previewFocus, setPreviewFocus] = useState(false);
-  const { settings, setSettings, resetSettings } = useWheelSettings();
+  const { settings } = useWheelSettings();
   const rotorRef = useRef(null);
-  const svgRef = useRef(null);
   const sectorRefs = useRef([]);
   const familyColors = useMemo(() => Object.fromEntries(families.map((family) => [family.name, colorForSector(family, settings)])), [settings]);
-  const exportSvg = useCallback(() => downloadWheelSvg(svgRef.current, settings), [settings]);
   const clearFocus = useCallback(() => setFocusIndex(null), []);
   const onTap = useCallback((event) => {
     const index = event.target.closest?.('[data-sector-index]')?.getAttribute('data-sector-index');
@@ -88,7 +74,6 @@ export default function EmotionExplorer() {
 
   function spinWheel() {
     clearFocus();
-    setPreviewFocus(false);
     spin();
   }
 
@@ -135,7 +120,7 @@ export default function EmotionExplorer() {
           <div className="wheel-column">
             <section className="wheel-workspace" aria-label="Interactive emotion wheel">
               <div className="wheel-stage" data-moving={isMoving || isDragging}>
-                <InteractiveWheel rotorRef={rotorRef} svgRef={svgRef} activeIndex={activeIndex} focusIndex={!settings.focusEnabled || isMoving || isDragging ? null : previewFocus ? activeIndex : focusIndex} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} />
+                <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={!settings.focusEnabled || isMoving || isDragging ? null : focusIndex} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} />
               </div>
               <div className="wheel-controls">
                 <div className="family-navigation" aria-label="Jump to an emotion family">
@@ -153,7 +138,6 @@ export default function EmotionExplorer() {
           <footer className="explorer-footer"><a href="https://www.haggard.design/" target="_blank" rel="noreferrer">Created by Jules</a></footer>
         </div>
       </main>
-      <WheelSettings settings={settings} onChange={setSettings} onReset={() => { resetSettings(); setPreviewFocus(false); }} onExport={exportSvg} previewFocus={previewFocus} onPreviewFocusChange={setPreviewFocus} />
     </div>
   );
 }

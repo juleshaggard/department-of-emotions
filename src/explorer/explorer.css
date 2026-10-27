@@ -33,7 +33,8 @@
 /* Include the footer in the sticky boundary so the last scroll stays centered. */
 .wheel-column { grid-column: 1; grid-row: 1 / span 2; align-self: stretch; min-width: 0; }
 .wheel-workspace { position: sticky; top: 0; height: 100svh; min-width: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr); padding-block: 32px; }
-.wheel-stage { grid-row: 2; width: min(100%, max(560px, calc(100svh - 390px)), calc(100svh - 300px), 850px); margin: 0 auto; aspect-ratio: 1; overflow: hidden; border-radius: 50%; isolation: isolate; }
+/* Focus must not scroll the clipped wheel inside its own frame. */
+.wheel-stage { grid-row: 2; width: min(100%, max(560px, calc(100svh - 390px)), calc(100svh - 300px), 850px); margin: 0 auto; aspect-ratio: 1; overflow: clip; border-radius: 50%; isolation: isolate; }
 .wheel-controls { grid-row: 3; min-width: 0; }
 .wheel-rotor { width: 100%; height: 100%; transform-origin: 50% 50%; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
 .interactive-wheel { display: block; width: 100%; height: 100%; overflow: visible; }
@@ -62,13 +63,9 @@
 .emotion-breadcrumbs [aria-current='true'] { color: var(--ink); font-weight: 550; }
 .emotion-reading h1 { font-family: 'Gilda Display', Georgia, serif; margin: 0; font-size: 48px; line-height: 1.12; font-weight: 400; letter-spacing: -0.6px; overflow-wrap: anywhere; }
 .emotion-definition { min-height: 76px; font-size: 17px; line-height: 1.65; margin: 18px 0 0; letter-spacing: -0.2px; }
-.body-language { margin-top: 30px; border-top: 1px solid var(--line); padding-top: 26px; }
-.body-language .section-kicker { margin-bottom: 6px; }
-.body-language ol { list-style: none; margin: 22px 0 0; padding: 0; }
-.body-language li { display: grid; grid-template-columns: 23px 1fr; gap: 12px; align-items: baseline; margin-bottom: 18px; }
 .cue-number { font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.body-language li p { font-size: 14px; line-height: 1.7; margin: 0; }
 .experience-section { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+.experience-section:first-of-type { margin-top: 30px; padding-top: 26px; }
 .experience-section ol { list-style: none; margin: 22px 0 0; padding: 0; }
 .experience-section li { display: grid; grid-template-columns: 23px 1fr; gap: 12px; align-items: baseline; margin-bottom: 18px; }
 .experience-section li p { margin: 0; font-size: 14px; line-height: 1.7; }
@@ -99,7 +96,6 @@
   .emotion-sidebar { width: 100%; max-width: 600px; margin-inline: auto; padding-block: 24px 0; border-top: 1px solid var(--line); }
   .emotion-reading h1 { font-size: 42px; }
   .emotion-definition { min-height: 0; max-width: 40ch; }
-  .body-language li p { font-size: 15px; }
   .experience-section li p { font-size: 15px; }
   .explorer-footer { width: 100%; padding: 0 0 28px; }
 }
