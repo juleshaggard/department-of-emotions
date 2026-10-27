@@ -95,6 +95,15 @@
   .experience-section li p { font-size: 15px; }
 }
 
+@media (max-width: 600px) {
+  .explorer-page { overflow-x: clip; }
+  .wheel-stage {
+    --mobile-wheel-size: min(150vw, 780px);
+    width: var(--mobile-wheel-size);
+    margin-inline: calc(100% - var(--mobile-wheel-size)) 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .explorer-page *, .explorer-page *::before, .explorer-page *::after { transition: none !important; scroll-behavior: auto !important; }
 }

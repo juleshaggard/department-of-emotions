@@ -16,6 +16,8 @@ The page begins directly with the wheel and reading panel, without a top header 
 
 The wheel uses the available width up to 780px and does not shrink to fit the viewport height. At widths of 1100px or less, the reading panel sits below the wheel; reduced padding on narrow screens leaves more space for the wheel. Wider screens retain two columns. The wheel circle stays vertically centered and sticky only when the viewport is at least 1101px wide and 1080px tall. Shorter viewports use normal top-aligned scrolling flow so the full wheel and its controls remain accessible. Stable scrollbar space prevents hover content from shifting the wheel.
 
+On phones up to 600px wide, the wheel grows to 150% of the viewport width, capped at 780px, and bleeds off the left side. Its right edge stays inside the content area, while the controls and reading panel retain their normal width. Horizontal clipping prevents sideways scrolling without shifting the wheel's rotation pivot.
+
 A small [Site created by Jules](https://www.haggard.design/) credit link sits in the wheel's control stack below “Spin the wheel,” horizontally centered beneath the wheel and outside the reading sidebar and wheel SVG. Its position in the stack keeps it clickable and prevents overlap with the controls on tall screens. The static `/wheel` page and SVG exports remain free of outside text.
 
 ## Wheel settings and download
