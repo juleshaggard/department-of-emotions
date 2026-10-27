@@ -43,8 +43,8 @@ function EmotionDetails({ active, familyColor }) {
         <h1 id="emotion-name">{active.name}</h1>
         <p className="emotion-definition">{active.info.definition}</p>
 
-        <ExperienceSection title="Body language & responses" items={active.info.responses} />
         <ExperienceSection title="How it feels in the body" items={active.info.somaticExperiences} />
+        <ExperienceSection title="Body language & responses" items={active.info.responses} />
       </div>
     </aside>
   );
