@@ -42,7 +42,7 @@ Examples remain illustrative and vary by person, culture, and context. They do n
 
 The rainbow-circle favicon uses the wheel's six family colors and includes SVG, PNG, ICO, and Apple touch-icon versions. `scripts/generate-favicon.py` regenerates them with Pillow.
 
-Three social-preview candidates live in `public/social/options/` as 1200×630 PNGs and editable SVGs. `scripts/generate-social-options.mjs` regenerates their SVG sources; passing `--renderer` with a local `@resvg/resvg-js` module also exports PNGs. The final Open Graph image remains unassigned until a design is selected.
+Option 1, Editorial, is the selected 1200×630 social preview. Its source is `public/social/options/01-editorial.png`, and the published asset uses the stable `public/social/department-of-emotions.png` path. Open Graph and Twitter image metadata use the absolute URL `https://departmentofemotions.com/social/department-of-emotions.png`. The three candidates and editable SVG sources remain in `public/social/options/` as alternates. `scripts/generate-social-options.mjs` regenerates their SVG sources; passing `--renderer` with a local `@resvg/resvg-js` module also exports PNGs.
 
 - `src/emotions.js`: editable hierarchy in clockwise order.
 - `src/reference-palette.json`: colors sampled from the reference.

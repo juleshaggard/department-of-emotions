@@ -61,4 +61,4 @@ The intended Sites public domain is `departmentofemotions.com`. Treat publicatio
 ## Site identity and sharing
 
 - Use the six-color circular favicon in `public/favicon.svg`, with PNG, ICO, and Apple touch-icon fallbacks. Match the wheel's pastel family palette and keep its center and exterior clear.
-- Social preview candidates are editable SVGs and 1200×630 PNGs in `public/social/options/`, using the actual wheel geometry and Gilda Display. Keep them as review options until the user selects a design; then configure the chosen image with absolute Open Graph image metadata.
+- The selected social preview is option 1, Editorial, from `public/social/options/01-editorial.png` (1200×630), using the actual wheel geometry and Gilda Display. Serve the selected image at the stable `public/social/department-of-emotions.png` path and use `https://departmentofemotions.com/social/department-of-emotions.png` for Open Graph and Twitter image metadata. Retain the editable SVG source and other candidates in `public/social/options/` as alternates.
