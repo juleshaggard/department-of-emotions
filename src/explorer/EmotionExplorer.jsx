@@ -161,7 +161,7 @@ export default function EmotionExplorer() {
           <div className="wheel-column">
             <section className="wheel-workspace" aria-label="Interactive emotion wheel">
               <div className="wheel-stage" data-moving={isMoving || isDragging}>
-                <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={focusedSelectionIndex(selection, { enabled: settings.focusEnabled, moving: isMoving || isDragging })} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} mobileDrawer={isMobile} drawerOpen={drawerOpen} />
+                <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={focusedSelectionIndex(selection, { enabled: settings.focusEnabled && !isMobile, moving: isMoving || isDragging })} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} mobileDrawer={isMobile} drawerOpen={drawerOpen} />
                 <button ref={spinButtonRef} className="wheel-spin-button" type="button" aria-label="Spin the wheel" title="Spin the wheel" aria-controls={isMobile ? 'emotion-drawer' : 'emotion-details'} aria-haspopup={isMobile ? 'dialog' : undefined} onClick={spinWheel} onKeyDown={(event) => { if (event.key === 'Escape') { event.preventDefault(); stop(); } }}>
                   <img src={`${import.meta.env.BASE_URL}icons/rotate-cw.svg`} alt="" width="20" height="20" />
                 </button>

@@ -58,3 +58,7 @@ Bands are minimum grid tracks with growth fallback for larger accessibility text
 - Desktop wheel stays sticky within its reading section during document scrolling; footer remains in normal flow.
 - Browser captured no console errors during these checks.
 - `npm test`:26 passed. `npm run build`:passed. `npm run test:sites`:4 passed.
+
+## Mobile full-color selection follow-up
+
+At390×844, selecting an emotion opens the drawer while every sector and wheel-stroke layer stays at opacity1. Closing preserves the white selected outline and all colors remain at full opacity. At1440×900, keyboard selection still applies desktop branch fading (104 unrelated sectors at opacity0.38). Screenshot: `qa/mobile-full-color-selection.png`. No console errors observed;26 unit checks, production build, and4 Sites worker checks passed. The narrow-layout focus gate changes only visual branch fading, retaining the existing selection reducer and modal behavior.
