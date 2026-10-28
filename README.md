@@ -6,7 +6,7 @@ An interactive emotion wheel made from editable SVG geometry and text. The wheel
 
 Both `/` and `/explore` open the interactive explorer. The original static wheel is available at `/wheel`.
 
-On initial load, the wheel makes a gentle 60-degree turn and settles into its original position over 1.4 seconds. The opening motion skips reduced-motion preferences and stops immediately when someone takes control.
+On initial load, the wheel makes a gentle 60-degree clockwise turn over 1.4 seconds and settles with Joy facing right. The resting angle comes from the Joy sector geometry. With reduced motion, it shows that orientation immediately. The opening motion stops immediately when someone takes control and does not replay on ordinary selection changes.
 
 Drag or flick the wheel to rotate it with momentum. Its hub is blank, without a rotate icon, button, or invisible click target. The circular stage clips the rotor without creating a scrolling container. The family-button row and former control rows are removed from the visible interface. The opening animation and manual dragging do not open the drawer; confirmed emotion taps and keyboard activation remain available.
 

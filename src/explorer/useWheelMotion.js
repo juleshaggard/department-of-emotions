@@ -11,7 +11,8 @@ const noop = () => {};
 const idleControls = { stop: noop, rotateTo: noop, spin: noop };
 
 /** Own the rotor transform; the square rotor keeps its pivot centered at every size. */
-export function useWheelMotion({ rotorRef, onDragStart, onTap }) {
+export function useWheelMotion({ rotorRef, onDragStart, onTap, initialRotation = 0 }) {
+  const restingAngle = canonicalAngle(initialRotation);
   const callbacksRef = useRef({ onDragStart, onTap });
   const controlsRef = useRef(idleControls);
   const [motion, setMotion] = useState({
@@ -136,7 +137,7 @@ export function useWheelMotion({ rotorRef, onDragStart, onTap }) {
       });
     });
 
-    gsap.set(rotor, { transformOrigin: '50% 50%' });
+    gsap.set(rotor, { transformOrigin: '50% 50%', rotation: restingAngle });
     [draggable] = Draggable.create(rotor, {
       type: 'rotation',
       inertia: !reducedMotion,
@@ -192,11 +193,11 @@ export function useWheelMotion({ rotorRef, onDragStart, onTap }) {
       publish(false);
     } else {
       // Share the opening turn with the gesture controls for immediate takeover.
-      gsap.set(rotor, { rotation: -60 });
+      gsap.set(rotor, { rotation: restingAngle - 60 });
       draggable.update();
       publish(true);
       rotationTween = gsap.to(rotor, {
-        rotation: 0,
+        rotation: restingAngle,
         duration: 1.4,
         ease: 'power3.out',
         overwrite: 'auto',
@@ -212,7 +213,7 @@ export function useWheelMotion({ rotorRef, onDragStart, onTap }) {
       killTweens();
       draggable.kill();
     };
-  }, { scope: rotorRef, dependencies: [rotorRef], revertOnUpdate: true });
+  }, { scope: rotorRef, dependencies: [rotorRef, restingAngle], revertOnUpdate: true });
 
   const stop = useCallback(() => controlsRef.current.stop(), []);
   const rotateTo = useCallback((angleDegrees) => controlsRef.current.rotateTo(angleDegrees), []);

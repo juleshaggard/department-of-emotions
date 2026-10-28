@@ -43,7 +43,7 @@ These visual constraints apply to the wheel graphic and original static `/wheel`
 - Examples are illustrative, vary by person/culture/context, and must never claim to diagnose or reliably identify a feeling from appearance.
 - Write examples as concise, neutral descriptions without repetitive “You may” or “You might” introductions. Prefer natural descriptive phrases rather than commands or claims that everyone experiences an emotion identically.
 - Respect reduced motion and keep the wheel usable on narrow and short landscape screens.
-- On each initial explorer load, gently rotate the wheel from -60 degrees to its original orientation over 1.4 seconds with an ease-out stop. Skip this opening motion for reduced-motion preferences. Pressing, dragging, or keyboard input must be able to interrupt it immediately; ordinary rerenders must not replay it.
+- On each initial explorer load, gently turn the wheel clockwise by 60 degrees over 1.4 seconds with an ease-out stop, settling with the center of the Joy family facing right. Derive the resting rotation from Joy’s actual sector bounds (currently about -92.647 degrees) and begin 60 degrees before it. For reduced-motion preferences, show the same Joy-facing-right orientation immediately. Pressing, dragging, or keyboard input must be able to interrupt it immediately; ordinary rerenders must not replay it.
 
 ## Wheel settings
 

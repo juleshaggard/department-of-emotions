@@ -8,7 +8,9 @@ import { colorForSector } from './wheel-settings.js';
 import { createWheelSelection, focusedSelectionIndex, isTouchInput, wheelSelectionReducer } from './wheel-selection.js';
 import './explorer.css';
 
-const initialIndex = families.find(({ name }) => name === 'Joy').index;
+const initialFamily = families.find(({ name }) => name === 'Joy');
+const initialIndex = initialFamily.index;
+const initialRotation = -(initialFamily.start + initialFamily.end) / 2;
 // Keep this in sync with the drawer layout media query in explorer.css.
 const mobileQuery = '(max-width: 600px), (max-width: 1100px) and (orientation: portrait)';
 
@@ -104,7 +106,7 @@ export default function EmotionExplorer() {
       activate(Number(index), isTouchInput(event));
     }
   }, [activate]);
-  const { isMoving, isDragging, stop } = useWheelMotion({ rotorRef, onTap, onDragStart: clearFocus });
+  const { isMoving, isDragging, stop } = useWheelMotion({ rotorRef, onTap, onDragStart: clearFocus, initialRotation });
 
   function choose(index) {
     stop();
