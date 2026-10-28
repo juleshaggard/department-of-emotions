@@ -78,7 +78,8 @@
 .emotion-sidebar .experience-section li:last-child { margin-bottom: 0; }
 .emotion-sidebar .experience-section li p { font-size: 16px; line-height: 1.5; }
 .sidebar-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 12px; }
-.sidebar-footer .sidebar-credit { color: var(--muted); font-size: 11px; line-height: 1.7; white-space: nowrap; text-decoration: none; }
+.sidebar-footer .sidebar-credit { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; line-height: 1.7; white-space: nowrap; text-decoration: none; }
+.credit-trans-flag { width: 15px; height: 9px; flex: none; border-radius: 1px; }
 .sidebar-credit:hover { text-decoration: underline; }
 
 .emotion-drawer {

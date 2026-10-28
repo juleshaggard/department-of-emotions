@@ -172,7 +172,14 @@ export default function EmotionExplorer() {
               <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} hierarchyAfter />
               <footer className="sidebar-footer">
                 <div className="sidebar-brand"><img src={`${import.meta.env.BASE_URL}brand/department-of-emotions.svg`} alt="" width="21" height="21" /><span>Department of Emotions</span></div>
-                <a className="sidebar-credit" href="https://www.juleshaggard.com/" target="_blank" rel="noreferrer">Site created by Jules</a>
+                <a className="sidebar-credit" href="https://www.juleshaggard.com/" target="_blank" rel="noreferrer">
+                  Site created by Jules
+                  <svg className="credit-trans-flag" viewBox="0 0 20 12" role="img" aria-label="Transgender pride flag">
+                    <path fill="#5BCEFA" d="M0 0h20v12H0z" />
+                    <path fill="#F5A9B8" d="M0 2.4h20v7.2H0z" />
+                    <path fill="#FFFFFF" d="M0 4.8h20v2.4H0z" />
+                  </svg>
+                </a>
               </footer>
             </div>
           </aside>}
