@@ -60,3 +60,7 @@ No P0/P1/P2 issues remain for the current request.
 ## Credit link follow-up
 
 Changed the Site created by Jules destination to `https://www.juleshaggard.com/`. Browser verified the exact href, unchanged label, new-tab target, and noreferrer relationship. No spacing or styling changes. Proof and metrics: `qa/credit-link-footer.png`, `qa/credit-link-metrics.json`. Production build and4 worker checks passed.
+
+## Drawer logo follow-up
+
+Added the exact supplied21×21 SVG logo to the top-left of the drawer header, opposite Close. It has alt text Department of Emotions, uses the same local base-aware asset path, and aligns with the24px content inset. Header height remains60px. At390×844, the logo loads at21×21, left24px, while Close keeps its44px target. Scrolling the Touched content29px leaves logo and Close at exactly their prior screen positions. At834×1194 the logo stays24px from the drawer left, Close stays16px from the right, and they do not overlap. Closing returns focus to Touched. No console errors. Production build and4 worker checks passed. Proof: `qa/drawer-logo-detail.png`; full capture/metrics: `qa/drawer-logo-mobile.png`, `qa/drawer-logo-mobile-metrics.json`.
