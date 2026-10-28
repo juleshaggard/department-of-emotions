@@ -171,9 +171,9 @@ export default function WheelExplorer({ model, switcher }) {
             <div className="sidebar-shell">
               {switcher}
               <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} hierarchyAfter />
-              <p className="lab-source">Wheel reference: <a href={model.sourceUrl} target="_blank" rel="noreferrer">{model.source}</a></p>
               <footer className="sidebar-footer">
-                <div className="sidebar-brand"><img src={`${import.meta.env.BASE_URL}brand/department-of-emotions.svg`} alt="" width="21" height="21" /><span>Department of Emotions</span></div>
+                <div className="sidebar-attribution">
+                <p className="lab-source">Wheel reference: <a href={model.sourceUrl} target="_blank" rel="noreferrer">{model.source}</a></p>
                 <a className="sidebar-credit" href="https://www.juleshaggard.com/" target="_blank" rel="noreferrer">
                   Site created by Jules
                   <svg className="credit-trans-flag" viewBox="0 0 20 12" role="img" aria-label="Transgender pride flag">
@@ -182,6 +182,8 @@ export default function WheelExplorer({ model, switcher }) {
                     <path fill="#FFFFFF" d="M0 4.8h20v2.4H0z" />
                   </svg>
                 </a>
+                </div>
+                <div className="sidebar-brand"><img src={`${import.meta.env.BASE_URL}brand/department-of-emotions.svg`} alt="" width="21" height="21" /><span>Department of Emotions</span></div>
               </footer>
             </div>
           </aside>}
