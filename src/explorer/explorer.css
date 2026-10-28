@@ -98,10 +98,11 @@
 @media (max-width: 600px) {
   .explorer-page { overflow-x: clip; }
   .wheel-stage {
-    --mobile-wheel-size: min(150vw, 780px);
+    --mobile-wheel-size: min(175vw, 900px);
     width: var(--mobile-wheel-size);
     margin-inline: calc(100% - var(--mobile-wheel-size)) 0;
   }
+  .wheel-controls { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
