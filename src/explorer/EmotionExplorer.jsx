@@ -36,7 +36,7 @@ function ExperienceSection({ title, items }) {
     </section>
   );
 }
-function EmotionDetails({ active, familyColor }) {
+function EmotionHierarchy({ active, familyColor }) {
   const hierarchy = [
     active.primary.name,
     ...(active.parent ? [active.parent.name] : []),
@@ -44,34 +44,33 @@ function EmotionDetails({ active, familyColor }) {
   ];
 
   return (
+    <nav className="emotion-family" aria-label="Emotion hierarchy">
+      <span className="family-swatch" style={{ backgroundColor: familyColor }} aria-hidden="true" />
+      <ol className="emotion-breadcrumbs">
+        {hierarchy.map((name, index) => (
+          <li key={index}>
+            {index > 0 && <span className="breadcrumb-arrow" aria-hidden="true">→</span>}
+            <span aria-current={index === hierarchy.length - 1 ? 'true' : undefined}>{name}</span>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+function EmotionDetails({ active, familyColor, hierarchyAfter = false }) {
+  return (
     <div className="emotion-reading" id="emotion-details" role="region" aria-labelledby="emotion-name">
       <div className="emotion-summary">
-        <nav className="emotion-family" aria-label="Emotion hierarchy">
-          <span className="family-swatch" style={{ backgroundColor: familyColor }} aria-hidden="true" />
-          <ol className="emotion-breadcrumbs">
-            {hierarchy.map((name, index) => (
-              <li key={index}>
-                {index > 0 && <span className="breadcrumb-arrow" aria-hidden="true">→</span>}
-                <span aria-current={index === hierarchy.length - 1 ? 'true' : undefined}>{name}</span>
-              </li>
-            ))}
-          </ol>
-        </nav>
+        {!hierarchyAfter && <EmotionHierarchy active={active} familyColor={familyColor} />}
         <h1 id="emotion-name">{active.name}</h1>
         <p className="emotion-definition">{active.info.definition}</p>
       </div>
 
       <ExperienceSection title="How it may feel in the body" items={active.info.somaticExperiences} />
       <ExperienceSection title="Possible body language & behaviors" items={active.info.responses} />
+      {hierarchyAfter && <EmotionHierarchy active={active} familyColor={familyColor} />}
     </div>
-  );
-}
-
-function FamilyNavigation({ activeFamily, colors, onChoose }) {
-  return (
-    <nav className="family-navigation" aria-label="Jump to an emotion family">
-      {families.map((family) => <button key={family.name} type="button" aria-pressed={activeFamily === family.name} onClick={(event) => onChoose(family, event)}><span className="family-swatch" style={{ backgroundColor: colors[family.name] }} />{family.name}</button>)}
-    </nav>
   );
 }
 
@@ -109,7 +108,7 @@ export default function EmotionExplorer() {
       activate(Number(index), isTouchInput(event));
     }
   }, [activate]);
-  const { isMoving, isDragging, stop, rotateTo, spin } = useWheelMotion({ rotorRef, onTap, onDragStart: clearFocus });
+  const { isMoving, isDragging, stop, spin } = useWheelMotion({ rotorRef, onTap, onDragStart: clearFocus });
 
   function spinWheel() {
     const result = pickRandomEmotion(sectors);
@@ -123,11 +122,6 @@ export default function EmotionExplorer() {
   function choose(index) {
     stop();
     dispatchSelection({ type: 'select', index });
-  }
-
-  function chooseFamily(family, event) {
-    dispatchSelection({ type: 'select', index: family.index, family: true, touch: isTouchInput(event, window.matchMedia('(pointer: coarse)').matches) });
-    rotateTo(-(family.start + family.end) / 2);
   }
 
   function preview(index, fromKeyboard = false, event) {
@@ -172,14 +166,15 @@ export default function EmotionExplorer() {
 
           {!isMobile && <aside className="emotion-sidebar" aria-label="Explore an emotion">
             <div className="sidebar-shell">
-              <div className="sidebar-brand"><img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width="28" height="28" /><span>Department of Emotions</span></div>
-              <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} />
-              <FamilyNavigation activeFamily={active.primary.name} colors={familyColors} onChoose={chooseFamily} />
+              <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} hierarchyAfter />
+              <footer className="sidebar-footer">
+                <div className="sidebar-brand"><img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width="20" height="20" /><span>Department of Emotions</span></div>
+                <a className="sidebar-credit" href="https://www.haggard.design/" target="_blank" rel="noreferrer">Site created by Jules</a>
+              </footer>
             </div>
           </aside>}
         </div>
       </main>
-      <footer className="explorer-footer"><a href="https://www.haggard.design/" target="_blank" rel="noreferrer">Site created by Jules</a></footer>
       {isMobile && <EmotionDrawer open={drawerOpen} onClose={closeDrawer} returnFocusRef={returnFocusRef}><EmotionDetails active={active} familyColor={familyColors[active.primary.name]} /></EmotionDrawer>}
     </div>
   );
