@@ -30,7 +30,7 @@ In the drawer layout, a confirmed emotion tap opens a native modal bottom drawer
 
 Buttons, including the drawer’s “Close” control, show keyboard focus with subtle fill and border changes, without external outline rings.
 
-A compact inline-sidebar footer sits outside the changing reading content with 12px normal top padding, reduced to 8px in the short-height desktop profile. A 21px supplied SVG logo (`public/brand/department-of-emotions.svg`) and 14px “Department of Emotions” brand sit on the left; an 11px [Site created by Jules](https://www.haggard.design/) link sits on the right. Its normal height totals 33px. There is no standalone full-page credit footer. The inline footer is hidden in the phone and portrait-tablet drawer layout. The static `/wheel` page and SVG exports remain free of outside text, with blank centers.
+A compact inline-sidebar footer sits outside the changing reading content with 12px normal top padding, reduced to 8px in the short-height desktop profile. A 21px supplied SVG logo (`public/brand/department-of-emotions.svg`) and 14px “Department of Emotions” brand sit on the left; an 11px [Site created by Jules](https://www.juleshaggard.com/) link sits on the right. Its normal height totals 33px. There is no standalone full-page credit footer. The inline footer is hidden in the phone and portrait-tablet drawer layout. The static `/wheel` page and SVG exports remain free of outside text, with blank centers.
 
 ## Wheel settings and download
 

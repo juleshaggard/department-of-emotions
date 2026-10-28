@@ -35,7 +35,7 @@ At this viewport the shell is665px high, from y162 to827. The page scroll height
 - **Typography:** Gilda Display and the enlarged reading scale remain. Normal56px headline (48px in narrow sidebars),19px definition,16px examples,11px labels/numbers,12px hierarchy,14px brand, and11px credit. Short desktop profiles use48px headline and tighter line heights.
 - **Color:** Warm paper, dark text, muted dividers, family-colored dot, pastel wheel, and white selection outline are unchanged.
 - **Assets:** Exact supplied21px SVG logo remains. Wheel hub remains blank; rainbow favicon and vector wheel geometry are unchanged.
-- **Copy:** Amused and all other emotion definitions/examples remain unchanged. The credit still links to `https://www.haggard.design/`.
+- **Copy:** Amused and all other emotion definitions/examples remain unchanged. The credit still links to `https://www.juleshaggard.com/`.
 
 ## All-sector verification
 
@@ -56,3 +56,7 @@ Per-sector measurements are saved in `qa/compact-sidebar-{width}x{height}.json` 
 At834×1194 the drawer still opens correctly. Its headline is42px, examples15px/25.5px leading, and first-section padding20px, matching the prior drawer styles. No browser console errors were captured. Production build,4 Sites worker checks, and `git diff --check` passed.
 
 No P0/P1/P2 issues remain for the current request.
+
+## Credit link follow-up
+
+Changed the Site created by Jules destination to `https://www.juleshaggard.com/`. Browser verified the exact href, unchanged label, new-tab target, and noreferrer relationship. No spacing or styling changes. Proof and metrics: `qa/credit-link-footer.png`, `qa/credit-link-metrics.json`. Production build and4 worker checks passed.
