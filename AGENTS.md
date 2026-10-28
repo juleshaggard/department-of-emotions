@@ -74,12 +74,12 @@ The intended Sites public domain is `departmentofemotions.com`. Treat publicatio
 ## GitHub Pages
 
 - The GitHub source repository is `juleshaggard/department-of-emotions`. Publish its `main` branch with `.github/workflows/pages.yml` and retain the independent Sites hosting configuration.
-- `npm run build:pages` emits a static site in `dist/pages`, using `PAGES_BASE_PATH` for its project URL prefix. Keep root, `/explore/`, and `/wheel/` directly loadable with real HTML entry points. Asset URLs and route detection must work under the project prefix.
+- `npm run build:pages` emits a static site in `dist/pages`, using `PAGES_BASE_PATH` for its project URL prefix. Keep root, `/explore/`, `/wheel/`, and `/privacy/` directly loadable with real HTML entry points. Asset URLs and route detection must work under the project prefix.
 - The primary custom-domain identity and social metadata remain `https://departmentofemotions.com/`; publishing to Pages does not change DNS.
 
 ## Site identity and sharing
 
-- Google Analytics uses measurement ID `G-PDGYB10MNQ` for the canonical domain only. Load the Google tag only after explicit analytics consent, honor Global Privacy Control, keep advertising consent denied, and never send emotion selections or wheel interactions. Strip URL queries/fragments and third-party referrer paths. Keep the small consent notice and persistent “Privacy & cookies” control available on explorer routes, with revocable, expiring browser-local consent and a privacy notice. Keep `/wheel` text-free. Enhanced measurement is disabled in the web stream.
+- Google Analytics uses measurement ID `G-PDGYB10MNQ` for the canonical domain only, in cookieless consent mode with analytics and all advertising storage permanently denied. Keep the analytics banner and consent buttons removed. Never send emotion selections or wheel interactions; strip URL queries/fragments and third-party referrer paths. Remove legacy Analytics cookies, honor Global Privacy Control and previously saved declines by blocking all Google loading, and never write new consent records or identifiers locally. Retain a small text “Privacy” link to `/privacy/` for disclosure. Local previews, GitHub Pages, `/privacy`, and `/wheel` do not load Analytics. Keep `/wheel` text-free. Enhanced measurement remains off. Cookieless measurements are more limited than standard cookie-based reports.
 
 - Place a small trans pride flag immediately after “Site created by Jules” in the inline sidebar footer. Use the blue, pink, white, pink, blue stripes and retain the existing creator link.
 

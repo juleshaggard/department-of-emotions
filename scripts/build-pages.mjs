@@ -11,7 +11,7 @@ const output = path.join(root, 'dist/pages');
 
 await build({ root, base, build: { outDir: output } });
 
-await Promise.all(['explore', 'wheel'].map(async (route) => {
+await Promise.all(['explore', 'wheel', 'privacy'].map(async (route) => {
   const directory = path.join(output, route);
   await mkdir(directory, { recursive: true });
   await copyFile(path.join(output, 'index.html'), path.join(directory, 'index.html'));

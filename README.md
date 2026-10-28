@@ -101,12 +101,14 @@ The app is prepared for Sites hosting with `departmentofemotions.com` as the int
 
 The source is also published at [juleshaggard/department-of-emotions](https://github.com/juleshaggard/department-of-emotions). Pushes to `main` run the content checks, build a static site, and deploy it through `.github/workflows/pages.yml`.
 
-`npm run build:pages` writes to `dist/pages`. Set `PAGES_BASE_PATH=/department-of-emotions/` to reproduce the project-path build locally. The output includes direct entry points for the root, `/explore/`, and `/wheel/`, with assets under the configured prefix. The existing Sites build and local preview output remain separate in `dist/client`.
+`npm run build:pages` writes to `dist/pages`. Set `PAGES_BASE_PATH=/department-of-emotions/` to reproduce the project-path build locally. The output includes direct entry points for the root, `/explore/`, `/wheel/`, and `/privacy/`, with assets under the configured prefix. The existing Sites build and local preview output remain separate in `dist/client`.
 
 The Pages address is [juleshaggard.github.io/department-of-emotions/](https://juleshaggard.github.io/department-of-emotions/). Canonical and social metadata continue to use the primary `departmentofemotions.com` domain; this deployment does not alter its DNS.
 
 ## Analytics
 
-GA4 measurement ID: `G-PDGYB10MNQ`, for `departmentofemotions.com` and its `www` hostname. The Google tag loads only after opt-in from the consent notice or “Privacy & cookies” control. Consent expires after 180 days; declining disables measurement and removes Analytics cookies. Global Privacy Control keeps measurement off. Local previews, GitHub Pages, and the text-free `/wheel` route do not load Analytics.
+GA4 measurement ID: `G-PDGYB10MNQ`, for `departmentofemotions.com` and its `www` hostname. The Google tag sends limited cookieless measurements with analytics and advertising storage permanently denied. There is no automatic banner or consent button. A small Privacy text link opens `/privacy/` with a description of the measurement.
 
-Page views use a fixed title, known route paths without queries/fragments, and referrer origins only. Emotion selections and wheel interactions are not tracked. Advertising signals are disabled, and the web stream's enhanced measurement is off. `npm test` includes consent, revocation, host restriction, storage failure, and payload privacy checks.
+Old Analytics cookies are removed. Global Privacy Control and a previously saved decline prevent Google from loading; old opt-ins cannot enable cookie storage. No new consent records or identifiers are written to local storage. Local previews, GitHub Pages, `/privacy/`, and the text-free `/wheel` route do not load Analytics.
+
+Page views use a fixed title, known route paths without queries/fragments, and referrer origins only. Emotion selections and wheel interactions are not tracked. Advertising signals are disabled, and the web stream's enhanced measurement is off. Cookieless reporting is less detailed than standard cookie-based Analytics. `npm test` verifies denied storage, legacy-cookie removal, opt-out handling, host restrictions, and payload privacy.

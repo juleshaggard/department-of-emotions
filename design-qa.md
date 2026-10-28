@@ -67,3 +67,7 @@ Added GA4 `G-PDGYB10MNQ` with explicit opt-in, revocation, expiring local consen
 ## Drawer brand follow-up
 
 Added the full “Department of Emotions” wordmark beside the supplied 21px logo in the drawer header. Verified no header overflow at 390px and 320px phone widths and 768px portrait-tablet width; the narrow phone wraps the wordmark without overlapping Close. The drawer header stays outside the content scroller. Build and four hosting checks passed.
+
+## Bannerless analytics follow-up
+
+Removed the analytics banner and consent controls. Canonical-domain GA4 now uses cookieless pings with analytics and advertising storage permanently denied; existing opt-outs and Global Privacy Control block loading. Removed the old consent UI and added a plain Privacy link with a dedicated `/privacy/` page. Verified a fresh preview has no banner or consent buttons, the privacy link works, and the new page fits a 390px phone viewport. All 32 tests, four hosting checks, Sites build, and prefixed Pages build passed.

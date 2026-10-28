@@ -1,40 +1,39 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createAnalyticsController, MEASUREMENT_ID, CONSENT_KEY } from '../src/analytics/analytics.js';
+import { createAnalyticsController, MEASUREMENT_ID, LEGACY_CONSENT_KEY } from '../src/analytics/analytics.js';
 
 function fixture({ host = 'departmentofemotions.com', gpc = false } = {}) {
   const memory = new Map(), scripts = [], deleted = [];
+  let writes = 0;
   const win = {
     navigator: { globalPrivacyControl: gpc },
     location: { hostname: host, origin: `https://${host}`, pathname: '/explore', search: '?emotion=anxious&email=private@example.com', hash: '#private' },
-    localStorage: { getItem: k => memory.get(k) ?? null, setItem: (k, v) => memory.set(k, v) },
+    localStorage: { getItem: k => memory.get(k) ?? null, setItem: () => { writes++; } },
   };
   const doc = { referrer: 'https://example.com/private/path?email=private@example.com', createElement: () => ({}), head: { appendChild: s => scripts.push(s) } };
   Object.defineProperty(doc, 'cookie', { get: () => '_ga=abc; _ga_TEST=def; wheel=keep', set: v => deleted.push(v) });
-  const controller = createAnalyticsController(win, doc, () => 1800000000000);
+  const controller = createAnalyticsController(win, doc);
   const events = () => (win.dataLayer || []).map(args => Array.from(args));
-  return { win, memory, scripts, deleted, controller, events };
+  return { win, memory, scripts, deleted, controller, events, writes: () => writes };
 }
 
-test('no Google script or events are sent before opt-in or after decline', () => {
+test('cookieless measurement initializes once and never grants any storage', () => {
   const f = fixture();
-  f.controller.apply(null);
-  f.controller.choose('denied');
-  assert.equal(f.scripts.length, 0);
-  assert.deepEqual(f.events(), []);
-  assert.equal(f.win[`ga-disable-${MEASUREMENT_ID}`], true);
-});
-
-test('opt-in initializes once, with denied advertising and sanitized page data', () => {
-  const f = fixture();
-  f.controller.choose('granted');
-  f.controller.apply('granted');
+  f.controller.start();
+  f.controller.start();
   assert.equal(f.scripts.length, 1);
   assert.equal(f.scripts[0].src, `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`);
   const events = f.events();
-  assert.equal(events.filter(e => e[0] === 'event' && e[1] === 'page_view').length, 1);
-  assert.equal(events[0][2].ad_user_data, 'denied');
-  assert.equal(events[0][2].ad_personalization, 'denied');
+  assert.deepEqual(events[0], ['consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' }]);
+  assert.equal(events.filter(e => e[0] === 'event').length, 1);
+  assert.doesNotMatch(JSON.stringify(events), /granted/);
+  assert.equal(f.writes(), 0);
+});
+
+test('page pings exclude emotion selections, query strings, fragments, and referrer paths', () => {
+  const f = fixture();
+  f.controller.start();
+  const events = f.events();
   const config = events.find(e => e[0] === 'config')[2];
   assert.equal(config.page_location, 'https://departmentofemotions.com/explore');
   assert.equal(config.page_referrer, 'https://example.com');
@@ -44,34 +43,42 @@ test('opt-in initializes once, with denied advertising and sanitized page data',
   assert.doesNotMatch(JSON.stringify(events), /private|anxious|email=/);
 });
 
-test('revoking consent disables measurement and removes only Analytics cookies', () => {
+test('old Analytics cookies are removed while appearance preferences are retained', () => {
   const f = fixture();
-  f.controller.choose('granted');
-  f.controller.choose('denied');
-  assert.equal(f.win[`ga-disable-${MEASUREMENT_ID}`], true);
+  f.controller.start();
   assert.ok(f.deleted.some(x => x.startsWith('_ga=')));
   assert.ok(f.deleted.some(x => x.startsWith('_ga_TEST=')));
-  assert.ok(f.deleted.every(x => !x.startsWith('wheel=')));
-  assert.equal(f.controller.readChoice(), 'denied');
+  assert.ok(f.deleted.every(x => /Max-Age=0/.test(x) && !x.startsWith('wheel=')));
 });
 
-test('Global Privacy Control and local previews do not load Analytics', () => {
+test('Global Privacy Control and previously saved refusals block all Google loading', () => {
   const gpc = fixture({ gpc: true });
-  assert.equal(gpc.controller.choose('granted'), 'denied');
+  gpc.controller.start();
   assert.equal(gpc.scripts.length, 0);
-  const local = fixture({ host: 'localhost' });
-  local.controller.choose('granted');
-  assert.equal(local.scripts.length, 0);
+  assert.equal(gpc.win[`ga-disable-${MEASUREMENT_ID}`], true);
+  const declined = fixture();
+  declined.memory.set(LEGACY_CONSENT_KEY, JSON.stringify({ value: 'denied', at: 1 }));
+  declined.controller.start();
+  assert.equal(declined.scripts.length, 0);
 });
 
-test('expired, invalid, future, or unavailable storage cannot opt users in', () => {
-  const f = fixture();
-  for (const saved of ['broken', JSON.stringify({ value: 'granted', at: 1 }), JSON.stringify({ value: 'granted', at: 1900000000000 }), JSON.stringify({ value: 'anything', at: 1800000000000 })]) {
-    f.memory.set(CONSENT_KEY, saved);
-    assert.equal(f.controller.readChoice(), null);
+test('local previews and GitHub Pages do not load the Google tag', () => {
+  for (const host of ['localhost', '127.0.0.1', 'juleshaggard.github.io']) {
+    const f = fixture({ host });
+    f.controller.start();
+    assert.equal(f.scripts.length, 0);
   }
+});
+
+test('old opt-ins and unavailable storage cannot enable cookie-based tracking', () => {
+  for (const saved of [JSON.stringify({ value: 'granted', at: Date.now() }), 'broken']) {
+    const f = fixture();
+    f.memory.set(LEGACY_CONSENT_KEY, saved);
+    f.controller.start();
+    assert.doesNotMatch(JSON.stringify(f.events()), /granted/);
+  }
+  const f = fixture();
   f.win.localStorage.getItem = () => { throw Error('blocked'); };
-  f.win.localStorage.setItem = () => { throw Error('blocked'); };
-  assert.equal(f.controller.readChoice(), null);
-  assert.doesNotThrow(() => f.controller.choose('denied'));
+  assert.doesNotThrow(() => f.controller.start());
+  assert.equal(f.events()[0][2].analytics_storage, 'denied');
 });
