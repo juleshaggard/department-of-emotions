@@ -47,9 +47,6 @@
 .selected-outline { fill: none; stroke-linejoin: round; pointer-events: none; }
 .explorer-sector:focus { outline: none; }
 .explorer-sector:focus-visible .sector-fill { filter: brightness(1.12); }
-.wheel-spin-button { position: absolute; inset: 0; z-index: 2; width: 10.3%; height: 10.3%; min-width: 44px; min-height: 44px; margin: auto; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--muted); }
-.wheel-spin-button img { opacity: 0.62; pointer-events: none; transition: opacity 160ms; }
-.wheel-spin-button:hover img, .wheel-spin-button:focus-visible img { opacity: 1; }
 .family-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
 .emotion-sidebar { grid-column: 2; grid-row: 1; padding-block: 40px 24px; min-width: 0; }
 .sidebar-shell { width: 100%; max-width: 400px; }
