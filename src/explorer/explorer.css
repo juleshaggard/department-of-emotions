@@ -107,6 +107,17 @@
   .explorer-layout { grid-template-columns: minmax(0, 1fr) 370px; column-gap: 80px; }
 }
 
+@media (min-width: 1101px) {
+  .emotion-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    min-height: 100dvh;
+    padding-block: 24px;
+  }
+}
+
 /* Keep a readable wheel; only pin it when the entire wheel and controls fit. */
 @media (min-width: 1101px) and (min-height: 1080px) {
   .wheel-workspace { position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr); }
