@@ -6,6 +6,7 @@ import { EmotionDrawer } from './EmotionDrawer.jsx';
 import { useWheelSettings } from './useWheelSettings.js';
 import { colorForSector } from './wheel-settings.js';
 import { createWheelSelection, focusedSelectionIndex, isTouchInput, wheelSelectionReducer } from './wheel-selection.js';
+import { pickRandomEmotion } from './wheel-spin.js';
 import './explorer.css';
 
 const initialIndex = families.find(({ name }) => name === 'Joy').index;
@@ -78,6 +79,7 @@ export default function EmotionExplorer() {
   const { activeIndex } = selection;
   const { settings } = useWheelSettings();
   const rotorRef = useRef(null);
+  const spinButtonRef = useRef(null);
   const sectorRefs = useRef([]);
   const familyColors = useMemo(() => Object.fromEntries(families.map((family) => [family.name, colorForSector(family, settings)])), [settings]);
   const clearFocus = useCallback(() => dispatchSelection({ type: 'clear-transient' }), []);
@@ -88,6 +90,8 @@ export default function EmotionExplorer() {
       setDrawerOpen(true);
     }
   }, [isMobile]);
+  const activateRef = useRef(activate);
+  activateRef.current = activate;
   const onTap = useCallback((event) => {
     const index = event.target.closest?.('[data-sector-index]')?.getAttribute('data-sector-index');
     if (index != null) {
@@ -97,8 +101,12 @@ export default function EmotionExplorer() {
   const { isMoving, isDragging, stop, rotateTo, spin } = useWheelMotion({ rotorRef, onTap, onDragStart: clearFocus });
 
   function spinWheel() {
+    const result = pickRandomEmotion(sectors);
     clearFocus();
-    spin();
+    spin(-(result.start + result.end) / 2, () => {
+      activateRef.current(result.index, true);
+      returnFocusRef.current = spinButtonRef.current;
+    });
   }
 
   function choose(index) {
@@ -147,11 +155,8 @@ export default function EmotionExplorer() {
             <section className="wheel-workspace" aria-label="Interactive emotion wheel">
               <div className="wheel-stage" data-moving={isMoving || isDragging}>
                 <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={focusedSelectionIndex(selection, { enabled: settings.focusEnabled, moving: isMoving || isDragging })} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} mobileDrawer={isMobile} drawerOpen={drawerOpen} />
-              </div>
-              <div className="wheel-controls">
-                <button className="wheel-spin-hint" type="button" onClick={spinWheel}>
-                  <img src={`${import.meta.env.BASE_URL}icons/rotate-cw.svg`} alt="" width="14" height="14" />
-                  Spin the wheel
+                <button ref={spinButtonRef} className="wheel-spin-button" type="button" aria-label="Spin the wheel" title="Spin the wheel" aria-controls={isMobile ? 'emotion-drawer' : 'emotion-details'} aria-haspopup={isMobile ? 'dialog' : undefined} onClick={spinWheel} onKeyDown={(event) => { if (event.key === 'Escape') { event.preventDefault(); stop(); } }}>
+                  <img src={`${import.meta.env.BASE_URL}icons/rotate-cw.svg`} alt="" width="20" height="20" />
                 </button>
               </div>
             </section>

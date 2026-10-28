@@ -35,8 +35,7 @@
 .wheel-column { grid-column: 1; grid-row: 1; align-self: stretch; min-width: 0; }
 .wheel-workspace { min-width: 0; padding-block: 80px 32px; }
 /* Focus must not scroll the clipped wheel inside its own frame. */
-.wheel-stage { grid-row: 2; width: min(100%, 780px); margin: 0 auto; aspect-ratio: 1; overflow: clip; border-radius: 50%; isolation: isolate; }
-.wheel-controls { grid-row: 3; min-width: 0; }
+.wheel-stage { position: relative; grid-row: 2; width: min(100%, 780px); margin: 0 auto; aspect-ratio: 1; overflow: clip; border-radius: 50%; isolation: isolate; }
 .wheel-rotor { width: 100%; height: 100%; transform-origin: 50% 50%; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
 .interactive-wheel { display: block; width: 100%; height: 100%; overflow: visible; }
 .explorer-sector { opacity: 1; transition: opacity var(--wheel-fade-duration, 180ms) ease-out; }
@@ -53,10 +52,9 @@
 .family-navigation button[aria-pressed='true'] { color: var(--ink); font-weight: 650; }
 .family-navigation button[aria-pressed='true'] .family-swatch { outline: 1px solid currentColor; outline-offset: 3px; }
 .family-navigation button:focus-visible { background: transparent; border-color: transparent; text-decoration: underline; text-underline-offset: 4px; }
-.wheel-spin-hint { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 36px; margin: 7px auto 0; padding: 7px 10px; border: 0; border-radius: 5px; background: transparent; color: var(--muted); font-size: 11px !important; font-weight: 400; }
-.wheel-spin-hint img { opacity: 0.52; }
-.wheel-spin-hint:hover { color: var(--ink); background: oklch(94% 0.01 125); }
-.wheel-spin-hint:hover img { opacity: 0.8; }
+.wheel-spin-button { position: absolute; inset: 0; z-index: 2; width: 10.3%; height: 10.3%; min-width: 44px; min-height: 44px; margin: auto; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--muted); }
+.wheel-spin-button img { opacity: 0.62; pointer-events: none; transition: opacity 160ms; }
+.wheel-spin-button:hover img, .wheel-spin-button:focus-visible img { opacity: 1; }
 .family-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
 .emotion-sidebar { grid-column: 2; grid-row: 1; padding-block: 40px 24px; min-width: 0; }
 .emotion-family { display: flex; align-items: center; gap: 7px; min-height: 16px; margin: 0 0 18px; font-size: 11px; line-height: 16px; }
@@ -153,7 +151,7 @@
     width: var(--mobile-wheel-size);
     margin-inline: calc(100% - var(--mobile-wheel-size) - 12vw) 0;
   }
-  .family-navigation, .wheel-controls, .explorer-footer { display: none; }
+  .family-navigation, .explorer-footer { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

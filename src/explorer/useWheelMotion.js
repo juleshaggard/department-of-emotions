@@ -3,12 +3,12 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Draggable } from 'gsap/Draggable';
 import { InertiaPlugin } from 'gsap/InertiaPlugin';
+import { canonicalAngle, spinLanding } from './wheel-spin.js';
 
 gsap.registerPlugin(useGSAP, Draggable, InertiaPlugin);
 
 const noop = () => {};
 const idleControls = { stop: noop, rotateTo: noop, spin: noop };
-const canonicalAngle = (angle) => ((angle + 180) % 360 + 360) % 360 - 180;
 
 /** Own the rotor transform; the square rotor keeps its pivot centered at every size. */
 export function useWheelMotion({ rotorRef, onDragStart, onTap }) {
@@ -107,21 +107,31 @@ export function useWheelMotion({ rotorRef, onDragStart, onTap }) {
       });
     });
 
-    const spin = contextSafe(() => {
-      if (!active) return;
+    const spin = contextSafe((angleDegrees, onComplete) => {
+      const requestedAngle = Number(angleDegrees);
+      if (!active || !Number.isFinite(requestedAngle)) return;
       stop();
+      const rotation = Number(gsap.getProperty(rotor, 'rotation')) || 0;
+      const { startAngle, targetAngle, endAngle } = spinLanding(rotation, requestedAngle);
+      gsap.set(rotor, { rotation: startAngle });
+      draggable?.update();
+      const complete = contextSafe(() => {
+        if (!active) return;
+        gsap.set(rotor, { rotation: targetAngle });
+        finishRotation();
+        if (typeof onComplete === 'function') onComplete();
+      });
       if (reducedMotion) {
-        gsap.set(rotor, { rotation: '+=45' });
-        draggable?.update();
+        complete();
         return;
       }
       publish(true);
       rotationTween = gsap.to(rotor, {
-        rotation: `+=${720 + Math.random() * 180}`,
+        rotation: endAngle,
         duration: 3,
         ease: 'power3.out',
         overwrite: 'auto',
-        onComplete: finishRotation,
+        onComplete: complete,
         onInterrupt: finishRotation,
       });
     });
@@ -206,7 +216,7 @@ export function useWheelMotion({ rotorRef, onDragStart, onTap }) {
 
   const stop = useCallback(() => controlsRef.current.stop(), []);
   const rotateTo = useCallback((angleDegrees) => controlsRef.current.rotateTo(angleDegrees), []);
-  const spin = useCallback(() => controlsRef.current.spin(), []);
+  const spin = useCallback((...args) => controlsRef.current.spin(...args), []);
 
   return { ...motion, stop, rotateTo, spin };
 }
