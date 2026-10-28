@@ -34,7 +34,7 @@ Previously saved appearance preferences continue to apply from this browser's lo
 
 All 108 sectors resolve to 105 original content entries in `src/content/`; repeated labels share the same content. Each entry includes a short definition, a curated `responses` list combining body-language cues and actions, and two `somaticExperiences`. Substantially overlapping response examples are consolidated within each emotion while distinct examples are retained. “How it may feel in the body” appears first, followed by “Possible body language & behaviors”; both sections are always visible, without carets or collapse controls. Both headings share the same 10px, weight-650 sans-serif style with 1.6px letter spacing and uppercase text.
 
-The reading sidebar ends after “Possible body language & behaviors”; it has no disclaimer footer or “About these examples” disclosure.
+The definition flows into the first reading section with compact spacing and no fixed blank space beneath short definitions. The reading sidebar ends after “Possible body language & behaviors”; it has no disclaimer footer or “About these examples” disclosure.
 
 Examples remain illustrative and vary by person, culture, and context. They do not diagnose or reliably identify another person's feelings. Example copy uses concise descriptive phrases without repetitive “You may” or “You might” introductions. Research context is retained here:
 
