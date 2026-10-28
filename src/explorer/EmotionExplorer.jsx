@@ -11,19 +11,31 @@ import './explorer.css';
 const initialFamily = families.find(({ name }) => name === 'Joy');
 const initialIndex = initialFamily.index;
 const initialRotation = -(initialFamily.start + initialFamily.end) / 2;
-// Keep this in sync with the drawer layout media query in explorer.css.
-const mobileQuery = '(max-width: 600px), (max-width: 1100px) and (orientation: portrait)';
+// Keep these in sync with the responsive layout queries in explorer.css.
+const drawerQuery = '(max-width: 1100px) and (orientation: portrait)';
+const landscapePhoneQuery = '(max-width: 1023px) and (orientation: landscape)';
 
-function useMobileLayout() {
-  const [mobile, setMobile] = useState(() => window.matchMedia(mobileQuery).matches);
+function useResponsiveLayout() {
+  const [layout, setLayout] = useState(() => ({
+    isDrawerLayout: window.matchMedia(drawerQuery).matches,
+    isLandscapePhone: window.matchMedia(landscapePhoneQuery).matches,
+  }));
   useEffect(() => {
-    const query = window.matchMedia(mobileQuery);
-    const update = (event) => setMobile(event.matches);
-    setMobile(query.matches);
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
+    const drawer = window.matchMedia(drawerQuery);
+    const landscapePhone = window.matchMedia(landscapePhoneQuery);
+    const update = () => setLayout({
+      isDrawerLayout: drawer.matches,
+      isLandscapePhone: landscapePhone.matches,
+    });
+    update();
+    drawer.addEventListener('change', update);
+    landscapePhone.addEventListener('change', update);
+    return () => {
+      drawer.removeEventListener('change', update);
+      landscapePhone.removeEventListener('change', update);
+    };
   }, []);
-  return mobile;
+  return layout;
 }
 
 function ExperienceSection({ title, items }) {
@@ -82,24 +94,29 @@ export default function EmotionExplorer() {
     return () => { document.title = previousTitle; };
   }, []);
   const [selection, dispatchSelection] = useReducer(wheelSelectionReducer, initialIndex, createWheelSelection);
-  const isMobile = useMobileLayout();
+  const { isDrawerLayout, isLandscapePhone } = useResponsiveLayout();
+  const isTouchLayout = isDrawerLayout || isLandscapePhone;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const returnFocusRef = useRef(null);
   const closeDrawer = useCallback(() => setDrawerOpen(false), []);
-  useEffect(() => { if (!isMobile) setDrawerOpen(false); }, [isMobile]);
+  useEffect(() => { if (!isDrawerLayout) setDrawerOpen(false); }, [isDrawerLayout]);
   const { activeIndex } = selection;
   const { settings } = useWheelSettings();
   const rotorRef = useRef(null);
+  const sidebarRef = useRef(null);
   const sectorRefs = useRef([]);
+  useEffect(() => {
+    if (isLandscapePhone && sidebarRef.current) sidebarRef.current.scrollTop = 0;
+  }, [activeIndex, isLandscapePhone]);
   const familyColors = useMemo(() => Object.fromEntries(families.map((family) => [family.name, colorForSector(family, settings)])), [settings]);
   const clearFocus = useCallback(() => dispatchSelection({ type: 'clear-transient' }), []);
   const activate = useCallback((index, touch = false) => {
-    dispatchSelection({ type: 'select', index, touch: isMobile || touch });
-    if (isMobile) {
+    dispatchSelection({ type: 'select', index, touch: isTouchLayout || touch });
+    if (isDrawerLayout) {
       returnFocusRef.current = sectorRefs.current[index];
       setDrawerOpen(true);
     }
-  }, [isMobile]);
+  }, [isDrawerLayout, isTouchLayout]);
   const onTap = useCallback((event) => {
     const index = event.target.closest?.('[data-sector-index]')?.getAttribute('data-sector-index');
     if (index != null) {
@@ -117,7 +134,7 @@ export default function EmotionExplorer() {
     if (fromKeyboard) {
       if (selection.committedIndex !== index) choose(index);
     }
-    else if (!isMobile && !isMoving && !isDragging) {
+    else if (!isTouchLayout && !isMoving && !isDragging) {
       dispatchSelection({ type: 'preview', index, touch: isTouchInput(event) });
     }
   }
@@ -145,12 +162,12 @@ export default function EmotionExplorer() {
           <div className="wheel-column">
             <section className="wheel-workspace" aria-label="Interactive emotion wheel">
               <div className="wheel-stage" data-moving={isMoving || isDragging}>
-                <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={focusedSelectionIndex(selection, { enabled: settings.focusEnabled && !isMobile, moving: isMoving || isDragging })} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} mobileDrawer={isMobile} drawerOpen={drawerOpen} />
+                <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={focusedSelectionIndex(selection, { enabled: settings.focusEnabled && !isTouchLayout, moving: isMoving || isDragging })} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} mobileDrawer={isDrawerLayout} drawerOpen={drawerOpen} />
               </div>
             </section>
           </div>
 
-          {!isMobile && <aside className="emotion-sidebar" aria-label="Explore an emotion">
+          {!isDrawerLayout && <aside ref={sidebarRef} className="emotion-sidebar" aria-label="Explore an emotion" tabIndex={isLandscapePhone ? 0 : undefined}>
             <div className="sidebar-shell">
               <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} hierarchyAfter />
               <footer className="sidebar-footer">
@@ -161,7 +178,7 @@ export default function EmotionExplorer() {
           </aside>}
         </div>
       </main>
-      {isMobile && <EmotionDrawer open={drawerOpen} onClose={closeDrawer} returnFocusRef={returnFocusRef}><EmotionDetails active={active} familyColor={familyColors[active.primary.name]} /></EmotionDrawer>}
+      {isDrawerLayout && <EmotionDrawer open={drawerOpen} onClose={closeDrawer} returnFocusRef={returnFocusRef}><EmotionDetails active={active} familyColor={familyColors[active.primary.name]} /></EmotionDrawer>}
     </div>
   );
 }

@@ -1,82 +1,55 @@
-# Design QA — compact sidebar without desktop page scrolling
+# Design QA — landscape phones with independent info scrolling
 
 Date:2026-10-27
 
 final result: passed
 
-## Current request
+## Current request and responsive modes
 
-The user clarified that adding outer padding must not make the page scroll: reclaim the empty space inside the sidebar instead. The existing layout order, larger reading type, stable sections, supplied logo, blank wheel hub, and Joy-facing-right entrance remain.
+Landscape iPhones must use the side-by-side layout, allowing the info panel to scroll while the wheel stays vertically centered in the viewport.
 
-Context screenshot: `/var/folders/0j/f8hz42fn3vxcrz0v7qrlggqm0000gn/T/codex-clipboard-20f73b34-51bd-4b06-9b9a-c2721bcbb612.png`. It shows Amused before the spacing correction. The superseded64px-only padding draft was pushed to source but was never saved or deployed as a Site version.
+The drawer query is now only `(max-width:1100px) and (orientation:portrait)`. All landscape layouts use columns. Landscape phones, `(max-width:1023px) and (orientation:landscape)`, use a full-height52%/48% grid inside a clipped viewport page. The right aside alone scrolls, with stable scrollbar space, contained overscroll, vertical touch panning, momentum scrolling, safe-area-aware padding, and a keyboard tab stop.
 
-## Layout and typography
+The wheel stays in its own viewport-height flex frame, with its actual circle centered vertically. It remains oversized and bleeds left: diameter `clamp(560px,160dvh,92vw)` with svh fallback. The hub remains blank and the entrance still rests with Joy pointing right.
 
-Normal inline bands are168/148/272/44px for summary/body/behaviors/hierarchy. Footer content plus padding totals33px, giving a665px shell. Reduced internal padding and list spacing replace the earlier oversized bands. Desktop outer block padding adapts from24px to64px using the spare viewport height, while the sidebar stays vertically centered.
+Phone landscape reading uses natural rows separated by16px, a30–40px Gilda headline,17px definition,15px examples, and wrapping hierarchy/footer. Selecting a new emotion resets this info scroller to the top. Portrait phones and tablets retain the native drawer. Existing1024px+ landscape layouts retain their compact stable reading bands.
 
-At desktop heights up to720px, compact bands156/128/236/36px plus29px footer give a585px shell. Outer padding adapts from6px to32px. This profile uses a48px headline and tighter leading; definition and example font sizes remain19px and16px. Growth fallback is retained for unusually enlarged text rather than clipping it.
-
-Phone/portrait-tablet drawers retain their natural flow, existing typography, and independent spacing. Landscape tablets from1024px use the side-by-side wheel/info layout; narrower landscape layouts retain the stacked flow.
+Both portrait-drawer and landscape-phone flags are read together. Both touch layouts retain full wheel opacity, ignore pointer hover previews, and preserve tap selection. Landscape taps update inline details; keyboard selection remains available.
 
 ## Visual evidence
 
-- Full current capture: `qa/compact-sidebar-desktop.png`.
-- Focused result: `qa/compact-sidebar-detail.png`.
-- Same-state before/after: `qa/compact-sidebar-comparison.png`.
-- Current geometry: `qa/compact-sidebar-metrics.json`.
+- Initial landscape view: `qa/landscape-phone-main.png`.
+- Same wheel after info scroll: `qa/landscape-phone-scrolled.png`.
+- Combined inspection: `qa/landscape-phone-scroll-comparison.png`.
+- Interaction geometry: `qa/landscape-phone-scroll-metrics.json`.
 
-The browser viewport is1440×989 CSS pixels with Amused selected. The native capture is normalized to that viewport before cropping the400px reading column. The before/after comparison preserves the supplied image's text scale and989px height; only blank paper is added where the component crop extends beyond the screenshot edge. Both images were visually reviewed together.
+The two844×390 views were inspected together. The wheel image and rotation remain unchanged while the right-hand text moves. The sidebar remains separate from the wheel without overlap.
 
-At this viewport the shell is665px high, from y162 to827. The page scroll height is exactly989px, and scrollY is zero. This moves unused space outside the content while reducing gaps inside it.
+## Viewport and content checks
 
-## Fidelity surfaces
+| CSS viewport | Checks | Reading width | Wheel centerY | Page overflow |
+|---|---:|---:|---:|---:|
+|568×320|All108 sectors|218.45px|160px|0px|
+|667×375|Default Joy|265.97px|187.51px|0px|
+|844×390|All108 sectors|350.92px|195px|0px|
+|932×430|Default Joy|393.17px|215px|0px|
 
-- **Layout:** Title/definition, body sensations, behaviors, hierarchy, then compact brand/credit remain in the approved order. Inner reserves and gaps are intentionally smaller to fulfill the current no-scroll request.
-- **Typography:** Gilda Display and the enlarged reading scale remain. Normal56px headline (48px in narrow sidebars),19px definition,16px examples,11px labels/numbers,12px hierarchy,14px brand, and11px credit. Short desktop profiles use48px headline and tighter line heights.
-- **Color:** Warm paper, dark text, muted dividers, family-colored dot, pastel wheel, and white selection outline are unchanged.
-- **Assets:** Exact supplied21px SVG logo remains. Wheel hub remains blank; rainbow favicon and vector wheel geometry are unchanged.
-- **Copy:** Amused and all other emotion definitions/examples remain unchanged. The credit still links to `https://www.juleshaggard.com/`.
+At both full-sector sweeps, every entry fit horizontally, there was no modal drawer, all sectors remained unfaded, and the info pane reset to scrollTop0 after each new selection. Natural content heights grow inside the scroller rather than extending the page. Per-sector evidence: `qa/landscape-phone-{width}x{height}.json` for each size above.
 
-## All-sector verification
+## Interaction verification
 
-Every108 sectors (105 unique names) was selected using the real keyboard UI at each viewport below. Each had one section-height combination, one set of section starts, and one footer position. There was no content overflow, no layout jumping, and no desktop page overflow:
+- At844×390, scrolling the aside to134px leaves page scroll at0, wheel centerY195px, and rotation exactly-92.6471degrees.
+- Tapping Optimistic updates inline information and resets aside scrollTop to0; no drawer opens and no sectors are muted.
+- After scrolling the Optimistic pane to236px, dragging the wheel changes its rotation to-39.4099degrees but leaves aside scroll at236px and page scroll at0.
+- Focusing the info pane and pressing PageDown scrolls it to134px while the page stays at0.
+- At390×844, Touched still opens the portrait drawer with its logo. Rotating to844×390 closes the modal, unlocks body scrolling, shows Touched inline, and resets info scroll to0 without page overflow.
+- At768×1024, the iPad portrait drawer still opens. Rotating to1024×768 restores the existing grid, non-scrolling desktop sidebar,16px examples, and zero page overflow.
+- No browser console errors were captured.
 
-| CSS viewport | Stable bands | Maximum page overflow |
-|---|---|---:|
-|1440×989|168/148/272/44px|0px|
-|1440×768|168/148/272/44px|0px|
-|1101×800|168/148/272/44px|0px|
-|1280×720|156/128/236/36px|0px|
-|1101×600|156/128/236/36px|0px|
+## Preserved design surfaces
 
-Per-sector measurements are saved in `qa/compact-sidebar-{width}x{height}.json` for all five viewports. No overflow-hiding workaround is used on desktop; the content genuinely fits at these sizes.
+Gilda Display, the body-font family, palette, white selection outline, exact supplied logo, blank hub, content order, and all definitions/examples remain. The credit still links to `https://www.juleshaggard.com/`. Only landscape-phone sizing and text flow differ from the larger inline sidebar. Portrait drawer typography and controls remain unchanged.
 
-## Other verification
+## Checks
 
-At834×1194 the drawer still opens correctly. Its headline is42px, examples15px/25.5px leading, and first-section padding20px, matching the prior drawer styles. No browser console errors were captured. Production build,4 Sites worker checks, and `git diff --check` passed.
-
-No P0/P1/P2 issues remain for the current request.
-
-## Credit link follow-up
-
-Changed the Site created by Jules destination to `https://www.juleshaggard.com/`. Browser verified the exact href, unchanged label, new-tab target, and noreferrer relationship. No spacing or styling changes. Proof and metrics: `qa/credit-link-footer.png`, `qa/credit-link-metrics.json`. Production build and4 worker checks passed.
-
-## Drawer logo follow-up
-
-Added the exact supplied21×21 SVG logo to the top-left of the drawer header, opposite Close. It has alt text Department of Emotions, uses the same local base-aware asset path, and aligns with the24px content inset. Header height remains60px. At390×844, the logo loads at21×21, left24px, while Close keeps its44px target. Scrolling the Touched content29px leaves logo and Close at exactly their prior screen positions. At834×1194 the logo stays24px from the drawer left, Close stays16px from the right, and they do not overlap. Closing returns focus to Touched. No console errors. Production build and4 worker checks passed. Proof: `qa/drawer-logo-detail.png`; full capture/metrics: `qa/drawer-logo-mobile.png`, `qa/drawer-logo-mobile-metrics.json`.
-
-## Outside-tap drawer dismissal follow-up
-
-Added a native-dialog backdrop gesture guard. A primary pointer press must start and end outside the panel, stay within10px movement, and produce a pointer click. Pointer movement/cancel/open/cleanup reset the stored press. Inside content/padding and drags do not dismiss. Dismissal uses the existing onClose cleanup, focus restoration, and scroll unlock; no new overlay is placed over the wheel.
-
-An initial browser check caught mouse hover preview changing the selected emotion after closing. Drawer layouts now ignore pointer hover previews, while confirmed taps and keyboard previews remain available. This preserves the selected emotion under the pointer after dismissal. Desktop hover behavior is unchanged.
-
-At390×844, inside taps stayed open; outside tap closed Joy and preserved Joy selection/focus, restored body position/static and root overflow, and avoided click-through. Reopening Touched, dragging from inside to outside, and dragging across the backdrop kept the drawer open; a following outside tap closed it and preserved Touched. Keyboard ArrowRight/Enter still opens Content; Escape closes and restores Content focus. At834×1194, outside tap closes Touched and preserves selection/focus. The visible Close button still works. No browser console errors.26 unit checks, production build,4 worker checks, and diff whitespace check passed. Proof: `qa/backdrop-dismissal.png`, `qa/backdrop-before.png`, `qa/backdrop-after.png`, `qa/backdrop-result.json`.
-
-## Landscape iPad side-by-side follow-up
-
-Extended the full-height side-by-side layout to landscape widths from1024px, while keeping the existing portrait drawer query unchanged. The1024–1100px landscape grid uses56vw for the wheel column with24px sidebar inline padding. Narrow sidebar headlines use48px from1024–1279px, and the existing short-height profile now applies from1024px. The stacked query is limited to max-width1023px or portrait max-width1100px, after which the existing drawer styles apply.
-
-At1024×768, the grid's wheel right edge is524.69px and sidebar starts at565.03px. Actual reading width is395.97px; wheel centerY384px matches the viewport center. All108 sectors were selected at a stable1024×768 viewport: one168/148/272/44px band combination, one set of section starts, one footer position, and no content or page overflow. Equivalent sweeps at1024×600 and1100×768 also passed without scrolling or shifting. Per-sector files: `qa/landscape-ipad-1024x768.json`, `qa/landscape-ipad-1024x600.json`, `qa/landscape-ipad-1100x768.json`. An initial capture began before the viewport override settled; its1024×768 measurements were rerun after confirming innerWidth/innerHeight and replaced with the stable sweep.
-
-Portrait768×1024 and1024×1366 keep the native drawer and42px drawer headline. Touched opens normally in portrait. Rotating an open portrait drawer to1024×768 removes the modal, restores the inline sidebar, unlocks body scrolling, and leaves no page overflow. No browser console errors. Production build,4 worker checks, and diff whitespace check passed. Final visual proof: `qa/landscape-ipad-1024.png`.
+`npm test`:26 passed. Production build passed. `npm run test:sites`:4 passed. `git diff --check` passed. No P0/P1/P2 issues remain for this request.
