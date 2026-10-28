@@ -33,8 +33,9 @@ export function DraftWheel({ model, rotorRef, activeIndex, focusIndex, onClearFo
     <svg className={`interactive-wheel${focused?' has-focus':''}`} viewBox={`${-padding} ${-padding} ${extent} ${extent}`} style={{'--wheel-muted-opacity':settings.mutedOpacity,'--wheel-fade-duration':`${settings.fadeDuration}ms`}} role="group" aria-label={`${model.label} wheel. Drag or flick to spin. Use arrow keys to explore. Press Escape to stop.`}>
       {sectors.map((s,index)=>{
         const angle=(s.start+s.end)/2, radius=(radii[s.ring]+radii[s.ring+1])/2;
-        const lines=model.original ? [s.name] : splitLabel(s.name,model.id==='situations' ? (s.ring===0?17:19) : model.id==='behaviors'&&s.ring===2?20:24);
-        const size=model.original ? settings.labelSize : model.id==='situations' ? (s.ring===0?42:38) : s.ring===0?35:38;
+        const singleLine=model.original || (model.id==='situations' && s.ring===0);
+        const lines=singleLine ? [s.name] : splitLabel(s.name,model.id==='situations' ? 19 : model.id==='behaviors'&&s.ring===2?20:24);
+        const size=model.original ? settings.labelSize : model.id==='situations' ? 38 : s.ring===0?35:38;
         const leading=size*1.13;
         return <g key={index} ref={el=>{sectorRefs.current[index]=el;}} className={`explorer-sector${index===activeIndex?' is-active':''}${focused&&!isInFocusedBranch(s,focused)?' is-muted':''}`} role="button" tabIndex={index===activeIndex?0:-1} aria-label={`${s.name}, ${ringNames[s.ring].toLowerCase()}. ${s.info.definition}`} aria-pressed={index===activeIndex} aria-controls={mobileDrawer?'emotion-drawer':'emotion-details'} aria-haspopup={mobileDrawer?'dialog':undefined} aria-expanded={mobileDrawer?drawerOpen&&index===activeIndex:undefined} data-sector-index={index} data-emotion={s.name} onPointerEnter={e=>onPreview(index,false,e)} onPointerMove={e=>onPreview(index,false,e)} onFocus={e=>{if(e.currentTarget.matches(':focus-visible'))onPreview(index,true);}} onKeyDown={e=>onKeyDown(e,index)}>
           <path d={path(s)} fill={colors[index]} stroke={model.original?'none':model.stroke} strokeWidth={model.strokeWidth||0} strokeLinejoin="round" />

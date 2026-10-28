@@ -97,5 +97,6 @@ The intended Sites public domain is `departmentofemotions.com`. Treat publicatio
 - Place the wheel-type tabs inside the inline sidebar above the selected emotion. Portrait drawer layouts retain the compact top switcher so wheel types remain available while the drawer is closed. Keep the creator link underlined.
 - Put the wheel-reference credit and creator link on the same row in the inline sidebar, reference left and creator right. Place the logo and Department of Emotions name below that row.
 - All four wheels use a 120-unit blank hub radius, matching Feelings. Extend the colored primary sections inward to this boundary while retaining their existing outer boundaries.
+- Keep all 12 inner Situations labels on one radial line, using 38-unit type to fit the expanded primary sections.
 - New examples are illustrative, not diagnostic. Context groups show possible feelings and reflection questions; emotion, sensation, and behavior selections show definitions, bodily experiences, and possible responses.
 - Check `tests/wheel-models.test.mjs` for complete content, circular coverage, branch containment, and the original dataset's isolation.
