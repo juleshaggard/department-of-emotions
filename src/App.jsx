@@ -5,7 +5,7 @@ import { Analytics } from './analytics/Analytics.jsx';
 import { PrivacyPage } from './analytics/PrivacyPage.jsx';
 
 const wheel = createEmotionWheelSvg({ palette });
-const EmotionExplorer = lazy(() => import('./explorer/EmotionExplorer.jsx'));
+const WheelLab = lazy(() => import('./wheels/WheelLab.jsx'));
 
 export function App() {
   const base = import.meta.env.BASE_URL;
@@ -13,7 +13,7 @@ export function App() {
   const route = pathname.startsWith(base) ? `/${pathname.slice(base.length)}` : pathname;
   if (route.replace(/\/$/, '') === '/privacy') return <PrivacyPage />;
   if (route.replace(/\/$/, '') !== '/wheel') {
-    return <><Suspense fallback={<main className="explorer-loading">Opening the emotion explorer…</main>}><EmotionExplorer /></Suspense><Analytics /></>;
+    return <><Suspense fallback={<main className="explorer-loading">Opening the wheels…</main>}><WheelLab /></Suspense><Analytics /></>;
   }
   return <main className="wheel-sheet" dangerouslySetInnerHTML={{ __html: wheel }} />;
 }

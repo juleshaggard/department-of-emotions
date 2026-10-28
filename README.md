@@ -112,3 +112,13 @@ GA4 measurement ID: `G-PDGYB10MNQ`, for `departmentofemotions.com` and its `www`
 Old Analytics cookies are removed. Global Privacy Control and a previously saved decline prevent Google from loading; old opt-ins cannot enable cookie storage. No new consent records or identifiers are written to local storage. Local previews, GitHub Pages, `/privacy/`, and the text-free `/wheel` route do not load Analytics.
 
 Page views use a fixed title, known route paths without queries/fragments, and referrer origins only. Emotion selections and wheel interactions are not tracked. Advertising signals are disabled, and the web stream's enhanced measurement is off. Cookieless reporting is less detailed than standard cookie-based Analytics. `npm test` verifies denied storage, legacy-cookie removal, opt-out handling, host restrictions, and payload privacy.
+
+## Wheel-switcher homepage
+
+The homepage, `/explore`, and `/wheels` now open the approved wheel switcher. `/wheel` retains the original static SVG and `/privacy` retains the analytics disclosure. The tabs sit above the selected emotion in the sidebar; portrait layouts keep them at the top while details open in a drawer.
+
+The four tabs are Feelings (the existing wheel), Situations (12 groups / 70 feelings), Sensations (six families / 36 emotions / 72 bodily cues), and Behaviors (six families / 36 emotions / 36 behaviors). The new SVGs are transcribed from the three user-supplied references, styled for the existing explorer, with source credits. Situation groups offer reflection questions; individual feelings, sensations, and behaviors retain the reading-panel flow.
+
+Implementation: `src/wheels/`. Shared motion and drawer modules remain unchanged. Tab changes remount the selected model to avoid stale sector indices or drawer state. The interface is lazy-loaded and retains the existing canonical-host-only cookieless analytics and Privacy link.
+
+Draft data validation: `node --test tests/wheel-models.test.mjs`.

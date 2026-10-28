@@ -71,3 +71,19 @@ Added the full “Department of Emotions” wordmark beside the supplied 21px lo
 ## Bannerless analytics follow-up
 
 Removed the analytics banner and consent controls. Canonical-domain GA4 now uses cookieless pings with analytics and advertising storage permanently denied; existing opt-outs and Global Privacy Control block loading. Removed the old consent UI and added a plain Privacy link with a dedicated `/privacy/` page. Verified a fresh preview has no banner or consent buttons, the privacy link works, and the new page fits a 390px phone viewport. All 32 tests, four hosting checks, Sites build, and prefixed Pages build passed.
+
+## Local wheel-switcher draft
+
+Created `/wheels` as a separate local-only draft with Feelings, Situations, Sensations, and Behaviors tabs. The approved explorer, original wheel renderer, datasets, motion, selection, drawer, and Analytics modules are unchanged. The root route still renders 108 sectors with no switcher. Nothing from this iteration has been published or pushed.
+
+Verified all four datasets and their 360-degree ring coverage; five draft data tests and the existing 32 app tests pass. The situations wheel has 12 groups and 70 feeling labels, sensations has six/36/72 sectors, and behaviors has six/36/36 sectors. Original data is reused directly. Source credit links were checked.
+
+Browser checks: pointer selection updates definitions and hierarchy, the wheel drags and stops, keyboard tab navigation changes models and resets selection, 320px tabs fit, portrait phone and tablet taps open the native drawer, Escape restores selected-sector focus, touch selection persists, and rotating to 844×390 closes the drawer and restores body scrolling while keeping the wheel at viewport center with a scrollable sidebar. At 1440×900 the sidebar fits without scrolling and the wheel center is exactly at half the viewport height. The 1280×720 short profile also stays clear of the toolbar.
+
+The draft and Pages builds pass. `/wheels/` is prepared as a deep-link entry in the local Pages output for future publication; it has not been deployed.
+
+## Wheel-switcher homepage promotion
+
+The user approved promoting the switcher to the live homepage. Root, `/explore`, and `/wheels` now use the same four-wheel interface. The sidebar tabs and underlined creator link remain intact; the static wheel, privacy route, cookieless Analytics restrictions, source credits, and drawer behavior are preserved. The original explorer implementation remains in source for reference.
+
+All 37 app/model tests, four hosting tests, the production build, and prefixed Pages build pass. Browser checks confirm the homepage title, four sidebar tabs, 78 behavior-wheel sectors, underlined creator link, and Privacy link. At 390×844, tapping Happy opens the modal with the full wordmark and close control.
