@@ -13,6 +13,8 @@ These visual constraints apply to the wheel graphic and original static `/wheel`
 
 ## Interactive explorer
 
+- In the portrait drawer layout, use `scrollbar-gutter: auto` on the root so the wheel, modal backdrop, and drawer fill the viewport without a blank strip at the right edge. Keep stable scrollbar space on desktop.
+
 - Both `/` and `/explore` show the explorer with drag/flick rotation, momentum, and a reading panel for every emotion. Keep the earlier control rows and visible interaction instruction paragraph removed. Keep the hub blank, without a rotate icon, button, or invisible click target. Preserve the original static wheel at `/wheel`.
 - Preserve drag/flick momentum and the opening animation. The opening animation and manual dragging must not open the drawer; confirmed emotion taps and keyboard activation remain available.
 - Omit the page's top header bar, original-wheel link, divider, and brand above the inline reading content. The drawer retains its own compact logo-and-close header.

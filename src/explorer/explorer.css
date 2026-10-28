@@ -181,6 +181,7 @@
 }
 
 @media (max-width: 1100px) and (orientation: portrait) {
+  html:has(.explorer-page) { scrollbar-gutter: auto; }
   body:has(.explorer-page) { min-height: 0; }
   .explorer-page { height: 100svh; height: 100dvh; min-height: 0; overflow: clip; }
   .explorer-main { height: 100%; padding-block: 0; }
