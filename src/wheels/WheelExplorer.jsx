@@ -171,6 +171,7 @@ export default function WheelExplorer({ model, switcher }) {
             <div className="sidebar-shell">
               {switcher}
               <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} hierarchyAfter />
+              <p className="lab-source">Wheel reference: <a href={model.sourceUrl} target="_blank" rel="noreferrer">{model.source}</a></p>
               <footer className="sidebar-footer">
                 <div className="sidebar-brand"><img src={`${import.meta.env.BASE_URL}brand/department-of-emotions.svg`} alt="" width="21" height="21" /><span>Department of Emotions</span></div>
                 <a className="sidebar-credit" href="https://www.juleshaggard.com/" target="_blank" rel="noreferrer">
@@ -182,7 +183,6 @@ export default function WheelExplorer({ model, switcher }) {
                   </svg>
                 </a>
               </footer>
-              <p className="lab-source">Wheel reference: <a href={model.sourceUrl} target="_blank" rel="noreferrer">{model.source}</a></p>
             </div>
           </aside>}
         </div>
