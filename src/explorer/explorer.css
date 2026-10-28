@@ -127,9 +127,15 @@
 }
 
 @media (max-width: 600px) {
-  .explorer-page { overflow-x: clip; }
+  body:has(.explorer-page) { min-height: 0; }
+  .explorer-page { height: 100svh; height: 100dvh; min-height: 0; overflow: clip; }
+  .explorer-main { height: 100%; padding-block: 0; }
+  .explorer-layout { display: block; height: 100%; }
+  .wheel-column, .wheel-workspace { height: 100%; min-height: 0; }
+  .wheel-workspace { display: flex; align-items: center; }
   .wheel-stage {
     --mobile-wheel-size: min(160vw, 820px);
+    flex-shrink: 0;
     width: var(--mobile-wheel-size);
     margin-inline: calc(100% - var(--mobile-wheel-size) - 12vw) 0;
   }
