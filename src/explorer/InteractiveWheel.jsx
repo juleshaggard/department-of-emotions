@@ -19,7 +19,7 @@ function RadialLine({ start, inner, outer }) {
   return <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} />;
 }
 
-export function InteractiveWheel({ rotorRef, svgRef, activeIndex, focusIndex, onClearFocus, onPreview, onKeyDown, sectorRefs, settings }) {
+export function InteractiveWheel({ rotorRef, svgRef, activeIndex, focusIndex, onClearFocus, onPreview, onKeyDown, sectorRefs, settings, mobileDrawer = false, drawerOpen = false }) {
   const active = sectors[activeIndex];
   const focused = focusIndex == null ? null : sectors[focusIndex];
   const colors = useMemo(() => sectors.map((sector) => colorForSector(sector, settings)), [settings]);
@@ -60,7 +60,9 @@ export function InteractiveWheel({ rotorRef, svgRef, activeIndex, focusIndex, on
               tabIndex={index === activeIndex ? 0 : -1}
               aria-label={`${sector.name}, ${ringNames[sector.ring].toLowerCase()}. ${sector.info.definition}`}
               aria-pressed={index === activeIndex}
-              aria-controls="emotion-details"
+              aria-controls={mobileDrawer ? 'emotion-drawer' : 'emotion-details'}
+              aria-haspopup={mobileDrawer ? 'dialog' : undefined}
+              aria-expanded={mobileDrawer ? drawerOpen && index === activeIndex : undefined}
               data-sector-index={index}
               data-emotion={sector.name}
               onPointerEnter={(event) => onPreview(index, false, event)}

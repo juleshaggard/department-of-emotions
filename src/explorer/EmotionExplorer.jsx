@@ -1,13 +1,27 @@
-import { useCallback, useEffect, useId, useMemo, useReducer, useRef } from 'react';
+import { useCallback, useEffect, useId, useMemo, useReducer, useRef, useState } from 'react';
 import { explorerSectors as sectors, families } from './explorer-data.js';
 import { useWheelMotion } from './useWheelMotion.js';
 import { InteractiveWheel } from './InteractiveWheel.jsx';
+import { EmotionDrawer } from './EmotionDrawer.jsx';
 import { useWheelSettings } from './useWheelSettings.js';
 import { colorForSector } from './wheel-settings.js';
 import { createWheelSelection, focusedSelectionIndex, isTouchInput, wheelSelectionReducer } from './wheel-selection.js';
 import './explorer.css';
 
 const initialIndex = families.find(({ name }) => name === 'Joy').index;
+const mobileQuery = '(max-width: 600px)';
+
+function useMobileLayout() {
+  const [mobile, setMobile] = useState(() => window.matchMedia(mobileQuery).matches);
+  useEffect(() => {
+    const query = window.matchMedia(mobileQuery);
+    const update = (event) => setMobile(event.matches);
+    setMobile(query.matches);
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+  return mobile;
+}
 
 function ExperienceSection({ title, items }) {
   const headingId = useId();
@@ -28,26 +42,24 @@ function EmotionDetails({ active, familyColor }) {
   ];
 
   return (
-    <aside className="emotion-sidebar" aria-label="Explore an emotion">
-      <div className="emotion-reading" id="emotion-details" role="region" aria-labelledby="emotion-name">
-        <nav className="emotion-family" aria-label="Emotion hierarchy">
-          <span className="family-swatch" style={{ backgroundColor: familyColor }} aria-hidden="true" />
-          <ol className="emotion-breadcrumbs">
-            {hierarchy.map((name, index) => (
-              <li key={index}>
-                {index > 0 && <span className="breadcrumb-arrow" aria-hidden="true">→</span>}
-                <span aria-current={index === hierarchy.length - 1 ? 'true' : undefined}>{name}</span>
-              </li>
-            ))}
-          </ol>
-        </nav>
-        <h1 id="emotion-name">{active.name}</h1>
-        <p className="emotion-definition">{active.info.definition}</p>
+    <div className="emotion-reading" id="emotion-details" role="region" aria-labelledby="emotion-name">
+      <nav className="emotion-family" aria-label="Emotion hierarchy">
+        <span className="family-swatch" style={{ backgroundColor: familyColor }} aria-hidden="true" />
+        <ol className="emotion-breadcrumbs">
+          {hierarchy.map((name, index) => (
+            <li key={index}>
+              {index > 0 && <span className="breadcrumb-arrow" aria-hidden="true">→</span>}
+              <span aria-current={index === hierarchy.length - 1 ? 'true' : undefined}>{name}</span>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <h1 id="emotion-name">{active.name}</h1>
+      <p className="emotion-definition">{active.info.definition}</p>
 
-        <ExperienceSection title="How it may feel in the body" items={active.info.somaticExperiences} />
-        <ExperienceSection title="Possible body language & behaviors" items={active.info.responses} />
-      </div>
-    </aside>
+      <ExperienceSection title="How it may feel in the body" items={active.info.somaticExperiences} />
+      <ExperienceSection title="Possible body language & behaviors" items={active.info.responses} />
+    </div>
   );
 }
 
@@ -58,18 +70,30 @@ export default function EmotionExplorer() {
     return () => { document.title = previousTitle; };
   }, []);
   const [selection, dispatchSelection] = useReducer(wheelSelectionReducer, initialIndex, createWheelSelection);
+  const isMobile = useMobileLayout();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const returnFocusRef = useRef(null);
+  const closeDrawer = useCallback(() => setDrawerOpen(false), []);
+  useEffect(() => { if (!isMobile) setDrawerOpen(false); }, [isMobile]);
   const { activeIndex } = selection;
   const { settings } = useWheelSettings();
   const rotorRef = useRef(null);
   const sectorRefs = useRef([]);
   const familyColors = useMemo(() => Object.fromEntries(families.map((family) => [family.name, colorForSector(family, settings)])), [settings]);
   const clearFocus = useCallback(() => dispatchSelection({ type: 'clear-transient' }), []);
+  const activate = useCallback((index, touch = false) => {
+    dispatchSelection({ type: 'select', index, touch: isMobile || touch });
+    if (isMobile) {
+      returnFocusRef.current = sectorRefs.current[index];
+      setDrawerOpen(true);
+    }
+  }, [isMobile]);
   const onTap = useCallback((event) => {
     const index = event.target.closest?.('[data-sector-index]')?.getAttribute('data-sector-index');
     if (index != null) {
-      dispatchSelection({ type: 'select', index: Number(index), touch: isTouchInput(event) });
+      activate(Number(index), isTouchInput(event));
     }
-  }, []);
+  }, [activate]);
   const { isMoving, isDragging, stop, rotateTo, spin } = useWheelMotion({ rotorRef, onTap, onDragStart: clearFocus });
 
   function spinWheel() {
@@ -88,7 +112,9 @@ export default function EmotionExplorer() {
   }
 
   function preview(index, fromKeyboard = false, event) {
-    if (fromKeyboard) choose(index);
+    if (fromKeyboard) {
+      if (selection.committedIndex !== index) choose(index);
+    }
     else if (!isMoving && !isDragging) {
       dispatchSelection({ type: 'preview', index, touch: isTouchInput(event) });
     }
@@ -100,7 +126,7 @@ export default function EmotionExplorer() {
     else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index + sectors.length - 1) % sectors.length;
     else if (event.key === 'Home') next = 0;
     else if (event.key === 'End') next = sectors.length - 1;
-    else if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); choose(index); return; }
+    else if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); stop(); activate(index); return; }
     else if (event.key === 'Escape') { stop(); return; }
     else return;
     event.preventDefault();
@@ -117,7 +143,7 @@ export default function EmotionExplorer() {
           <div className="wheel-column">
             <section className="wheel-workspace" aria-label="Interactive emotion wheel">
               <div className="wheel-stage" data-moving={isMoving || isDragging}>
-                <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={focusedSelectionIndex(selection, { enabled: settings.focusEnabled, moving: isMoving || isDragging })} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} />
+                <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={focusedSelectionIndex(selection, { enabled: settings.focusEnabled, moving: isMoving || isDragging })} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} mobileDrawer={isMobile} drawerOpen={drawerOpen} />
               </div>
               <div className="wheel-controls">
                 <div className="family-navigation" aria-label="Jump to an emotion family">
@@ -132,9 +158,10 @@ export default function EmotionExplorer() {
             </section>
           </div>
 
-          <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} />
+          {!isMobile && <aside className="emotion-sidebar" aria-label="Explore an emotion"><EmotionDetails active={active} familyColor={familyColors[active.primary.name]} /></aside>}
         </div>
       </main>
+      {isMobile && <EmotionDrawer open={drawerOpen} onClose={closeDrawer} returnFocusRef={returnFocusRef}><EmotionDetails active={active} familyColor={familyColors[active.primary.name]} /></EmotionDrawer>}
     </div>
   );
 }
