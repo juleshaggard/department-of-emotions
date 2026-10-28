@@ -10,7 +10,8 @@ import { pickRandomEmotion } from './wheel-spin.js';
 import './explorer.css';
 
 const initialIndex = families.find(({ name }) => name === 'Joy').index;
-const mobileQuery = '(max-width: 600px)';
+// Keep this in sync with the drawer layout media query in explorer.css.
+const mobileQuery = '(max-width: 600px), (max-width: 1100px) and (orientation: portrait)';
 
 function useMobileLayout() {
   const [mobile, setMobile] = useState(() => window.matchMedia(mobileQuery).matches);

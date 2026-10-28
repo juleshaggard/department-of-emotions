@@ -62,3 +62,9 @@ Bands are minimum grid tracks with growth fallback for larger accessibility text
 ## Mobile full-color selection follow-up
 
 At390×844, selecting an emotion opens the drawer while every sector and wheel-stroke layer stays at opacity1. Closing preserves the white selected outline and all colors remain at full opacity. At1440×900, keyboard selection still applies desktop branch fading (104 unrelated sectors at opacity0.38). Screenshot: `qa/mobile-full-color-selection.png`. No console errors observed;26 unit checks, production build, and4 Sites worker checks passed. The narrow-layout focus gate changes only visual branch fading, retaining the existing selection reducer and modal behavior.
+
+## Portrait iPad drawer follow-up
+
+The drawer layout now covers widths up to600px in either orientation, plus portrait viewports up to1100px. This uses the same query in CSS and React. Phone geometry is unchanged; portrait tablets use a larger wheel capped at1100px and a600px maximum reading width inside the native bottom drawer.
+
+Browser checks passed at768×1024,834×1194, and1024×1366: no inline sidebar or family navigation, circle vertically centered to within0.01px, initial drawer closed, real click on Shocked opens the correct detail drawer, body scroll locks, every sector remains at opacity1, Close restores focus and white outline, and body scroll unlocks. Screenshot: `qa/portrait-ipad-drawer.png`. Rotating an open834×1194 drawer to1194×834 removes the modal and restores the inline sidebar/navigation and normal scrolling.1024×768 retains the inline layout;390×844 retains the existing phone drawer and600px wheel. No browser console errors.26 checks, production build, and4 worker checks passed.
