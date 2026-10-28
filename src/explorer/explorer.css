@@ -15,6 +15,7 @@
   color: var(--ink);
   background: var(--paper);
   min-height: 100svh;
+  overflow-x: clip;
   display: block;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
@@ -46,8 +47,8 @@
 .selected-outline { fill: none; stroke-linejoin: round; pointer-events: none; }
 .explorer-sector:focus { outline: none; }
 .explorer-sector:focus-visible .sector-fill { filter: brightness(1.12); }
-.family-navigation { position: absolute; top: 16px; inset-inline: 0; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin: 0; padding-inline: 12px; }
-.family-navigation button { width: 80px; min-height: 36px; display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--muted); background: transparent; border: 0; padding: 7px 8px; font-size: 11px; font-weight: 400; border-radius: 0; transition: color 160ms; }
+.family-navigation { display: flex; flex-wrap: nowrap; align-items: center; justify-content: flex-start; gap: 6px; width: max-content; max-width: calc(36vw - 48px); margin: 24px 0 0; padding: 0; }
+.family-navigation button { width: 74px; min-height: 36px; display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--muted); background: transparent; border: 0; padding: 7px 4px; font-size: 11px; font-weight: 400; border-radius: 0; transition: color 160ms; }
 .family-navigation button:hover { color: var(--ink); }
 .family-navigation button[aria-pressed='true'] { color: var(--ink); font-weight: 650; }
 .family-navigation button[aria-pressed='true'] .family-swatch { outline: 1px solid currentColor; outline-offset: 3px; }
@@ -57,6 +58,12 @@
 .wheel-spin-button:hover img, .wheel-spin-button:focus-visible img { opacity: 1; }
 .family-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
 .emotion-sidebar { grid-column: 2; grid-row: 1; padding-block: 40px 24px; min-width: 0; }
+.sidebar-shell { width: 100%; max-width: 400px; }
+.sidebar-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 96px; font-size: 18px; line-height: 1.3; font-weight: 650; white-space: nowrap; }
+.sidebar-brand img { display: block; width: 28px; height: 28px; flex: 0 0 auto; filter: grayscale(1) brightness(0.25); }
+.emotion-sidebar .emotion-reading { display: grid; grid-template-rows: minmax(216px, auto) minmax(180px, auto) minmax(352px, auto); align-content: start; }
+.emotion-sidebar .emotion-summary { min-width: 0; }
+.emotion-sidebar .experience-section, .emotion-sidebar .experience-section:first-of-type { margin: 0; padding-top: 28px; }
 .emotion-family { display: flex; align-items: center; gap: 7px; min-height: 16px; margin: 0 0 18px; font-size: 11px; line-height: 16px; }
 .emotion-breadcrumbs { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; white-space: nowrap; color: var(--muted); }
 .emotion-breadcrumbs li { display: flex; align-items: center; }
@@ -104,35 +111,49 @@
   to { transform: translateY(0); }
 }
 
-@media (min-width: 1500px) {
-  .explorer-layout { grid-template-columns: minmax(0, 1fr) 370px; column-gap: 80px; }
-}
-
 @media (min-width: 1101px) {
+  .explorer-main { max-width: none; padding: 0; }
+  .explorer-layout { grid-template-columns: 60vw minmax(0, 1fr); gap: 0; min-height: 100svh; min-height: 100dvh; }
+  .wheel-workspace { position: sticky; top: 0; height: 100svh; height: 100dvh; display: flex; align-items: center; padding: 0; overflow: clip; }
+  .wheel-stage {
+    --desktop-wheel-size: clamp(74vw, 120svh, 92vw);
+    width: var(--desktop-wheel-size);
+    flex-shrink: 0;
+    margin: 0 0 0 calc(52vw - var(--desktop-wheel-size));
+  }
   .emotion-sidebar {
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 100svh;
     min-height: 100dvh;
-    padding-block: 80px;
+    padding: 24px 48px 24px 4vw;
   }
 }
 
-/* Keep a readable wheel; only pin it when the entire wheel and controls fit. */
-@media (min-width: 1101px) and (min-height: 1080px) {
-  .wheel-workspace { position: sticky; top: 0; height: 100svh; padding-block: 32px; display: grid; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr); }
+@supports (height: 100dvh) {
+  @media (min-width: 1101px) {
+    .wheel-stage { --desktop-wheel-size: clamp(74vw, 120dvh, 92vw); }
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1279px) {
+  .emotion-sidebar .emotion-reading { grid-template-rows: minmax(240px, auto) minmax(208px, auto) minmax(352px, auto); }
+}
+
+@media (min-width: 1101px) and (max-width: 1400px) {
+  .family-navigation { display: grid; grid-template-columns: repeat(3, 74px); }
 }
 
 @media (max-width: 1100px) {
   .explorer-page { display: block; }
-  .explorer-main { padding: 80px 12px 40px; }
+  .explorer-main { padding: 28px 12px 40px; }
   .explorer-layout { display: flex; flex-direction: column; gap: 34px; min-height: 0; }
   .wheel-column { width: 100%; }
   .wheel-workspace { position: static; display: block; width: 100%; height: auto; padding: 0; }
-  .family-navigation { gap: 3px; }
-  .family-navigation button { padding-inline: 8px; }
-  .emotion-sidebar { width: 100%; max-width: 600px; margin-inline: auto; padding: 24px 8px 0; border-top: 1px solid var(--line); }
+  .family-navigation { display: grid; grid-template-columns: repeat(3, 74px); max-width: 100%; }
+  .emotion-sidebar { width: 100%; max-width: 400px; margin-inline: auto; padding: 24px 0 0; border-top: 1px solid var(--line); }
+  .emotion-sidebar .emotion-reading { grid-template-rows: minmax(216px, auto) minmax(208px, auto) minmax(352px, auto); }
   .emotion-reading h1 { font-size: 42px; }
   .emotion-definition { min-height: 0; max-width: 40ch; }
   .experience-section li p { font-size: 15px; }

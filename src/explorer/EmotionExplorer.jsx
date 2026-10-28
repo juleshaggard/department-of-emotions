@@ -44,23 +44,33 @@ function EmotionDetails({ active, familyColor }) {
 
   return (
     <div className="emotion-reading" id="emotion-details" role="region" aria-labelledby="emotion-name">
-      <nav className="emotion-family" aria-label="Emotion hierarchy">
-        <span className="family-swatch" style={{ backgroundColor: familyColor }} aria-hidden="true" />
-        <ol className="emotion-breadcrumbs">
-          {hierarchy.map((name, index) => (
-            <li key={index}>
-              {index > 0 && <span className="breadcrumb-arrow" aria-hidden="true">→</span>}
-              <span aria-current={index === hierarchy.length - 1 ? 'true' : undefined}>{name}</span>
-            </li>
-          ))}
-        </ol>
-      </nav>
-      <h1 id="emotion-name">{active.name}</h1>
-      <p className="emotion-definition">{active.info.definition}</p>
+      <div className="emotion-summary">
+        <nav className="emotion-family" aria-label="Emotion hierarchy">
+          <span className="family-swatch" style={{ backgroundColor: familyColor }} aria-hidden="true" />
+          <ol className="emotion-breadcrumbs">
+            {hierarchy.map((name, index) => (
+              <li key={index}>
+                {index > 0 && <span className="breadcrumb-arrow" aria-hidden="true">→</span>}
+                <span aria-current={index === hierarchy.length - 1 ? 'true' : undefined}>{name}</span>
+              </li>
+            ))}
+          </ol>
+        </nav>
+        <h1 id="emotion-name">{active.name}</h1>
+        <p className="emotion-definition">{active.info.definition}</p>
+      </div>
 
       <ExperienceSection title="How it may feel in the body" items={active.info.somaticExperiences} />
       <ExperienceSection title="Possible body language & behaviors" items={active.info.responses} />
     </div>
+  );
+}
+
+function FamilyNavigation({ activeFamily, colors, onChoose }) {
+  return (
+    <nav className="family-navigation" aria-label="Jump to an emotion family">
+      {families.map((family) => <button key={family.name} type="button" aria-pressed={activeFamily === family.name} onClick={(event) => onChoose(family, event)}><span className="family-swatch" style={{ backgroundColor: colors[family.name] }} />{family.name}</button>)}
+    </nav>
   );
 }
 
@@ -146,9 +156,6 @@ export default function EmotionExplorer() {
   return (
     <div className="explorer-page">
       <a href="#explorer-main" className="skip-link">Skip to the emotion explorer</a>
-      <nav className="family-navigation" aria-label="Jump to an emotion family">
-        {families.map((family) => <button key={family.name} type="button" aria-pressed={active.primary.name === family.name} onClick={(event) => chooseFamily(family, event)}><span className="family-swatch" style={{ backgroundColor: familyColors[family.name] }} />{family.name}</button>)}
-      </nav>
       <main className="explorer-main" id="explorer-main">
         <div className="explorer-layout">
           <div className="wheel-column">
@@ -162,7 +169,13 @@ export default function EmotionExplorer() {
             </section>
           </div>
 
-          {!isMobile && <aside className="emotion-sidebar" aria-label="Explore an emotion"><EmotionDetails active={active} familyColor={familyColors[active.primary.name]} /></aside>}
+          {!isMobile && <aside className="emotion-sidebar" aria-label="Explore an emotion">
+            <div className="sidebar-shell">
+              <div className="sidebar-brand"><img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width="28" height="28" /><span>Department of Emotions</span></div>
+              <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} />
+              <FamilyNavigation activeFamily={active.primary.name} colors={familyColors} onChoose={chooseFamily} />
+            </div>
+          </aside>}
         </div>
       </main>
       <footer className="explorer-footer"><a href="https://www.haggard.design/" target="_blank" rel="noreferrer">Site created by Jules</a></footer>
