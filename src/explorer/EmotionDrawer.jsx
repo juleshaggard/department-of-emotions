@@ -8,14 +8,23 @@ function preserveStyles(element, properties) {
   });
 }
 
+function isBackdropEvent(event) {
+  if (event.target !== event.currentTarget) return false;
+  const bounds = event.currentTarget.getBoundingClientRect();
+  return event.clientX < bounds.left || event.clientX >= bounds.right
+    || event.clientY < bounds.top || event.clientY >= bounds.bottom;
+}
+
 export function EmotionDrawer({ open, onClose, returnFocusRef, children }) {
   const dialogRef = useRef(null);
+  const backdropPressRef = useRef(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!open || !dialog) return undefined;
+    backdropPressRef.current = null;
 
     const root = document.documentElement;
     const body = document.body;
@@ -38,6 +47,7 @@ export function EmotionDrawer({ open, onClose, returnFocusRef, children }) {
     body.style.setProperty('overflow-y', 'hidden');
 
     return () => {
+      backdropPressRef.current = null;
       if (dialog.open) dialog.close();
       restoreBody();
       restoreRootOverflow();
@@ -54,6 +64,26 @@ export function EmotionDrawer({ open, onClose, returnFocusRef, children }) {
       id="emotion-drawer"
       className="emotion-drawer"
       aria-labelledby="emotion-name"
+      onPointerDown={(event) => {
+        backdropPressRef.current = event.isPrimary && event.button === 0 && isBackdropEvent(event)
+          ? { x: event.clientX, y: event.clientY }
+          : null;
+      }}
+      onPointerMove={(event) => {
+        const press = backdropPressRef.current;
+        if (press && Math.hypot(event.clientX - press.x, event.clientY - press.y) > 10) {
+          backdropPressRef.current = null;
+        }
+      }}
+      onPointerCancel={() => { backdropPressRef.current = null; }}
+      onClick={(event) => {
+        const press = backdropPressRef.current;
+        backdropPressRef.current = null;
+        if (press && event.detail > 0 && isBackdropEvent(event)
+          && Math.hypot(event.clientX - press.x, event.clientY - press.y) <= 10) {
+          onCloseRef.current();
+        }
+      }}
       onCancel={(event) => { event.preventDefault(); onCloseRef.current(); }}
     >
       <header className="emotion-drawer-header">

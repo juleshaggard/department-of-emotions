@@ -117,7 +117,7 @@ export default function EmotionExplorer() {
     if (fromKeyboard) {
       if (selection.committedIndex !== index) choose(index);
     }
-    else if (!isMoving && !isDragging) {
+    else if (!isMobile && !isMoving && !isDragging) {
       dispatchSelection({ type: 'preview', index, touch: isTouchInput(event) });
     }
   }

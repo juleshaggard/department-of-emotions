@@ -64,3 +64,11 @@ Changed the Site created by Jules destination to `https://www.juleshaggard.com/`
 ## Drawer logo follow-up
 
 Added the exact supplied21×21 SVG logo to the top-left of the drawer header, opposite Close. It has alt text Department of Emotions, uses the same local base-aware asset path, and aligns with the24px content inset. Header height remains60px. At390×844, the logo loads at21×21, left24px, while Close keeps its44px target. Scrolling the Touched content29px leaves logo and Close at exactly their prior screen positions. At834×1194 the logo stays24px from the drawer left, Close stays16px from the right, and they do not overlap. Closing returns focus to Touched. No console errors. Production build and4 worker checks passed. Proof: `qa/drawer-logo-detail.png`; full capture/metrics: `qa/drawer-logo-mobile.png`, `qa/drawer-logo-mobile-metrics.json`.
+
+## Outside-tap drawer dismissal follow-up
+
+Added a native-dialog backdrop gesture guard. A primary pointer press must start and end outside the panel, stay within10px movement, and produce a pointer click. Pointer movement/cancel/open/cleanup reset the stored press. Inside content/padding and drags do not dismiss. Dismissal uses the existing onClose cleanup, focus restoration, and scroll unlock; no new overlay is placed over the wheel.
+
+An initial browser check caught mouse hover preview changing the selected emotion after closing. Drawer layouts now ignore pointer hover previews, while confirmed taps and keyboard previews remain available. This preserves the selected emotion under the pointer after dismissal. Desktop hover behavior is unchanged.
+
+At390×844, inside taps stayed open; outside tap closed Joy and preserved Joy selection/focus, restored body position/static and root overflow, and avoided click-through. Reopening Touched, dragging from inside to outside, and dragging across the backdrop kept the drawer open; a following outside tap closed it and preserved Touched. Keyboard ArrowRight/Enter still opens Content; Escape closes and restores Content focus. At834×1194, outside tap closes Touched and preserves selection/focus. The visible Close button still works. No browser console errors.26 unit checks, production build,4 worker checks, and diff whitespace check passed. Proof: `qa/backdrop-dismissal.png`, `qa/backdrop-before.png`, `qa/backdrop-after.png`, `qa/backdrop-result.json`.
