@@ -20,6 +20,8 @@ On phones up to 600px wide, the wheel grows to 160% of the viewport width, cappe
 
 At widths up to 600px, the inline reading sidebar is hidden. A confirmed emotion tap opens a modal bottom drawer above everything with a visible “Close” control and the same hierarchy, definition, and reading sections. It stays closed on initial load, drags, and arrow-key focus; Enter or Space opens it for mobile keyboard users. The drawer uses the modal top layer with an inert background and locked page scrolling. Long content scrolls inside the drawer, with space for the device safe area. “Close” or Escape restores focus while preserving the touch selection highlight. Leaving the mobile breakpoint closes the drawer; screens wider than 600px retain the reading sidebar.
 
+Buttons, including the drawer’s “Close” control, show keyboard focus with subtle fill and border changes, without external outline rings.
+
 A small [Site created by Jules](https://www.haggard.design/) credit link sits in the wheel's control stack below “Spin the wheel,” horizontally centered beneath the wheel and outside the reading sidebar and wheel SVG. Its position in the stack keeps it clickable and prevents overlap with the controls on tall screens. The static `/wheel` page and SVG exports remain free of outside text.
 
 ## Wheel settings and download
