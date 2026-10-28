@@ -32,7 +32,7 @@ Tapping the dimmed backdrop dismisses the drawer through the same cleanup and fo
 
 Portrait drawer and landscape-phone layouts select emotions through confirmed taps or keyboard interaction, ignore all pointer-hover previews, and preserve pinned selection. Keyboard previews remain available. Both responsive layout flags update together; only portrait layout opens the modal, while both disable branch fading and pointer-hover previews.
 
-Portrait phone and tablet drawer headers show the supplied logo (`public/brand/department-of-emotions.svg`) at 21×21px on the left, with the alt text “Department of Emotions,” and “Close” on the right. The centered, space-between flex row uses `12px 16px 4px 24px` padding, aligning the logo with the reading content's 24px left inset. This header stays outside the internally scrolling content, keeping the logo and close control visible. The drawer has no footer wordmark or credit.
+Portrait phone and tablet drawer headers show the supplied logo (`public/brand/department-of-emotions.svg`) at 21×21px beside the full “Department of Emotions” wordmark on the left, with “Close” on the right. The wordmark uses 14px semibold sans-serif type with a 5px logo gap and can wrap on narrow phones. The logo has empty alt text to avoid repeating the visible name. The centered, space-between flex row uses `12px 16px 4px 24px` padding, aligning the logo with the reading content's 24px left inset. This header stays outside the internally scrolling content, keeping the logo and close control visible. The drawer has no footer or creator credit.
 
 Buttons, including the drawer’s “Close” control, show keyboard focus with subtle fill and border changes, without external outline rings.
 

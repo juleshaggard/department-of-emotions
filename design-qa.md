@@ -63,3 +63,7 @@ The generator now accepts `--only 01-editorial` and synchronizes the canonicalPN
 ## Google Analytics follow-up
 
 Added GA4 `G-PDGYB10MNQ` with explicit opt-in, revocation, expiring local consent, Global Privacy Control, and canonical-host-only loading. Emotion selections and wheel interactions are excluded. Checked the desktop consent flow and mobile privacy dialog in the local browser, including opting in and declining again; local preview contains no Google tag. All 31 app tests, four hosting tests, Sites build, and prefixed Pages build passed. The Google stream was configured with enhanced measurement off.
+
+## Drawer brand follow-up
+
+Added the full “Department of Emotions” wordmark beside the supplied 21px logo in the drawer header. Verified no header overflow at 390px and 320px phone widths and 768px portrait-tablet width; the narrow phone wraps the wordmark without overlapping Close. The drawer header stays outside the content scroller. Build and four hosting checks passed.
