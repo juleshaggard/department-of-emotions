@@ -1,7 +1,4 @@
 @font-face { font-family: 'Gilda Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/GildaDisplay-Regular.ttf') format('truetype'); }
-.privacy-link { position: fixed; z-index: 40; right: 20px; bottom: max(12px, env(safe-area-inset-bottom)); padding: 4px 6px; font: 10px Arial, sans-serif; color: #606b63; background: #f8f9f3; text-decoration: none; }
-.privacy-link:hover { text-decoration: underline; }
-.privacy-link:focus-visible { outline: 0; background: #e2e8db; box-shadow: inset 0 0 0 1px #465b4b; }
 html:has(.privacy-page) { background: #f8f9f3; }
 .privacy-page { max-width: 648px; margin-inline: auto; padding: 64px 24px; color: #212c24; font: 15px/1.7 Arial, sans-serif; }
 .privacy-brand { display: inline-flex; align-items: center; gap: 5px; font-weight: 650; font-size: 14px; text-decoration: none; }
@@ -11,4 +8,3 @@ html:has(.privacy-page) { background: #f8f9f3; }
 .privacy-page a { color: inherit; text-underline-offset: 3px; }
 .privacy-back { display: inline-block; margin-top: 24px; }
 @media (max-width: 600px) { .privacy-page { padding-block: 32px; } }
-@media print { .privacy-link { display: none; } }

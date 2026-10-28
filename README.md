@@ -119,6 +119,6 @@ The homepage, `/explore`, and `/wheels` now open the approved wheel switcher. `/
 
 The four tabs are Feelings (the existing wheel), Situations (12 groups / 70 feelings), Sensations (six families / 36 emotions / 72 bodily cues), and Behaviors (six families / 36 emotions / 36 behaviors). The new SVGs are transcribed from the three user-supplied references, styled for the existing explorer, with source credits. Situation groups offer reflection questions; individual feelings, sensations, and behaviors retain the reading-panel flow.
 
-Implementation: `src/wheels/`. Shared motion and drawer modules remain unchanged. Tab changes remount the selected model to avoid stale sector indices or drawer state. The interface is lazy-loaded and retains the existing canonical-host-only cookieless analytics and Privacy link.
+Implementation: `src/wheels/`. Shared motion and drawer modules remain unchanged. Tab changes remount the selected model to avoid stale sector indices or drawer state. The interface is lazy-loaded and retains the existing canonical-host-only cookieless analytics. The visible Privacy link is removed; `/privacy/` remains directly accessible.
 
 Draft data validation: `node --test tests/wheel-models.test.mjs`.
