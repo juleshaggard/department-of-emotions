@@ -54,7 +54,7 @@
 .emotion-sidebar { grid-column: 2; grid-row: 1; padding-block: 40px 24px; min-width: 0; }
 .sidebar-shell { width: 100%; max-width: 400px; }
 .sidebar-brand { display: flex; align-items: center; gap: 4px; font-size: 14px; line-height: 1.3; font-weight: 650; white-space: nowrap; }
-.sidebar-brand img { display: block; width: 20px; height: 20px; flex: 0 0 auto; filter: grayscale(1) brightness(0.25); }
+.sidebar-brand img { display: block; width: 21px; height: 21px; flex: 0 0 auto; }
 .emotion-sidebar .emotion-reading { display: grid; grid-template-rows: minmax(208px, auto) minmax(224px, auto) minmax(376px, auto) minmax(88px, auto); align-content: start; }
 .emotion-sidebar .emotion-summary { min-width: 0; }
 .emotion-sidebar .experience-section, .emotion-sidebar .experience-section:first-of-type { margin: 0; padding-top: 28px; }

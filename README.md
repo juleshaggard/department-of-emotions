@@ -30,7 +30,7 @@ In the drawer layout, a confirmed emotion tap or completed hub spin opens a nati
 
 Buttons, including the drawer’s “Close” control, show keyboard focus with subtle fill and border changes, without external outline rings.
 
-A compact inline-sidebar footer sits outside the changing reading content with 28px top padding. A 20px favicon and 14px “Department of Emotions” brand sit on the left; an 11px [Site created by Jules](https://www.haggard.design/) link sits on the right. There is no standalone full-page credit footer. The inline footer is hidden in the phone and portrait-tablet drawer layout. The static `/wheel` page and SVG exports remain free of outside text and the interactive hub icon, with blank centers.
+A compact inline-sidebar footer sits outside the changing reading content with 28px top padding. A 21px supplied SVG logo (`public/brand/department-of-emotions.svg`) and 14px “Department of Emotions” brand sit on the left; an 11px [Site created by Jules](https://www.haggard.design/) link sits on the right. There is no standalone full-page credit footer. The inline footer is hidden in the phone and portrait-tablet drawer layout. The static `/wheel` page and SVG exports remain free of outside text and the interactive hub icon, with blank centers.
 
 ## Wheel settings and download
 

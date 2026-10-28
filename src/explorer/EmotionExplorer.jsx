@@ -168,7 +168,7 @@ export default function EmotionExplorer() {
             <div className="sidebar-shell">
               <EmotionDetails active={active} familyColor={familyColors[active.primary.name]} hierarchyAfter />
               <footer className="sidebar-footer">
-                <div className="sidebar-brand"><img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width="20" height="20" /><span>Department of Emotions</span></div>
+                <div className="sidebar-brand"><img src={`${import.meta.env.BASE_URL}brand/department-of-emotions.svg`} alt="" width="21" height="21" /><span>Department of Emotions</span></div>
                 <a className="sidebar-credit" href="https://www.haggard.design/" target="_blank" rel="noreferrer">Site created by Jules</a>
               </footer>
             </div>

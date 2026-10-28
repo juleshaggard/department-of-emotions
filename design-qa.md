@@ -23,7 +23,7 @@ Source and implementation were viewed together in `qa/sidebar-order-comparison.p
 - **Layout:** Matches the requested sequence, with hierarchy between two divider lines and the compact footer beneath it. The brand sits left and credit sits right on one line. Summary/body/behavior/hierarchy tracks reserve208/224/376/88px, with growth fallback for accessibility. The reference's shorter Hysterical content has smaller gaps; retaining enough space for the longest entries is intentional and preserves the earlier anti-jump requirement.
 - **Typography:** Retains the latest enlarged reading scale:56px Gilda Display headline (48px in narrow desktop sidebars),19px definition,16px examples,11px uppercase labels/numbering,12px hierarchy. Footer follows the new compact reference:14px brand,20px icon,11px credit. Drawer type is unchanged.
 - **Color:** Existing warm paper, dark text, muted labels/dividers, and family-colored hierarchy dot remain. Wheel colors, white outline, and mobile full-opacity behavior are unchanged.
-- **Assets:** Reuses the actual local favicon in monochrome for branding. Its circular identity differs from the reference's sunburst; this remains an intentional P3 asset difference rather than a new fabricated logo. Editable wheel geometry and hub rotate icon are unchanged.
+- **Assets:** Uses the user-supplied sunburst SVG at `public/brand/department-of-emotions.svg`, copied byte-for-byte from the attachment. It renders at21×21 with its authored `#212C24` strokes and no CSS filter. The separate rainbow favicon, editable wheel geometry, and hub rotate icon are unchanged.
 - **Copy:** Emotion definitions and all example text are unchanged. The hierarchy follows the selected emotion. Brand text is Department of Emotions; Site created by Jules links to `https://www.haggard.design/`. Exactly one credit link renders in the inline layout.
 
 ## Stability verification
@@ -43,4 +43,8 @@ Measurements: `qa/sidebar-order-measurements-1440.json`, `qa/sidebar-order-measu
 
 ## Review result
 
-The final combined visual comparison and independent review found no open P0/P1/P2 issues. Reading order, hierarchy dividers, and one-line footer match the source. The retained band spacing and existing favicon identity are intentional differences documented above. No further visual iteration is required for this request.
+The final combined visual comparison and independent review found no open P0/P1/P2 issues. Reading order, hierarchy dividers, and one-line footer match the source. The retained band spacing is an intentional difference documented above. The earlier footer-logo difference is resolved by the supplied SVG. No further visual iteration is required for this request.
+
+## Supplied logo follow-up
+
+Source: `/Users/Darling/.codex/attachments/21f3994e-ada3-420e-a251-7e2da91998f8/Pasted text.txt`. Exact copy saved as `public/brand/department-of-emotions.svg`. XML validates as a21×21 self-contained SVG with48 paths and no external references or script. Browser verified complete load,21×21 natural/display dimensions, and filter none. The rainbow SVG favicon still points at `/favicon.svg`. Visual proof: `qa/supplied-logo-footer.png`; full capture and metrics: `qa/supplied-logo-desktop.png`, `qa/supplied-logo-metrics.json`. Production build and4 Sites worker checks passed; no browser console errors.
