@@ -153,7 +153,6 @@ export default function EmotionExplorer() {
                   <img src={`${import.meta.env.BASE_URL}icons/rotate-cw.svg`} alt="" width="14" height="14" />
                   Spin the wheel
                 </button>
-                <footer className="explorer-footer"><a href="https://www.haggard.design/" target="_blank" rel="noreferrer">Site created by Jules</a></footer>
               </div>
             </section>
           </div>
@@ -161,6 +160,7 @@ export default function EmotionExplorer() {
           {!isMobile && <aside className="emotion-sidebar" aria-label="Explore an emotion"><EmotionDetails active={active} familyColor={familyColors[active.primary.name]} /></aside>}
         </div>
       </main>
+      <footer className="explorer-footer"><a href="https://www.haggard.design/" target="_blank" rel="noreferrer">Site created by Jules</a></footer>
       {isMobile && <EmotionDrawer open={drawerOpen} onClose={closeDrawer} returnFocusRef={returnFocusRef}><EmotionDetails active={active} familyColor={familyColors[active.primary.name]} /></EmotionDrawer>}
     </div>
   );

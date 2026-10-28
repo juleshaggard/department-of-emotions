@@ -10,7 +10,7 @@ On initial load, the wheel makes a gentle 60-degree turn and settles into its or
 
 Drag or flick the wheel to rotate it with momentum, or use the subtle “Spin the wheel” button beneath the wheel. Each family button selects its primary emotion and turns the section toward the right by the shortest route. The circular stage clips the rotor so it cannot cover those controls.
 
-Family navigation is centered across the entire page above the main content, absolutely positioned 16px from the top, without a header wordmark or divider. The selected family uses a weight-650 label and a 1px outline around its 9px color dot, offset by 3px. The buttons have no pill backgrounds or borders; a text underline indicates keyboard focus. Navigation is hidden at widths up to 600px, while the spin button and credit remain beneath the wheel on larger screens.
+Family navigation is centered across the entire page above the main content, absolutely positioned 16px from the top, without a header wordmark or divider. The selected family uses a weight-650 label and a 1px outline around its 9px color dot, offset by 3px. The buttons have no pill backgrounds or borders; a text underline indicates keyboard focus. Navigation is hidden at widths up to 600px, while the spin button remains beneath the wheel on larger screens.
 
 Hover previews persist in the reading panel. Taps, family buttons, and roving keyboard focus also select emotions. A stable breadcrumb shows the full hierarchy, such as Fear → Scared → Frightened, with the family color dot. Hover and focus keep the selected branch clear while softly fading unrelated sectors. Desktop mouse hover clears on pointer exit. Touch selection keeps its white outline and branch focus after lift, pointer leave, and blur until another emotion is selected. Rotation temporarily removes branch fading, restoring it when it stops; reduced motion removes animated fades and momentum.
 
@@ -28,7 +28,7 @@ At widths up to 600px, the inline reading sidebar is hidden. A confirmed emotion
 
 Buttons, including the drawer’s “Close” control, show keyboard focus with subtle fill and border changes, without external outline rings. Family navigation uses a text underline instead.
 
-A small [Site created by Jules](https://www.haggard.design/) credit link sits in the wheel's control stack below “Spin the wheel,” horizontally centered beneath the wheel and outside the reading sidebar and wheel SVG. Its position in the stack keeps it clickable and prevents overlap with the controls on tall screens. The static `/wheel` page and SVG exports remain free of outside text.
+A small [Site created by Jules](https://www.haggard.design/) credit link sits in a full-width page footer after the main content, centered across the entire page at the document bottom in normal flow. The footer has 16px top, 24px side, and 24px bottom padding and is hidden at widths up to 600px. The credit sits outside the wheel controls, reading sidebar, and wheel SVG; “Spin the wheel” remains beneath the wheel. The static `/wheel` page and SVG exports remain free of outside text.
 
 ## Wheel settings and download
 
