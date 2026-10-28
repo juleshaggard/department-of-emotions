@@ -112,7 +112,7 @@
   to { transform: translateY(0); }
 }
 
-@media (min-width: 1101px) {
+@media (min-width: 1101px), (min-width: 1024px) and (orientation: landscape) {
   .explorer-main { max-width: none; padding: 0; }
   .explorer-layout { grid-template-columns: 60vw minmax(0, 1fr); gap: 0; min-height: 100svh; min-height: 100dvh; }
   .wheel-workspace { position: sticky; top: 0; height: 100svh; height: 100dvh; display: flex; align-items: center; padding: 0; overflow: clip; }
@@ -136,16 +136,21 @@
 }
 
 @supports (height: 100dvh) {
-  @media (min-width: 1101px) {
+  @media (min-width: 1101px), (min-width: 1024px) and (orientation: landscape) {
     .wheel-stage { --desktop-wheel-size: clamp(74vw, 120dvh, 92vw); }
   }
 }
 
-@media (min-width: 1101px) and (max-width: 1279px) {
+@media (min-width: 1024px) and (max-width: 1279px) {
   .emotion-sidebar .emotion-reading h1 { font-size: 48px; }
 }
 
-@media (min-width: 1101px) and (max-height: 720px) {
+@media (min-width: 1024px) and (max-width: 1100px) and (orientation: landscape) {
+  .explorer-layout { grid-template-columns: 56vw minmax(0, 1fr); }
+  .emotion-sidebar { padding-inline: 24px; }
+}
+
+@media (min-width: 1024px) and (max-height: 720px) {
   .emotion-sidebar {
     padding-block: clamp(6px, calc((100svh - 585px) / 2), 32px);
     padding-block: clamp(6px, calc((100dvh - 585px) / 2), 32px);
@@ -162,7 +167,7 @@
   .sidebar-footer { padding-top: 8px; }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1023px), (max-width: 1100px) and (orientation: portrait) {
   .explorer-page { display: block; }
   .explorer-main { padding: 28px 12px 40px; }
   .explorer-layout { display: flex; flex-direction: column; gap: 34px; min-height: 0; }

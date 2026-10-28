@@ -16,7 +16,7 @@ Normal inline bands are168/148/272/44px for summary/body/behaviors/hierarchy. Fo
 
 At desktop heights up to720px, compact bands156/128/236/36px plus29px footer give a585px shell. Outer padding adapts from6px to32px. This profile uses a48px headline and tighter leading; definition and example font sizes remain19px and16px. Growth fallback is retained for unusually enlarged text rather than clipping it.
 
-Phone/portrait-tablet drawers retain their natural flow, existing typography, and independent spacing. The existing stacked landscape-tablet page flow remains unchanged.
+Phone/portrait-tablet drawers retain their natural flow, existing typography, and independent spacing. Landscape tablets from1024px use the side-by-side wheel/info layout; narrower landscape layouts retain the stacked flow.
 
 ## Visual evidence
 
@@ -72,3 +72,11 @@ Added a native-dialog backdrop gesture guard. A primary pointer press must start
 An initial browser check caught mouse hover preview changing the selected emotion after closing. Drawer layouts now ignore pointer hover previews, while confirmed taps and keyboard previews remain available. This preserves the selected emotion under the pointer after dismissal. Desktop hover behavior is unchanged.
 
 At390×844, inside taps stayed open; outside tap closed Joy and preserved Joy selection/focus, restored body position/static and root overflow, and avoided click-through. Reopening Touched, dragging from inside to outside, and dragging across the backdrop kept the drawer open; a following outside tap closed it and preserved Touched. Keyboard ArrowRight/Enter still opens Content; Escape closes and restores Content focus. At834×1194, outside tap closes Touched and preserves selection/focus. The visible Close button still works. No browser console errors.26 unit checks, production build,4 worker checks, and diff whitespace check passed. Proof: `qa/backdrop-dismissal.png`, `qa/backdrop-before.png`, `qa/backdrop-after.png`, `qa/backdrop-result.json`.
+
+## Landscape iPad side-by-side follow-up
+
+Extended the full-height side-by-side layout to landscape widths from1024px, while keeping the existing portrait drawer query unchanged. The1024–1100px landscape grid uses56vw for the wheel column with24px sidebar inline padding. Narrow sidebar headlines use48px from1024–1279px, and the existing short-height profile now applies from1024px. The stacked query is limited to max-width1023px or portrait max-width1100px, after which the existing drawer styles apply.
+
+At1024×768, the grid's wheel right edge is524.69px and sidebar starts at565.03px. Actual reading width is395.97px; wheel centerY384px matches the viewport center. All108 sectors were selected at a stable1024×768 viewport: one168/148/272/44px band combination, one set of section starts, one footer position, and no content or page overflow. Equivalent sweeps at1024×600 and1100×768 also passed without scrolling or shifting. Per-sector files: `qa/landscape-ipad-1024x768.json`, `qa/landscape-ipad-1024x600.json`, `qa/landscape-ipad-1100x768.json`. An initial capture began before the viewport override settled; its1024×768 measurements were rerun after confirming innerWidth/innerHeight and replaced with the stable sweep.
+
+Portrait768×1024 and1024×1366 keep the native drawer and42px drawer headline. Touched opens normally in portrait. Rotating an open portrait drawer to1024×768 removes the modal, restores the inline sidebar, unlocks body scrolling, and leaves no page overflow. No browser console errors. Production build,4 worker checks, and diff whitespace check passed. Final visual proof: `qa/landscape-ipad-1024.png`.
