@@ -138,6 +138,9 @@ export default function EmotionExplorer() {
   return (
     <div className="explorer-page">
       <a href="#explorer-main" className="skip-link">Skip to the emotion explorer</a>
+      <nav className="family-navigation" aria-label="Jump to an emotion family">
+        {families.map((family) => <button key={family.name} type="button" aria-pressed={active.primary.name === family.name} onClick={(event) => chooseFamily(family, event)}><span className="family-swatch" style={{ backgroundColor: familyColors[family.name] }} />{family.name}</button>)}
+      </nav>
       <main className="explorer-main" id="explorer-main">
         <div className="explorer-layout">
           <div className="wheel-column">
@@ -146,9 +149,6 @@ export default function EmotionExplorer() {
                 <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={focusedSelectionIndex(selection, { enabled: settings.focusEnabled, moving: isMoving || isDragging })} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} mobileDrawer={isMobile} drawerOpen={drawerOpen} />
               </div>
               <div className="wheel-controls">
-                <div className="family-navigation" aria-label="Jump to an emotion family">
-                  {families.map((family) => <button key={family.name} type="button" aria-pressed={active.primary.name === family.name} onClick={(event) => chooseFamily(family, event)}><span className="family-swatch" style={{ backgroundColor: familyColors[family.name] }} />{family.name}</button>)}
-                </div>
                 <button className="wheel-spin-hint" type="button" onClick={spinWheel}>
                   <img src={`${import.meta.env.BASE_URL}icons/rotate-cw.svg`} alt="" width="14" height="14" />
                   Spin the wheel

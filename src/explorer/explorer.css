@@ -7,6 +7,7 @@
 }
 
 .explorer-page {
+  position: relative;
   --ink: oklch(28% 0.022 154);
   --muted: oklch(49% 0.016 154);
   --line: oklch(86% 0.012 125);
@@ -32,7 +33,7 @@
 .section-kicker { font-size: 10px; font-weight: 650; letter-spacing: 1.6px; text-transform: uppercase; margin: 0 0 10px; color: var(--muted); }
 .explorer-layout { display: grid; grid-template-columns: minmax(0, 1fr) 350px; gap: 0 64px; align-items: start; min-height: 100svh; }
 .wheel-column { grid-column: 1; grid-row: 1; align-self: stretch; min-width: 0; }
-.wheel-workspace { min-width: 0; padding-block: 32px; }
+.wheel-workspace { min-width: 0; padding-block: 80px 32px; }
 /* Focus must not scroll the clipped wheel inside its own frame. */
 .wheel-stage { grid-row: 2; width: min(100%, 780px); margin: 0 auto; aspect-ratio: 1; overflow: clip; border-radius: 50%; isolation: isolate; }
 .wheel-controls { grid-row: 3; min-width: 0; }
@@ -46,10 +47,12 @@
 .selected-outline { fill: none; stroke-linejoin: round; pointer-events: none; }
 .explorer-sector:focus { outline: none; }
 .explorer-sector:focus-visible .sector-fill { filter: brightness(1.12); }
-.family-navigation { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin-top: 22px; }
-.family-navigation button { min-height: 36px; display: flex; align-items: center; gap: 7px; color: var(--muted); background: transparent; border: 1px solid transparent; padding: 7px 10px; font-size: 11px; border-radius: 20px; transition: border-color 160ms, background-color 160ms; }
-.family-navigation button:hover { background: oklch(94% 0.01 125); }
-.family-navigation button[aria-pressed='true'] { color: var(--ink); border-color: oklch(78% 0.015 154); }
+.family-navigation { position: absolute; top: 16px; inset-inline: 0; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; margin: 0; padding-inline: 12px; }
+.family-navigation button { width: 80px; min-height: 36px; display: flex; align-items: center; justify-content: center; gap: 7px; color: var(--muted); background: transparent; border: 0; padding: 7px 8px; font-size: 11px; font-weight: 400; border-radius: 0; transition: color 160ms; }
+.family-navigation button:hover { color: var(--ink); }
+.family-navigation button[aria-pressed='true'] { color: var(--ink); font-weight: 650; }
+.family-navigation button[aria-pressed='true'] .family-swatch { outline: 1px solid currentColor; outline-offset: 3px; }
+.family-navigation button:focus-visible { background: transparent; border-color: transparent; text-decoration: underline; text-underline-offset: 4px; }
 .wheel-spin-hint { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 36px; margin: 7px auto 0; padding: 7px 10px; border: 0; border-radius: 5px; background: transparent; color: var(--muted); font-size: 11px !important; font-weight: 400; }
 .wheel-spin-hint img { opacity: 0.52; }
 .wheel-spin-hint:hover { color: var(--ink); background: oklch(94% 0.01 125); }
@@ -114,22 +117,22 @@
     justify-content: center;
     min-height: 100svh;
     min-height: 100dvh;
-    padding-block: 24px;
+    padding-block: 80px;
   }
 }
 
 /* Keep a readable wheel; only pin it when the entire wheel and controls fit. */
 @media (min-width: 1101px) and (min-height: 1080px) {
-  .wheel-workspace { position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr); }
+  .wheel-workspace { position: sticky; top: 0; height: 100svh; padding-block: 32px; display: grid; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr); }
 }
 
 @media (max-width: 1100px) {
   .explorer-page { display: block; }
-  .explorer-main { padding: 28px 12px 40px; }
+  .explorer-main { padding: 80px 12px 40px; }
   .explorer-layout { display: flex; flex-direction: column; gap: 34px; min-height: 0; }
   .wheel-column { width: 100%; }
   .wheel-workspace { position: static; display: block; width: 100%; height: auto; padding: 0; }
-  .family-navigation { gap: 3px; margin-top: 16px; }
+  .family-navigation { gap: 3px; }
   .family-navigation button { padding-inline: 8px; }
   .emotion-sidebar { width: 100%; max-width: 600px; margin-inline: auto; padding: 24px 8px 0; border-top: 1px solid var(--line); }
   .emotion-reading h1 { font-size: 42px; }
@@ -150,7 +153,7 @@
     width: var(--mobile-wheel-size);
     margin-inline: calc(100% - var(--mobile-wheel-size) - 12vw) 0;
   }
-  .wheel-controls { display: none; }
+  .family-navigation, .wheel-controls { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
