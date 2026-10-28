@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useReducer, useRef } from 'react';
 import { explorerSectors as sectors, families } from './explorer-data.js';
 import { useWheelMotion } from './useWheelMotion.js';
 import { InteractiveWheel } from './InteractiveWheel.jsx';
 import { useWheelSettings } from './useWheelSettings.js';
 import { colorForSector } from './wheel-settings.js';
+import { createWheelSelection, focusedSelectionIndex, isTouchInput, wheelSelectionReducer } from './wheel-selection.js';
 import './explorer.css';
 
 const initialIndex = families.find(({ name }) => name === 'Joy').index;
@@ -56,18 +57,17 @@ export default function EmotionExplorer() {
     document.title = 'Department of Emotions';
     return () => { document.title = previousTitle; };
   }, []);
-  const [activeIndex, setActiveIndex] = useState(initialIndex);
-  const [focusIndex, setFocusIndex] = useState(null);
+  const [selection, dispatchSelection] = useReducer(wheelSelectionReducer, initialIndex, createWheelSelection);
+  const { activeIndex } = selection;
   const { settings } = useWheelSettings();
   const rotorRef = useRef(null);
   const sectorRefs = useRef([]);
   const familyColors = useMemo(() => Object.fromEntries(families.map((family) => [family.name, colorForSector(family, settings)])), [settings]);
-  const clearFocus = useCallback(() => setFocusIndex(null), []);
+  const clearFocus = useCallback(() => dispatchSelection({ type: 'clear-transient' }), []);
   const onTap = useCallback((event) => {
     const index = event.target.closest?.('[data-sector-index]')?.getAttribute('data-sector-index');
     if (index != null) {
-      setActiveIndex(Number(index));
-      setFocusIndex(Number(index));
+      dispatchSelection({ type: 'select', index: Number(index), touch: isTouchInput(event) });
     }
   }, []);
   const { isMoving, isDragging, stop, rotateTo, spin } = useWheelMotion({ rotorRef, onTap, onDragStart: clearFocus });
@@ -79,21 +79,18 @@ export default function EmotionExplorer() {
 
   function choose(index) {
     stop();
-    setActiveIndex(index);
-    setFocusIndex(index);
+    dispatchSelection({ type: 'select', index });
   }
 
-  function chooseFamily(family) {
-    clearFocus();
-    setActiveIndex(family.index);
+  function chooseFamily(family, event) {
+    dispatchSelection({ type: 'select', index: family.index, family: true, touch: isTouchInput(event, window.matchMedia('(pointer: coarse)').matches) });
     rotateTo(-(family.start + family.end) / 2);
   }
 
-  function preview(index, fromKeyboard = false) {
+  function preview(index, fromKeyboard = false, event) {
     if (fromKeyboard) choose(index);
     else if (!isMoving && !isDragging) {
-      setActiveIndex(index);
-      setFocusIndex(index);
+      dispatchSelection({ type: 'preview', index, touch: isTouchInput(event) });
     }
   }
 
@@ -120,11 +117,11 @@ export default function EmotionExplorer() {
           <div className="wheel-column">
             <section className="wheel-workspace" aria-label="Interactive emotion wheel">
               <div className="wheel-stage" data-moving={isMoving || isDragging}>
-                <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={!settings.focusEnabled || isMoving || isDragging ? null : focusIndex} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} />
+                <InteractiveWheel rotorRef={rotorRef} activeIndex={activeIndex} focusIndex={focusedSelectionIndex(selection, { enabled: settings.focusEnabled, moving: isMoving || isDragging })} onClearFocus={clearFocus} onPreview={preview} onKeyDown={handleSectorKey} sectorRefs={sectorRefs} settings={settings} />
               </div>
               <div className="wheel-controls">
                 <div className="family-navigation" aria-label="Jump to an emotion family">
-                  {families.map((family) => <button key={family.name} type="button" aria-pressed={active.primary.name === family.name} onClick={() => chooseFamily(family)}><span className="family-swatch" style={{ backgroundColor: familyColors[family.name] }} />{family.name}</button>)}
+                  {families.map((family) => <button key={family.name} type="button" aria-pressed={active.primary.name === family.name} onClick={(event) => chooseFamily(family, event)}><span className="family-swatch" style={{ backgroundColor: familyColors[family.name] }} />{family.name}</button>)}
                 </div>
                 <button className="wheel-spin-hint" type="button" onClick={spinWheel}>
                   <img src={`${import.meta.env.BASE_URL}icons/rotate-cw.svg`} alt="" width="14" height="14" />

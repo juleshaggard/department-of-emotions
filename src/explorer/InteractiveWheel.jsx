@@ -63,9 +63,9 @@ export function InteractiveWheel({ rotorRef, svgRef, activeIndex, focusIndex, on
               aria-controls="emotion-details"
               data-sector-index={index}
               data-emotion={sector.name}
-              onPointerEnter={() => onPreview(index)}
-              onPointerMove={() => onPreview(index)}
-              onFocus={() => onPreview(index, true)}
+              onPointerEnter={(event) => onPreview(index, false, event)}
+              onPointerMove={(event) => onPreview(index, false, event)}
+              onFocus={(event) => { if (event.currentTarget.matches(':focus-visible')) onPreview(index, true); }}
               onKeyDown={(event) => onKeyDown(event, index)}
             >
               <path className="sector-fill" style={{ fill: colors[index], stroke: 'none' }} d={annularSector(WHEEL.radii[sector.ring], WHEEL.radii[sector.ring + 1], sector.start, sector.end)} />
