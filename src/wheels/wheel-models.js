@@ -166,7 +166,7 @@ function buildEmbodiedModel(kind) {
       angle += 10;
     });
   }
-  return { id: kind, label: isBody ? 'Sensations' : 'Behaviors', sectors, families: roots, radii: [315, 465, 760, 1157], initialName: 'Happy', source: 'Lindsay Braman', sourceUrl: 'https://lindsaybraman.com/', stroke: isBody ? '#50554f' : '#ffffff', strokeWidth: isBody ? 2.5 : 7, petals: !isBody };
+  return { id: kind, label: isBody ? 'Sensations' : 'Behaviors', sectors, families: roots, radii: [120, 465, 760, 1157], initialName: 'Happy', source: 'Lindsay Braman', sourceUrl: 'https://lindsaybraman.com/', stroke: isBody ? '#50554f' : '#ffffff', strokeWidth: isBody ? 2.5 : 7, petals: !isBody };
 }
 const situations = [
   ['We feel hurt', '#e59aa8', ['grief', 'sadness', 'despair', 'emptiness', 'hopelessness'], 'A loss, wound, or disappointment can bring several kinds of pain.', ['What feels hurt or lost here?', 'What kind of care would feel supportive?']],
@@ -196,7 +196,7 @@ function buildSituations() {
     words.forEach((word, j) => sectors.push({ name: title(word), ring: 1, start: start + j * 30 / words.length, end: start + (j + 1) * 30 / words.length,
       color: tint(color, .17 + (j % 2) * .07), index: sectors.length, primary, parent: null, info: infoFor(word) }));
   });
-  return { id: 'situations', label: 'Situations', sectors, families: roots, radii: [390, 790, 1157], initialName: 'Life feels good', source: 'Social Workers Toolbox', sourceUrl: 'https://www.socialworkerstoolbox.com/', stroke: '#ffffff', strokeWidth: 4 };
+  return { id: 'situations', label: 'Situations', sectors, families: roots, radii: [120, 790, 1157], initialName: 'Life feels good', source: 'Social Workers Toolbox', sourceUrl: 'https://www.socialworkerstoolbox.com/', stroke: '#ffffff', strokeWidth: 4 };
 }
 
 export const wheelModels = [

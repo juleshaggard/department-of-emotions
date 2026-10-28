@@ -96,5 +96,6 @@ The intended Sites public domain is `departmentofemotions.com`. Treat publicatio
 - Changing tabs resets selection and closes the previous drawer. Tabs support arrow keys, Home, and End. Portrait touch layouts retain the drawer flow, persistent selection, full header wordmark, and no branch fading. Landscape phones retain a stationary, vertically centered wheel with a scrolling reading panel.
 - Place the wheel-type tabs inside the inline sidebar above the selected emotion. Portrait drawer layouts retain the compact top switcher so wheel types remain available while the drawer is closed. Keep the creator link underlined.
 - Put the wheel-reference credit above the compact brand-and-creator footer in the inline sidebar.
+- All four wheels use a 120-unit blank hub radius, matching Feelings. Extend the colored primary sections inward to this boundary while retaining their existing outer boundaries.
 - New examples are illustrative, not diagnostic. Context groups show possible feelings and reflection questions; emotion, sensation, and behavior selections show definitions, bodily experiences, and possible responses.
 - Check `tests/wheel-models.test.mjs` for complete content, circular coverage, branch containment, and the original dataset's isolation.
