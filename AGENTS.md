@@ -77,6 +77,8 @@ The intended Sites public domain is `departmentofemotions.com`. Treat publicatio
 
 ## Site identity and sharing
 
+- Google Analytics uses measurement ID `G-PDGYB10MNQ` for the canonical domain only. Load the Google tag only after explicit analytics consent, honor Global Privacy Control, keep advertising consent denied, and never send emotion selections or wheel interactions. Strip URL queries/fragments and third-party referrer paths. Keep the small consent notice and persistent “Privacy & cookies” control available on explorer routes, with revocable, expiring browser-local consent and a privacy notice. Keep `/wheel` text-free. Enhanced measurement is disabled in the web stream.
+
 - Place a small trans pride flag immediately after “Site created by Jules” in the inline sidebar footer. Use the blue, pink, white, pink, blue stripes and retain the existing creator link.
 
 - Preserve the supplied logo SVG used in the footer, drawer header, and selected social preview exactly, including its `#212C24` strokes and unfilled sunburst geometry, without CSS color filters. Keep this logo separate from the rainbow favicon.

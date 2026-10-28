@@ -104,3 +104,9 @@ The source is also published at [juleshaggard/department-of-emotions](https://gi
 `npm run build:pages` writes to `dist/pages`. Set `PAGES_BASE_PATH=/department-of-emotions/` to reproduce the project-path build locally. The output includes direct entry points for the root, `/explore/`, and `/wheel/`, with assets under the configured prefix. The existing Sites build and local preview output remain separate in `dist/client`.
 
 The Pages address is [juleshaggard.github.io/department-of-emotions/](https://juleshaggard.github.io/department-of-emotions/). Canonical and social metadata continue to use the primary `departmentofemotions.com` domain; this deployment does not alter its DNS.
+
+## Analytics
+
+GA4 measurement ID: `G-PDGYB10MNQ`, for `departmentofemotions.com` and its `www` hostname. The Google tag loads only after opt-in from the consent notice or “Privacy & cookies” control. Consent expires after 180 days; declining disables measurement and removes Analytics cookies. Global Privacy Control keeps measurement off. Local previews, GitHub Pages, and the text-free `/wheel` route do not load Analytics.
+
+Page views use a fixed title, known route paths without queries/fragments, and referrer origins only. Emotion selections and wheel interactions are not tracked. Advertising signals are disabled, and the web stream's enhanced measurement is off. `npm test` includes consent, revocation, host restriction, storage failure, and payload privacy checks.

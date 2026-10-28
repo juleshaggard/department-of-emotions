@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "export": "node scripts/export-wheel.mjs",
-    "test": "node --test tests/explorer-data.test.mjs tests/wheel-settings.test.mjs tests/wheel-selection.test.mjs tests/wheel-spin.test.mjs",
+    "test": "node --test tests/explorer-data.test.mjs tests/wheel-settings.test.mjs tests/wheel-selection.test.mjs tests/wheel-spin.test.mjs tests/analytics.test.mjs",
     "build": "vite build && node scripts/prepare-sites-build.mjs",
     "build:pages": "node scripts/build-pages.mjs",
     "preview": "vite preview",
