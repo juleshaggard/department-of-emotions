@@ -53,3 +53,9 @@ Gilda Display, the body-font family, palette, white selection outline, exact sup
 ## Checks
 
 `npm test`:26 passed. Production build passed. `npm run test:sites`:4 passed. `git diff --check` passed. No P0/P1/P2 issues remain for this request.
+
+## Updated social image with supplied logo
+
+Replaced the selected Editorial social card's rainbow mark with the exact supplied sunburst SVG. The42×42slot remains at(74,74), preserving the source viewBox,fillnone, and all48 path attributes, including#212C24stroke colors. Resvg regenerated the editableSVG/PNG and copied identicalPNGbytes to `public/social/department-of-emotions.png`. The selected output remains1200×630. A pixel comparison against the prior image changes only bounds(74,74)–(115,115); everypixel outside the logo area is identical. Alternate options2/3 are byte-identical to their prior versions. The rainbow browser favicon remains separate.
+
+The generator now accepts `--only 01-editorial` and synchronizes the canonicalPNG plus OG/Twitterimage URLs when rendering that selected option. Allthree image tags use `https://departmentofemotions.com/social/department-of-emotions.png?v=be664345d7e5`; the query token matches the renderedPNG'sSHA256prefix. This versions the image request without assuming previouslycachedexternalpostsrefresh automatically. Generatedimage,selectedSVG,dimensions,canonicalcopy,andmetadataURLconsistency were verified. Productionbuild,4workerchecks,anddiffwhitespacecheckpassed. Proof is the publishedPNG itself; priorimage/hashchecks are in `qa/social-before-logo.png`, `qa/social-alternate-hashes.json`,and`qa/social-logo-metadata.json`.

@@ -62,7 +62,11 @@ Examples remain illustrative and vary by person, culture, and context. They do n
 
 The rainbow-circle favicon uses the wheel's six family colors and includes SVG, PNG, ICO, and Apple touch-icon versions. `scripts/generate-favicon.py` regenerates them with Pillow.
 
-Option 1, Editorial, is the selected 1200×630 social preview. Its source is `public/social/options/01-editorial.png`, and the published asset uses the stable `public/social/department-of-emotions.png` path. Open Graph and Twitter image metadata use the absolute URL `https://departmentofemotions.com/social/department-of-emotions.png`. The three candidates and editable SVG sources remain in `public/social/options/` as alternates. `scripts/generate-social-options.mjs` regenerates their SVG sources; passing `--renderer` with a local `@resvg/resvg-js` module also exports PNGs.
+Option 1, Editorial, remains the selected 1200×630 social preview, preserving its composition, actual wheel geometry, and Gilda Display. Its rendered image is `public/social/options/01-editorial.png`, with an editable SVG beside it. The exact supplied sunburst from `public/brand/department-of-emotions.svg` occupies a 42px slot at x=74, y=74, preserving its unfilled geometry with `fill="none"`. Options 2 and 3 remain alternates, and the rainbow favicon is unchanged.
+
+`scripts/generate-social-options.mjs` regenerates all candidate SVGs by default. Use `--only 01-editorial` to regenerate only the selected SVG; adding `--renderer` with a local `@resvg/resvg-js` module also renders that PNG. When rendering Editorial, the script writes the same PNG bytes to the stable `public/social/department-of-emotions.png` path, derives a version token from the first 12 hexadecimal characters of their SHA-256 hash, and updates `og:image`, `og:image:secure_url`, and `twitter:image` in `index.html`. This selected-only regeneration leaves options 2 and 3 unchanged.
+
+The current image metadata URL is `https://departmentofemotions.com/social/department-of-emotions.png?v=be664345d7e5`. Publish the matching canonical PNG and HTML metadata together, then verify both on the deployed site. The version token identifies the image bytes; its update alone does not establish that previews on existing external posts have refreshed.
 
 - `src/emotions.js`: editable hierarchy in clockwise order.
 - `src/reference-palette.json`: colors sampled from the reference.

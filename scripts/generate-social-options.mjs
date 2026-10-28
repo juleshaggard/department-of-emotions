@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { createHash } from 'node:crypto';
 import { annularSector, WHEEL } from '../src/wheel.js';
 import { explorerSectors } from '../src/explorer/explorer-data.js';
 import { colorForSector, DEFAULT_WHEEL_SETTINGS } from '../src/explorer/wheel-settings.js';
@@ -23,7 +24,7 @@ function wheel(x, y, size) {
 
 const text = (value, x, y, size, centered = false, family = 'Gilda Display', color = ink) => `<text x="${x}" y="${y}" font-family="${family}" font-size="${size}" font-weight="400" fill="${color}"${centered ? ' text-anchor="middle"' : ''}>${escape(value)}</text>`;
 const frame = (title, background, content) => `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><title>${title}</title><rect width="1200" height="630" fill="${background}"/>${content}</svg>`;
-const markSource = await fs.readFile(path.join(root, 'public/favicon.svg'), 'utf8');
+const markSource = await fs.readFile(path.join(root, 'public/brand/department-of-emotions.svg'), 'utf8');
 const mark = markSource.replace(/^[\s\S]*?<svg\b[^>]*>/, '').replace(/<\/svg>\s*$/, '');
 const markViewBox = markSource.match(/viewBox="([^"]+)"/)[1];
 const options = [
@@ -31,7 +32,7 @@ const options = [
     name: '01-editorial',
     title: 'Editorial split',
     svg: frame('Department of Emotions — editorial social preview', paper,
-      `${wheel(620, -75, 780)}<svg x="74" y="74" width="42" height="42" viewBox="${markViewBox}">${mark}</svg>`
+      `${wheel(620, -75, 780)}<svg x="74" y="74" width="42" height="42" viewBox="${markViewBox}" fill="none">${mark}</svg>`
       + text('Department', 74, 276, 86)
       + text('of Emotions', 74, 373, 86)
       + text('departmentofemotions.com', 74, 552, 20, false, 'Arial', muted)),
@@ -59,7 +60,11 @@ const rendererFlag = process.argv.indexOf('--renderer');
 const renderer = rendererFlag >= 0
   ? await import(pathToFileURL(path.resolve(process.argv[rendererFlag + 1])).href)
   : null;
-for (const option of options) {
+const onlyFlag = process.argv.indexOf('--only');
+const requestedOption = onlyFlag >= 0 ? process.argv[onlyFlag + 1] : null;
+const selectedOptions = onlyFlag >= 0 ? options.filter(({ name }) => name === requestedOption) : options;
+if (!selectedOptions.length) throw new Error('Pass a valid social option name after --only.');
+for (const option of selectedOptions) {
   await fs.writeFile(path.join(output, `${option.name}.svg`), option.svg);
   if (renderer) {
     const image = new renderer.Resvg(option.svg, {
@@ -69,7 +74,16 @@ for (const option of options) {
         defaultFontFamily: 'Arial',
       },
     }).render();
-    await fs.writeFile(path.join(output, `${option.name}.png`), image.asPng());
+    const png = image.asPng();
+    await fs.writeFile(path.join(output, `${option.name}.png`), png);
+    if (option.name === '01-editorial') {
+      await fs.writeFile(path.join(root, 'public/social/department-of-emotions.png'), png);
+      const version = createHash('sha256').update(png).digest('hex').slice(0, 12);
+      const imageUrl = `https://departmentofemotions.com/social/department-of-emotions.png?v=${version}`;
+      const htmlPath = path.join(root, 'index.html');
+      const html = await fs.readFile(htmlPath, 'utf8');
+      await fs.writeFile(htmlPath, html.replace(/https:\/\/departmentofemotions\.com\/social\/department-of-emotions\.png(?:\?[^"\s<>]*)?/g, imageUrl));
+    }
   }
   console.log(`${option.title}: ${path.join(output, option.name)}${renderer ? '.png + .svg' : '.svg'}`);
 }
