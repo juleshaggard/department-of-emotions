@@ -121,4 +121,10 @@ The four tabs are Feelings (the existing wheel), Situations (12 groups / 70 feel
 
 Implementation: `src/wheels/`. Shared motion and drawer modules remain unchanged. Tab changes remount the selected model to avoid stale sector indices or drawer state. The interface is lazy-loaded and retains the existing canonical-host-only cookieless analytics. The visible Privacy link is removed; `/privacy/` remains directly accessible.
 
+## Wheel palettes
+
+The approved alternative-wheel palettes are defined in `src/wheels/wheel-colors.js`, with separate OKLCH anchors, branch hue sweeps, and tonal steps for Situations, Sensations, and Behaviors. Feelings keeps its original source colors and appearance settings. Generated fills are gamut-mapped to sRGB hex for consistent SVG rendering. Model tests check source-palette isolation, label contrast, branch variation, and separation of paired sensations.
+
+Use `/wheels` for the interactive local preview. The ignored development page `/qa/palette-study.html` shows all four full wheels together for comparison.
+
 Draft data validation: `node --test tests/wheel-models.test.mjs`.

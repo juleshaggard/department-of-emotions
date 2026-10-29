@@ -2,14 +2,71 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { wheelModels } from '../src/wheels/wheel-models.js';
 import { explorerSectors, families, isInFocusedBranch } from '../src/explorer/explorer-data.js';
+import referencePalette from '../src/reference-palette.json' with { type: 'json' };
 
 const epsilon = 1e-7;
+
+function relativeLuminance(hex) {
+  const channels = [1, 3, 5].map(offset => Number.parseInt(hex.slice(offset, offset + 2), 16) / 255);
+  const linear = channels.map(channel => channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4);
+  return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+}
+
+function contrastRatio(first, second) {
+  const luminances = [relativeLuminance(first), relativeLuminance(second)].sort((a, b) => a - b);
+  return (luminances[1] + 0.05) / (luminances[0] + 0.05);
+}
+
+function roundedHue(hex) {
+  const [red, green, blue] = [1, 3, 5].map(offset => Number.parseInt(hex.slice(offset, offset + 2), 16) / 255);
+  const maximum = Math.max(red, green, blue), minimum = Math.min(red, green, blue);
+  const delta = maximum - minimum;
+  if (!delta) return null;
+  const sector = maximum === red ? (green - blue) / delta : maximum === green ? (blue - red) / delta + 2 : (red - green) / delta + 4;
+  return Math.round((sector * 60 + 360) % 360);
+}
+
 test('the draft keeps the original wheel data unchanged', () => {
   const original=wheelModels[0];
   assert.equal(original.id,'feelings');
   assert.equal(original.sectors,explorerSectors);
   assert.equal(original.families,families);
   assert.equal(original.sectors.length,108);
+});
+test('Feelings preserves every reference fill in source order', () => {
+  const original = wheelModels.find(model => model.id === 'feelings');
+  ['primary', 'secondary', 'tertiary'].forEach((key, ring) => {
+    assert.deepEqual(original.sectors.filter(sector => sector.ring === ring).map(sector => sector.color), referencePalette[key]);
+  });
+});
+test('alternative fills are valid colors with readable default labels', () => {
+  for (const model of wheelModels.filter(model => !model.original)) {
+    for (const sector of model.sectors) {
+      const label = `${model.id}: ${sector.name}`;
+      assert.match(sector.color, /^#[\da-f]{6}$/i, label);
+      assert.ok(contrastRatio(sector.color, '#292929') >= 4.5, `${label} has insufficient label contrast`);
+    }
+  }
+});
+test('alternative families have distinct branch and outer hues', () => {
+  for (const model of wheelModels.filter(model => !model.original)) {
+    for (const family of model.families) {
+      for (let ring = 1; ring < model.radii.length - 1; ring++) {
+        const cells = model.sectors.filter(sector => sector.primary.name === family.name && sector.ring === ring);
+        const label = `${model.id}: ${family.name}, ring ${ring}`;
+        assert.ok(new Set(cells.map(sector => sector.color.toLowerCase())).size > 1, `${label} has flat fills`);
+        assert.ok(new Set(cells.map(sector => roundedHue(sector.color))).size > 1, `${label} has no hue progression`);
+      }
+    }
+  }
+});
+test('paired sensations retain visible tonal separation', () => {
+  const model = wheelModels.find(wheel => wheel.id === 'sensations');
+  for (const parent of model.sectors.filter(sector => sector.ring === 1)) {
+    const children = model.sectors.filter(sector => sector.parent === parent);
+    assert.equal(children.length, 2);
+    assert.ok(contrastRatio(children[0].color, children[1].color) >= 1.1, `${parent.name} has indistinguishable sensation fills`);
+  }
 });
 test('each supplied reference has its expected hierarchy and complete content', () => {
   const expected={situations:[12,70],sensations:[6,36,72],behaviors:[6,36,36]};

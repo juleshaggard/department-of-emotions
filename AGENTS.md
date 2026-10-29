@@ -103,3 +103,8 @@ The intended Sites public domain is `departmentofemotions.com`. Treat publicatio
 - On portrait phones up to 600px, use a 213.75vw wheel diameter (95% of the previous 225vw size) and shift it left until the white hub's right edge sits 12px past the viewport's left edge. Keep the circle vertically centered, the full outer labels visible near the right edge, and the bottom-right navigation. Preserve the existing tablet and landscape layouts.
 - New examples are illustrative, not diagnostic. Context groups show possible feelings and reflection questions; emotion, sensation, and behavior selections show definitions, bodily experiences, and possible responses.
 - Check `tests/wheel-models.test.mjs` for complete content, circular coverage, branch containment, and the original dataset's isolation.
+
+## Alternative wheel palettes
+
+- The user approved the layered Situations, Sensations, and Behaviors palettes and explicitly requested publication to the main domain. This supersedes the earlier local-only constraint.
+- Preserve Feelings exactly. Use its color grammar for the alternatives: stronger family anchors, hue movement across branches, softer middle rings, and richer/lighter outer steps. Keep each alternative's palette distinct and preserve geometry, labels, dividers, and interactions.

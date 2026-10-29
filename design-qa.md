@@ -87,3 +87,9 @@ The draft and Pages builds pass. `/wheels/` is prepared as a deep-link entry in 
 The user approved promoting the switcher to the live homepage. Root, `/explore`, and `/wheels` now use the same four-wheel interface. The sidebar tabs and underlined creator link remain intact; the static wheel, privacy route, cookieless Analytics restrictions, source credits, and drawer behavior are preserved. The original explorer implementation remains in source for reference.
 
 All 37 app/model tests, four hosting tests, the production build, and prefixed Pages build pass. Browser checks confirm the homepage title, four sidebar tabs, 78 behavior-wheel sectors, underlined creator link, and Privacy link. At 390×844, tapping Happy opens the modal with the full wordmark and close control.
+
+## Local alternative-wheel palette iteration
+
+Updated Situations, Sensations, and Behaviors with separate perceptual palettes while preserving every Feelings source color. Stronger family anchors, branch hue sweeps, lighter middle rings, and deeper/lighter outer steps replace the previous near-flat white tints. Situations uses warm spiced pastels, Sensations uses cooler mineral colors, and Behaviors uses brighter fruit-and-leaf tones. Geometry, labels, strokes, selection, and motion are unchanged.
+
+All 41 app/model tests pass, including the four palette checks. Default dark-label contrast on the new fills is at least 7.06:1; paired sensations have at least 1.19:1 tonal contrast. Browser review covers all four full wheels in the ignored local color study and all three alternatives in the interactive desktop preview. At 390×844, the updated colors retain full opacity and the bottom-right navigation. No source push, Sites version, or deployment was made for this iteration.

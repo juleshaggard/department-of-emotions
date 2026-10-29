@@ -6,7 +6,7 @@ A person uses a quiet, tactile-feeling wheel in ordinary ambient light to find l
 
 ## Colors
 
-Paper: oklch(98% 0.008 105). Ink: oklch(28% 0.022 154). Muted text: oklch(49% 0.016 154). Dividers: oklch(86% 0.012 125). Wheel colors are data-specific pastels from supplied references. Selection outlines are white; the original wheel's default borders are hidden.
+Paper: oklch(98% 0.008 105). Ink: oklch(28% 0.022 154). Muted text: oklch(49% 0.016 154). Dividers: oklch(86% 0.012 125). Feelings preserves its source palette and approved appearance settings. The approved alternative palettes use separate OKLCH anchors: warm spiced pastels for Situations, mineral tones for Sensations, and brighter fruit-and-leaf tones for Behaviors. Families sweep through neighboring hues; softer middle rings and richer/lighter outer steps make the hierarchy visible. Keep dark-label contrast at least 4.5:1. Selection outlines are white; the original wheel's default borders are hidden.
 
 ## Typography
 
