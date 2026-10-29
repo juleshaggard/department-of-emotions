@@ -36,9 +36,9 @@
   .wheel-lab .emotion-reading { grid-template-rows: minmax(160px,auto) minmax(112px,auto) minmax(200px,auto) minmax(36px,auto); }
 }
 @media (max-width: 1100px) and (orientation: portrait) {
-  .wheel-lab { --lab-toolbar-height: 48px; }
-  .lab-switcher { position: fixed; inset: 0 0 auto; z-index: 20; height: var(--lab-toolbar-height); margin: 0; display: flex; align-items: center; justify-content: center; background: transparent; }
-  .lab-switcher [role='tablist'] { width: 100%; justify-content: center; gap: 24px; padding-inline: 12px; }
+  .wheel-lab { --lab-toolbar-height: 0px; }
+  .lab-switcher { position: fixed; inset: max(12px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) auto auto; z-index: 20; height: auto; margin: 0; background: transparent; }
+  .lab-switcher [role='tablist'] { width: auto; flex-direction: column; align-items: flex-end; gap: 0; padding: 0; }
   .lab-switcher [role='tab'] { font-size: 12px; padding-block: 8px; }
   .wheel-lab .explorer-layout { display: block; }
   .wheel-lab .wheel-column { height: 100%; width: 100%; }
@@ -67,7 +67,4 @@
   .wheel-lab .explorer-layout { grid-template-columns: 56vw 1fr; }
   .wheel-lab .wheel-stage { right: 4vw; }
   .wheel-lab .emotion-sidebar { padding-inline: 24px; }
-}
-@media (max-width: 350px) and (orientation: portrait) {
-  .lab-switcher [role='tablist'] { gap: 19px; }
 }

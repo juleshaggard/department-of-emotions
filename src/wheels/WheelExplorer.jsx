@@ -11,7 +11,7 @@ import '../explorer/explorer.css';
 const drawerQuery = '(max-width: 1100px) and (orientation: portrait)';
 const landscapePhoneQuery = '(max-width: 1023px) and (orientation: landscape)';
 
-function useResponsiveLayout() {
+export function useResponsiveLayout() {
   const [layout, setLayout] = useState(() => ({
     isDrawerLayout: window.matchMedia(drawerQuery).matches,
     isLandscapePhone: window.matchMedia(landscapePhoneQuery).matches,
@@ -82,7 +82,7 @@ function EmotionDetails({ active, familyColor, hierarchyAfter = false }) {
   );
 }
 
-export default function WheelExplorer({ model, switcher }) {
+export default function WheelExplorer({ model, switcher, layout }) {
   const { sectors, families } = model;
   const initialFamily = families.find(family => family.name === model.initialName) || families[0];
   const initialIndex = initialFamily.index;
@@ -93,7 +93,7 @@ export default function WheelExplorer({ model, switcher }) {
     return () => { document.title = previousTitle; };
   }, []);
   const [selection, dispatchSelection] = useReducer(wheelSelectionReducer, initialIndex, createWheelSelection);
-  const { isDrawerLayout, isLandscapePhone } = useResponsiveLayout();
+  const { isDrawerLayout, isLandscapePhone } = layout;
   const isTouchLayout = isDrawerLayout || isLandscapePhone;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const returnFocusRef = useRef(null);
