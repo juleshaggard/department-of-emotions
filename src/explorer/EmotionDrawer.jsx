@@ -92,7 +92,6 @@ export function EmotionDrawer({ open, onClose, returnFocusRef, children }) {
           <span>Department of Emotions</span>
         </div>
         <button type="button" className="emotion-drawer-close" aria-label="Close emotion details" onClick={() => onCloseRef.current()}>
-          <span>Close</span>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
         </button>
       </header>
