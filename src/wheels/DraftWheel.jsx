@@ -36,10 +36,10 @@ export function DraftWheel({ model, rotorRef, activeIndex, focusIndex, onClearFo
         const singleLine=model.original || (model.id==='situations' && s.ring===0);
         const lines=singleLine ? [s.name] : splitLabel(s.name,model.id==='situations' ? 19 : model.id==='behaviors'&&s.ring===2?20:24);
         const size=model.original ? settings.labelSize : model.id==='situations' ? 38 : s.ring===0?35:38;
-        const leading=size*1.13;
+        const leading=size*1.05;
         return <g key={index} ref={el=>{sectorRefs.current[index]=el;}} className={`explorer-sector${index===activeIndex?' is-active':''}${focused&&!isInFocusedBranch(s,focused)?' is-muted':''}`} role="button" tabIndex={index===activeIndex?0:-1} aria-label={`${s.name}, ${ringNames[s.ring].toLowerCase()}. ${s.info.definition}`} aria-pressed={index===activeIndex} aria-controls={mobileDrawer?'emotion-drawer':'emotion-details'} aria-haspopup={mobileDrawer?'dialog':undefined} aria-expanded={mobileDrawer?drawerOpen&&index===activeIndex:undefined} data-sector-index={index} data-emotion={s.name} onPointerEnter={e=>onPreview(index,false,e)} onPointerMove={e=>onPreview(index,false,e)} onFocus={e=>{if(e.currentTarget.matches(':focus-visible'))onPreview(index,true);}} onKeyDown={e=>onKeyDown(e,index)}>
           <path d={path(s)} fill={colors[index]} stroke={model.original?'none':model.stroke} strokeWidth={model.strokeWidth||0} strokeLinejoin="round" />
-          <text className="explorer-label" style={{fontSize:size,fill:settings.labelColor,pointerEvents:'none'}} transform={`translate(${WHEEL.center} ${WHEEL.center}) rotate(${angle}) translate(${radius} 0)`} textAnchor="middle" dominantBaseline="central" y={-(lines.length-1)*leading/2} aria-hidden="true">{lines.map((text,i)=><tspan key={i} x="0" dy={i?leading:0}>{text}</tspan>)}</text>
+          <text className="explorer-label" style={{fontSize:size,fill:settings.labelColor,pointerEvents:'none'}} transform={`translate(${WHEEL.center} ${WHEEL.center}) rotate(${angle}) translate(${radius} 0)`} textAnchor="middle" dominantBaseline="central" aria-hidden="true">{lines.map((text,i)=><tspan key={i} x="0" y={(i-(lines.length-1)/2)*leading} dominantBaseline="central">{text}</tspan>)}</text>
         </g>;
       })}
       {model.original && <g aria-hidden="true">
