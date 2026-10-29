@@ -26,9 +26,9 @@
 .wheel-lab .sidebar-footer { display: block; padding-top: 10px; }
 .wheel-lab .sidebar-attribution { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .wheel-lab .sidebar-attribution .lab-source { flex: 1; min-width: 0; margin: 0; }
-.wheel-lab .sidebar-attribution .sidebar-credit { flex-shrink: 0; }
+.wheel-lab .sidebar-attribution .sidebar-credit { display: inline-flex; align-items: center; flex-shrink: 0; gap: 6px; color: var(--muted); font-size: 11px; line-height: 1.7; white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; }
+.wheel-lab .emotion-drawer .sidebar-attribution { margin-top: 10px; }
 .wheel-lab .sidebar-footer .sidebar-brand { margin-top: 12px; }
-.wheel-lab .sidebar-footer .sidebar-credit { text-decoration: underline; text-underline-offset: 3px; }
 .lab-source { font: 10px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: oklch(49% 0.016 154); margin: 10px 0 0; }
 .lab-source a { color: inherit; text-underline-offset: 3px; }
 @media (min-width: 1024px) and (max-height: 800px) {
