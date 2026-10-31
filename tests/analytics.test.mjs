@@ -63,7 +63,7 @@ test('Global Privacy Control and previously saved refusals block all Google load
 });
 
 test('local previews and GitHub Pages do not load the Google tag', () => {
-  for (const host of ['localhost', '127.0.0.1', 'juleshaggard.github.io']) {
+  for (const host of ['localhost', '127.0.0.1', 'julesdarling.github.io', 'juleshaggard.github.io']) {
     const f = fixture({ host });
     f.controller.start();
     assert.equal(f.scripts.length, 0);

@@ -86,7 +86,7 @@ function WheelAttribution({ model, compact = false }) {
   return (
     <div className="sidebar-attribution">
       <p className="lab-source">Wheel reference: <a href={model.sourceUrl} target="_blank" rel="noreferrer">{model.source}</a></p>
-      <a className="sidebar-credit" href="https://www.juleshaggard.com/" target="_blank" rel="noreferrer">
+      <a className="sidebar-credit" href="https://darlingjules.com/" target="_blank" rel="noreferrer">
         {compact ? 'Site by Jules' : 'Site created by Jules'}
         <svg className="credit-trans-flag" viewBox="0 0 20 12" role="img" aria-label="Transgender pride flag">
           <path fill="#5BCEFA" d="M0 0h20v12H0z" />

@@ -48,7 +48,7 @@ At both full-sector sweeps, every entry fit horizontally, there was no modal dra
 
 ## Preserved design surfaces
 
-Gilda Display, the body-font family, palette, white selection outline, exact supplied logo, blank hub, content order, and all definitions/examples remain. The credit still links to `https://www.juleshaggard.com/`. Only landscape-phone sizing and text flow differ from the larger inline sidebar. Portrait drawer typography and controls remain unchanged.
+Gilda Display, the body-font family, palette, white selection outline, exact supplied logo, blank hub, content order, and all definitions/examples remain. The credit still links to `https://darlingjules.com/`. Only landscape-phone sizing and text flow differ from the larger inline sidebar. Portrait drawer typography and controls remain unchanged.
 
 ## Checks
 

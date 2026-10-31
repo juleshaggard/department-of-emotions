@@ -45,7 +45,7 @@ These visual constraints apply to the wheel graphic and original static `/wheel`
 - Each small uppercase reading-panel section heading is followed directly by its numbered examples. Keep the helper descriptions “Sensations you might notice inside your body.” and “Ways someone might act or respond.” removed.
 - Keep spacing within larger inline reading bands compact while retaining their minimum heights to stabilize section positions across emotions. This supersedes the earlier instruction to avoid reserved space beneath short definitions. Portrait drawers and landscape phones retain natural rows without reserved band heights.
 - After “Possible body language & behaviors,” show the hierarchy and compact footer in the inline sidebar; drawers end after the behavior section. Keep the “Every body is different…” footer note and “About these examples” disclosure, including its research links, removed from the visible interface.
-- Use a compact inline-sidebar footer outside the changing emotion content, with 12px normal top padding (8px in the short-height side-by-side profile). Place a 21px supplied SVG logo (`public/brand/department-of-emotions.svg`) and 14px “Department of Emotions” brand on the left and an 11px “Site created by Jules” link to https://www.juleshaggard.com/ on the right. The normal footer totals 33px high. Keep the standalone full-page credit footer removed. The inline footer is hidden in the portrait phone and tablet drawer layout. Preserve the text-free static `/wheel` page and exports.
+- Use a compact inline-sidebar footer outside the changing emotion content, with 12px normal top padding (8px in the short-height side-by-side profile). Place a 21px supplied SVG logo (`public/brand/department-of-emotions.svg`) and 14px “Department of Emotions” brand on the left and an 11px “Site created by Jules” link to https://darlingjules.com/ on the right. The normal footer totals 33px high. Keep the standalone full-page credit footer removed. The inline footer is hidden in the portrait phone and tablet drawer layout. Preserve the text-free static `/wheel` page and exports.
 - Examples are illustrative, vary by person/culture/context, and must never claim to diagnose or reliably identify a feeling from appearance.
 - Write examples as concise, neutral descriptions without repetitive “You may” or “You might” introductions. Prefer natural descriptive phrases rather than commands or claims that everyone experiences an emotion identically.
 - Respect reduced motion and keep the wheel usable on narrow and short landscape screens.
@@ -73,7 +73,7 @@ The intended Sites public domain is `departmentofemotions.com`. Treat publicatio
 
 ## GitHub Pages
 
-- The GitHub source repository is `juleshaggard/department-of-emotions`. Publish its `main` branch with `.github/workflows/pages.yml` and retain the independent Sites hosting configuration.
+- The GitHub source repository is `julesdarling/department-of-emotions`. Publish its `main` branch with `.github/workflows/pages.yml` and retain the independent Sites hosting configuration.
 - `npm run build:pages` emits a static site in `dist/pages`, using `PAGES_BASE_PATH` for its project URL prefix. Keep root, `/explore/`, `/wheel/`, and `/privacy/` directly loadable with real HTML entry points. Asset URLs and route detection must work under the project prefix.
 - The primary custom-domain identity and social metadata remain `https://departmentofemotions.com/`; publishing to Pages does not change DNS.
 

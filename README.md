@@ -36,7 +36,7 @@ Portrait phone and tablet drawer headers show the supplied logo (`public/brand/d
 
 Buttons, including the drawer’s “Close” control, show keyboard focus with subtle fill and border changes, without external outline rings.
 
-A compact inline-sidebar footer sits outside the changing reading content with 12px normal top padding, reduced to 8px in the short-height side-by-side profile. A 21px supplied SVG logo (`public/brand/department-of-emotions.svg`) and 14px “Department of Emotions” brand sit on the left; an 11px [Site created by Jules](https://www.juleshaggard.com/) link sits on the right. Its normal height totals 33px. There is no standalone full-page credit footer. The inline footer is hidden in the portrait phone and tablet drawer layout. The static `/wheel` page and SVG exports remain free of outside text, with blank centers.
+A compact inline-sidebar footer sits outside the changing reading content with 12px normal top padding, reduced to 8px in the short-height side-by-side profile. A 21px supplied SVG logo (`public/brand/department-of-emotions.svg`) and 14px “Department of Emotions” brand sit on the left; an 11px [Site created by Jules](https://darlingjules.com/) link sits on the right. Its normal height totals 33px. There is no standalone full-page credit footer. The inline footer is hidden in the portrait phone and tablet drawer layout. The static `/wheel` page and SVG exports remain free of outside text, with blank centers.
 
 ## Wheel settings and download
 
@@ -99,11 +99,11 @@ The app is prepared for Sites hosting with `departmentofemotions.com` as the int
 
 ## GitHub Pages
 
-The source is also published at [juleshaggard/department-of-emotions](https://github.com/juleshaggard/department-of-emotions). Pushes to `main` run the content checks, build a static site, and deploy it through `.github/workflows/pages.yml`.
+The source is also published at [julesdarling/department-of-emotions](https://github.com/julesdarling/department-of-emotions). Pushes to `main` run the content checks, build a static site, and deploy it through `.github/workflows/pages.yml`.
 
 `npm run build:pages` writes to `dist/pages`. Set `PAGES_BASE_PATH=/department-of-emotions/` to reproduce the project-path build locally. The output includes direct entry points for the root, `/explore/`, `/wheel/`, and `/privacy/`, with assets under the configured prefix. The existing Sites build and local preview output remain separate in `dist/client`.
 
-The Pages address is [juleshaggard.github.io/department-of-emotions/](https://juleshaggard.github.io/department-of-emotions/). Canonical and social metadata continue to use the primary `departmentofemotions.com` domain; this deployment does not alter its DNS.
+The Pages address is [julesdarling.github.io/department-of-emotions/](https://julesdarling.github.io/department-of-emotions/). Canonical and social metadata continue to use the primary `departmentofemotions.com` domain; this deployment does not alter its DNS.
 
 ## Analytics
 
